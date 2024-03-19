@@ -14,21 +14,21 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md">
-            <div class="col-md m-2">
+        <div class="col-md-12">
+            <div class="col-md m-2 text-center">
                 <h2>WELKOM BIJ SYNTRA PXL STAGE MANAGEMENT</h2>
                 <p>Gelieve eerst in te loggen.</p>
             </div>
-            <div class="col-md m-5">
-            <form action="">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
-                <input type="submit" value="Login" class="btn btn-primary">
-            </form>
+            <div class="col-md">
+                <form method="post" action="">
+                    <label class="form-label" for="username">Username:</label>
+                    <input class="form-control" type="text" id="username" name="username">
+                    <label class="form-label" for="password">Password:</label>
+                    <input class="form-control" type="password" id="password" name="password">
+                    <input class="form-control btn btn-primary mt-3" type="submit" value="Login">
+                </form>
             
-        </div>
+            </div>
         </div>
            
     </div>
