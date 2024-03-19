@@ -1,0 +1,30 @@
+.logo {
+    height: 10%;
+    width: 20%;
+    margin: 10px;
+}
+
+/*Navbar*/
+.nav-item {
+    text-decoration: none;
+}
+
+
+/*Cards*/
+
+.cardcontainer {
+    width: 10px;
+}
+
+.card-body {
+    background-color: azure;
+}
+.card-link {
+    text-decoration: none;
+    color: black;
+}
+
+/*hover over card-link*/
+.card-link:hover {
+    color: blue;
+}
