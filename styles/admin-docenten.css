@@ -1,0 +1,49 @@
+*{
+    background-color:#fff;
+   
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.navlogo {
+
+    width: 202px;
+    height: 101px;
+    padding-left: 5vh;
+    padding-top: 2vh;
+}
+
+.navtext {
+    margin-left: 25vh;
+    text-align: center;
+    text-decoration: none;
+   color: #393538;
+   font-size: 24px;
+   background-color: transparent;
+
+}
+
+.centerdivnav {
+
+    align-items: center;
+    text-align: center;
+    width: fit-content;
+  
+    margin-left: 20vh;
+    margin-top: -10vh;
+}
+
+.navlogout {
+text-decoration: none;
+background-color: #EC3728;
+color: #fff;
+
+height: 15vh;
+
+border-style: none;
+
+margin-left: -20vh;
+position: absolute; 
+top: 0; 
+right: 0; 
+
+}
