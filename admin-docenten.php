@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,24 +7,33 @@
     <link rel="stylesheet" href="./styles/admin-docenten.css">
     <link rel="icon" href="./assets/favicon.ico">
 </head>
-<body>
-<header>
-        <nav>
-        
-            <a href="index.php"><img src="./assets/logo.png" alt="logo" class="navlogo"></a>
-            <div class="centerdivnav">
-                <a href="#" class="navtext">CURSISTEN</a>
-                <a href="#" class="navtext">DOCENTEN</a>
-                <a href="#" class="navtext">COURSES</a>
-                <button class="navlogout" >
-                <a href="#" class="navtext" style="color: #fff;">LOGOUT</a>
-                </button>
-            </div>
-         
-        
-          
-        </nav>
-      </header>
+<body class="home-page">
+		<header class="header">
+			<a href="index.php"><p class="logo"><img src="./assets/logo.png" alt=""></p></a>
+			<input type="checkbox" id="click">
+			<label for="click" class="menu-btn">
+				<i class="fas fa-bars"></i>
+			</label>
+		
+			<ul class="nav__links">
+				
+				<li><a href="#">CURSISTEN</a></li>
+				<li><a href="admin-docenten.php" class="active">DOCENTEN</a></li>
+				<li><a href="#">COURSES</a></li>
+			</ul>
+		
+			<a class="cta" href="#"><button>LOGOUT <img src="./assets/logout.png" class="logouticon"></button></a>
+		</header>
+        <div class="navdivider"></div>
+        <div class="content">
+        <div class="navdivider2"></div>
+        <br>
+        <br>
+        <!--    ////////////////////////////////
+                        ENTER CONTENT HERE
+                ////////////////////////////////-->
+                
 
-</body>
+        </div>
+	</body>
 </html>
