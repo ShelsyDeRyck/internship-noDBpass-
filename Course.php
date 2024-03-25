@@ -1,68 +1,56 @@
 <?php
-require_once 'db_config.php';
 
-class Course {
-    private $pdo;
+// Databaseverbinding
+$db = new PDO("mysql:host=localhost;dbname=educational_center", "root", "root");
 
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
-    }
+// Verwerk formulierdata
+if (isset($_POST['submit'])) {
+  // Formulierdata ophalen
+  $name = $_POST['name'];
+  $description = $_POST['description'];
 
-    public function create($name, $description, $duration, $location) {
-        try {
-            $sql = "INSERT INTO courses (name, description, duration, location) VALUES (?, ?, ?, ?)";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$name, $description, $duration, $location]);
-            return $this->pdo->lastInsertId();
-        } catch (PDOException $e) {
-            // Log the error or handle it in some other way
-            return false;
-        }
-    }
+  // Query voor het toevoegen van een cursus
+  $query = $db->prepare("INSERT INTO courses (name, description) VALUES (:name, :description)");
 
-    public function read($course_id = null) {
-        try {
-            if ($course_id) {
-                $sql = "SELECT * FROM courses WHERE course_id = ?";
-                $stmt = $this->pdo->prepare($sql);
-                $stmt->execute([$course_id]);
-                return $stmt->fetch(PDO::FETCH_ASSOC);
-            } else {
-                $sql = "SELECT * FROM courses";
-                $stmt = $this->pdo->query($sql);
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            }
-        } catch (PDOException $e) {
-            // Log the error or handle it in some other way
-            return false;
-        }
-    }
+  // Query parameters binden
+  $query->bindParam(':name', $name);
+  $query->bindParam(':description', $description);
 
-    public function update($course_id, $name, $description, $duration, $location) {
-        try {
-            $sql = "UPDATE courses SET name = ?, description = ?, duration = ?, location = ? WHERE course_id = ?";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$name, $description, $duration, $location, $course_id]);
-            return $stmt->rowCount() > 0;
-        } catch (PDOException $e) {
-            // Log the error or handle it in some other way
-            return false;
-        }
-    }
+  // Query uitvoeren
+  $query->execute();
 
-    public function deleteCourse($course_id) {
-        try {
-            $sql = "DELETE FROM courses WHERE course_id = ?";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$course_id]);
-            return $stmt->rowCount() > 0;
-        } catch (PDOException $e) {
-            // Log the error or handle it in some other way
-            return false;
-        }
-    }
+  // Bevestigingsbericht tonen
+  echo "<p>Cursus succesvol toegevoegd!</p>";
 }
 
-// Example usage
-$course = new Course($pdo); // $pdo - your PDO object, connection to the database
 ?>
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage2024</title>
+    <link rel="stylesheet" href="styles/course.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nieuwe cursus toevoegen</title>
+</head>
+<body>
+  <h1>Nieuwe cursus toevoegen</h1>
+  <form method="post">
+    <label for="name">Naam:</label>
+    <input type="text" name="name" id="name">
+    <br>
+    <label for="description">Beschrijving:</label>
+    <br>
+    <textarea name="description" id="description" rows="5" cols="50"></textarea>
+    <br>
+    <br>
+    <input type="submit" name="submit" value="Toevoegen">
+    <a href="admin_dashboard.php">Terug naar admin paneel</a>
+  </form>
+</body>
+</html>
