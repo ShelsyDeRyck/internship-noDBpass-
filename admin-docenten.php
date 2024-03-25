@@ -27,7 +27,5 @@
         </nav>
       </header>
 
-      fefefefe
-      fefef
 </body>
 </html>
