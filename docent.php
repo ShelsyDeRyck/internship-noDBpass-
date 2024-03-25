@@ -1,66 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stage2024</title>
-    <link rel="stylesheet" href="styles/docent.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container-fluid">
-        <img src="assets/logo.png" alt="logo" class="logo">
-        <nav>
-            <div class="nav nav-underline">
-            <ul class="nav nav-underline">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">My Account</a>
-                </li>
-                <li class="nav-item">
-                    <button><a class="nav-link" href="index.php">Logout</a></button>
-                </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    <hr>
-    <div class="container">
-        <div class="row">
-            <div class="col-md text-center">
-                <h1>Welkom op het SyntraPXL DOCENTEN portaal</h1>
-                <p>Bij vragen/problemen kan je ons bereiken via <strong>test@test.com</strong></p>
-            </div>
-        </div>
-        <hr>
-        <div class="row m-2">
-            <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Algemeen overzicht</a></button>
-            </div>
-        </div>
-        <div class="row m-2">
-            <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Cursist</a></button>
-            </div>
-            <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Course</a></button>
-            </div>
-            
-        </div>
-        <div class="row m-2">
-            <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Docent</a></button>
-            </div>
-            <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Stageplaats</a></button>
-            </div>
-            
-        </div>
-    </div>
+<?php
 
+class Docent {
+    private $pdo;
 
-    
-</body>
-</html>
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
+
+    // Adding a new lecturer
+    public function create($firstName, $lastName, $email, $password) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Hashing the password
+        $sql = "INSERT INTO docenten (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
+        $stmt = $this->pdo->prepare($sql);
+        if (!$stmt->execute([$firstName, $lastName, $email, $hashedPassword])) {
+            throw new Exception("Error adding lecturer.");
+        }
+    }
+
+    // Getting information about the lecturer(s)
+    public function read($docent_id = null) {
+        if ($docent_id) {
+            $sql = "SELECT docent_id, first_name, last_name, email FROM docenten WHERE docent_id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$docent_id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            $sql = "SELECT docent_id, first_name, last_name, email FROM docenten";
+            $stmt = $this->pdo->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
+    // Updating lecturer information
+    public function update($docent_id, $firstName, $lastName, $email, $password = null) {
+        $sql = "UPDATE docenten SET first_name = ?, last_name = ?, email = ?" . ($password ? ", password = ?" : "") . " WHERE docent_id = ?";
+        $params = [$firstName, $lastName, $email];
+        if ($password) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $params[] = $hashedPassword;
+        }
+        $params[] = $docent_id;
+        $stmt = $this->pdo->prepare($sql);
+        if (!$stmt->execute($params)) {
+            throw new Exception("Error updating lecturer information.");
+        }
+    }
+
+    // Deleting a lecturer
+    public function delete($docent_id) {
+        $sql = "DELETE FROM docenten WHERE docent_id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        if (!$stmt->execute([$docent_id])) {
+            throw new Exception("Error deleting lecturer.");
+        }
+    }
+}
+?>
