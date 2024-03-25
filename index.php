@@ -20,9 +20,9 @@
                 <p>Gelieve eerst in te loggen.</p>
             </div>
             <div class="col-md">
-                <form method="post" action="">
-                    <label class="form-label" for="username">Username:</label>
-                    <input class="form-control" type="text" id="username" name="username">
+                <form method="post" action="login.php">
+                    <label class="form-label" for="email">Email:</label>
+                    <input class="form-control" type="text" id="email" name="email">
                     <label class="form-label" for="password">Password:</label>
                     <input class="form-control" type="password" id="password" name="password">
                     <input class="form-control btn btn-primary mt-3" type="submit" value="Login">
