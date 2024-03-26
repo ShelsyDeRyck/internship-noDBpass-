@@ -1,42 +1,53 @@
 <?php
 
-// Databaseverbinding
+// Database connection
 $db = new PDO("mysql:host=localhost;dbname=educational_center", "root", "root");
 
-// Verwerk formulierdata
+// Process delete request
+if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
+  $course_id = $_GET['delete'];
+
+  // Query to delete the course
+  $query = $db->prepare("DELETE FROM courses WHERE course_id = :course_id");
+  $query->bindParam(':course_id', $course_id);
+  $query->execute();
+
+  // Confirmation message
+  echo "<p>Cursus succesvol verwijderd!</p>";
+}
+
+// Process form data
 if (isset($_POST['submit'])) {
-  // Formulierdata ophalen
+  // Get form data
   $name = $_POST['name'];
   $description = $_POST['description'];
 
-  // Query voor het toevoegen van een cursus
+  // Query to add a course
   $query = $db->prepare("INSERT INTO courses (name, description) VALUES (:name, :description)");
 
-  // Query parameters binden
+  // Bind query parameters
   $query->bindParam(':name', $name);
   $query->bindParam(':description', $description);
 
-  // Query uitvoeren
+  // Execute query
   $query->execute();
 
-  // Bevestigingsbericht tonen
+  // Confirmation message
   echo "<p>Cursus succesvol toegevoegd!</p>";
 }
+
+// Get all courses for displaying the list
+$courses = $db->query("SELECT * FROM courses")->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stage2024</title>
-    <link rel="stylesheet" href="styles/course.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nieuwe cursus toevoegen</title>
+  <link rel="stylesheet" href="styles/course.css">
 </head>
 <body>
   <h1>Nieuwe cursus toevoegen</h1>
@@ -50,7 +61,27 @@ if (isset($_POST['submit'])) {
     <br>
     <br>
     <input type="submit" name="submit" value="Toevoegen">
-    <a href="admin_dashboard.php">Terug naar admin paneel</a>
   </form>
+
+  <h2>Bestaande cursussen</h2>
+  <?php if (!empty($courses)): ?>
+    <ul class="course-list">
+      <?php foreach ($courses as $course): ?>
+        <li class="course-item">
+          <div class="course-info">
+            <h3><?php echo $course['name']; ?></h3>
+            <p><?php echo $course['description']; ?></p>
+          </div>
+          <div class="course-actions">
+            <a href="course.php?delete=<?php echo $course['course_id']; ?>" class="btn btn-danger">Verwijderen</a>
+          </div>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  <?php else: ?>
+    <p>Er zijn nog geen cursussen toegevoegd.</p>
+  <?php endif; ?>
+
+  <a href="admin_dashboard.php">Terug naar admin paneel</a>
 </body>
 </html>
