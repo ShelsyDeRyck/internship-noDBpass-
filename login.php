@@ -33,7 +33,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   // ... Voer hier de acties uit na een succesvolle admin login ...
 
   // Voorbeeld: stuur de admin naar het admin panel
-  header('Location: admin.php');
+  header('Location: admin_dashboard.php');
   exit;
 }
 
