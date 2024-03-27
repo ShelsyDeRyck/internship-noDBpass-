@@ -54,3 +54,6 @@ class Skills {
     }
 }
 ?>
+
+<?php include ('navbar.php'); ?>
+<?php include ('bootstrap.php'); ?>
