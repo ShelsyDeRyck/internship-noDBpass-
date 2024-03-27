@@ -26,7 +26,7 @@
                 <button class="bigbtn"><a href="admin.php" class="nav-link">Docent</a></button>
             </div>
             <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Skills</a></button>
+                <button class="bigbtn"><a href="skills.php" class="nav-link">Skills</a></button>
             </div>
             
         </div>
