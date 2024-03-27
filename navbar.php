@@ -9,8 +9,8 @@ $navLinks = array(
   "Home" => "dashboard_admin",
   "Courses" => "course",
   "Cursisten" => "student",
-  "Docenten" => "docent",
-  "Skills" => "skill"
+  "Docenten" => "teacher",
+  "Skills" => "skills"
 );
 
 ?>

@@ -117,8 +117,10 @@ if (isset($_POST['delete_selected'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skills beheren</title>
   <link rel="stylesheet" href="styles/skills.css">
+  <?php include('bootstrap.php'); ?>
 </head>
 <body>
+<?php include 'navbar.php'; ?>
 
 <h1>Skills beheren</h1>
 
@@ -206,5 +208,4 @@ if (isset($_POST['delete_selected'])) {
   <?php } ?>
 </div>
 
-</body>
-</html>
+<?php include 'footer.php'; ?>
