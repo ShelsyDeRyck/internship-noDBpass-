@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 20, 2024 at 08:41 AM
+-- Generation Time: Mar 27, 2024 at 11:49 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.0
 
@@ -40,8 +40,34 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES
-(1, 'Alex', 'Johnson', 'alex.johnson@example.com', 'securepassword1'),
-(2, 'Emma', 'Brown', 'emma.brown@example.com', 'securepassword2');
+(1, 'Alex', 'Johnson', 'alex.johnson@example.com', '$2y$10$XwSY8FLL7vCTT4NddNhFR.cdCDcYWqEjjV/GBYUMG9/6OohEBa2QO '),
+(2, 'Emma', 'Brown', 'emma.brown@example.com', '$2y$10$lKXi36M10zZQ1qCMstPRk.RPxo7n1fEsB0QMAual4eyqlIhx6T/T6');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `companies`
+--
+
+CREATE TABLE `companies` (
+  `company_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `address` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_person`
+--
+
+CREATE TABLE `contact_person` (
+  `contact_person_id` int(11) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -76,38 +102,13 @@ INSERT INTO `courses` (`course_id`, `name`, `description`, `duration`, `location
 -- --------------------------------------------------------
 
 --
--- Table structure for table `course_docent`
+-- Table structure for table `course_teacher`
 --
 
-CREATE TABLE `course_docent` (
+CREATE TABLE `course_teacher` (
   `course_id` int(11) NOT NULL,
-  `docent_id` int(11) NOT NULL
+  `teacher_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `docenten`
---
-
-CREATE TABLE `docenten` (
-  `docent_id` int(11) NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `docenten`
---
-
-INSERT INTO `docenten` (`docent_id`, `first_name`, `last_name`, `email`, `password`) VALUES
-(1, 'Michael', 'Taylor', 'michael.taylor@example.com', 'password123'),
-(2, 'Sophia', 'Martinez', 'sophia.martinez@example.com', 'password456'),
-(3, 'James', 'Wilson', 'james.wilson@example.com', 'password789'),
-(4, 'Olivia', 'Davis', 'olivia.davis@example.com', 'password012'),
-(5, 'William', 'Anderson', 'william.anderson@example.com', 'password345');
 
 -- --------------------------------------------------------
 
@@ -117,9 +118,9 @@ INSERT INTO `docenten` (`docent_id`, `first_name`, `last_name`, `email`, `passwo
 
 CREATE TABLE `internships` (
   `internship_id` int(11) NOT NULL,
-  `company_name` varchar(255) NOT NULL,
+  `company_id` int(11) NOT NULL,
   `address` text NOT NULL,
-  `contact_person` varchar(255) DEFAULT NULL,
+  `contact_person_id` int(11) DEFAULT NULL,
   `student_id` int(11) DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL
@@ -166,7 +167,7 @@ CREATE TABLE `students` (
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `course_id` int(11) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
   `study_year` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -174,27 +175,27 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `email`, `course_id`, `age`, `study_year`) VALUES
-(1, 'John', 'Doe', 'john.doe@example.com', NULL, 20, 1),
-(2, 'Jane', 'Smith', 'jane.smith@example.com', NULL, 22, 2),
-(3, 'Emily', 'Jones', 'emily.jones@example.com', NULL, 19, 1),
-(4, 'Daniel', 'Lee', 'daniel.lee@example.com', NULL, 21, 3),
-(5, 'Laura', 'White', 'laura.white@example.com', NULL, 23, 4),
-(6, 'Ethan', 'Harris', 'ethan.harris@example.com', NULL, 22, 2),
-(7, 'Madison', 'Clark', 'madison.clark@example.com', NULL, 20, 1),
-(8, 'Alex', 'Robinson', 'alex.robinson@example.com', NULL, 24, 4),
-(9, 'Isabella', 'Rodriguez', 'isabella.rodriguez@example.com', NULL, 21, 3),
-(10, 'Jacob', 'Walker', 'jacob.walker@example.com', NULL, 23, 4),
-(11, 'Ava', 'Perez', 'ava.perez@example.com', NULL, 19, 1),
-(12, 'Mason', 'Hall', 'mason.hall@example.com', NULL, 22, 2),
-(13, 'Mia', 'Young', 'mia.young@example.com', NULL, 20, 1),
-(14, 'Benjamin', 'Allen', 'benjamin.allen@example.com', NULL, 21, 3),
-(15, 'Charlotte', 'Sanchez', 'charlotte.sanchez@example.com', NULL, 23, 4),
-(16, 'Jack', 'Wright', 'jack.wright@example.com', NULL, 22, 2),
-(17, 'Lily', 'King', 'lily.king@example.com', NULL, 19, 1),
-(18, 'Logan', 'Scott', 'logan.scott@example.com', NULL, 21, 3),
-(19, 'Zoe', 'Adams', 'zoe.adams@example.com', NULL, 24, 4),
-(20, 'Luke', 'Baker', 'luke.baker@example.com', NULL, 20, 1);
+INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `email`, `course_id`, `date_of_birth`, `study_year`) VALUES
+(1, 'John', 'Doe', 'john.doe@example.com', NULL, '2019-01-09', 1),
+(2, 'Jane', 'Smith', 'jane.smith@example.com', NULL, '2014-12-28', 2),
+(3, 'Emily', 'Jones', 'emily.jones@example.com', NULL, '2017-11-19', 1),
+(4, 'Daniel', 'Lee', 'daniel.lee@example.com', NULL, '2004-06-25', 3),
+(5, 'Laura', 'White', 'laura.white@example.com', NULL, '2008-09-24', 4),
+(6, 'Ethan', 'Harris', 'ethan.harris@example.com', NULL, '2010-03-24', 2),
+(7, 'Madison', 'Clark', 'madison.clark@example.com', NULL, '2004-12-11', 1),
+(8, 'Alex', 'Robinson', 'alex.robinson@example.com', NULL, '2014-01-15', 4),
+(9, 'Isabella', 'Rodriguez', 'isabella.rodriguez@example.com', NULL, '2015-05-26', 3),
+(10, 'Jacob', 'Walker', 'jacob.walker@example.com', NULL, '2014-11-16', 4),
+(11, 'Ava', 'Perez', 'ava.perez@example.com', NULL, '2008-03-14', 1),
+(12, 'Mason', 'Hall', 'mason.hall@example.com', NULL, '2016-05-14', 2),
+(13, 'Mia', 'Young', 'mia.young@example.com', NULL, '2017-04-04', 1),
+(14, 'Benjamin', 'Allen', 'benjamin.allen@example.com', NULL, '2017-03-14', 3),
+(15, 'Charlotte', 'Sanchez', 'charlotte.sanchez@example.com', NULL, '2014-03-30', 4),
+(16, 'Jack', 'Wright', 'jack.wright@example.com', NULL, '2019-08-15', 2),
+(17, 'Lily', 'King', 'lily.king@example.com', NULL, '2015-05-23', 1),
+(18, 'Logan', 'Scott', 'logan.scott@example.com', NULL, '2018-02-06', 3),
+(19, 'Zoe', 'Adams', 'zoe.adams@example.com', NULL, '2004-05-09', 4),
+(20, 'Luke', 'Baker', 'luke.baker@example.com', NULL, '2007-06-11', 1);
 
 -- --------------------------------------------------------
 
@@ -217,10 +218,35 @@ CREATE TABLE `student_grades` (
   `grade_id` int(11) NOT NULL,
   `student_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
-  `docent_id` int(11) DEFAULT NULL,
+  `teacher_id` int(11) DEFAULT NULL,
   `academic_year` varchar(9) DEFAULT NULL,
   `grade` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teachers`
+--
+
+CREATE TABLE `teachers` (
+  `teacher_id` int(11) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `teachers`
+--
+
+INSERT INTO `teachers` (`teacher_id`, `first_name`, `last_name`, `email`, `password`) VALUES
+(1, 'Michael', 'Taylor', 'michael.taylor@example.com', '$2y$10$NEL/4tO/snjhKEMOwAQ.N.ky4SLfAhETYIjdTr5NsygePo1W02uba'),
+(2, 'Sophia', 'Martinez', 'sophia.martinez@example.com', '$2y$10$cXEbPIxoVyaWmYI8QqdkK.bU6C3q9qGexsjALlLUhMcvPeZM2ZNci'),
+(3, 'James', 'Wilson', 'james.wilson@example.com', '$2y$10$rfHzWUBlcQcO7IfeWNmxxexvN5PGBMci6bEptbKRLg3EiEv/AG7UO'),
+(4, 'Olivia', 'Davis', 'olivia.davis@example.com', '$2y$10$qUYK7FiQuQ1et4GoFShwt.DBK9Jy2iPEgKDJJmIvfd37gox/A/nXW'),
+(5, 'William', 'Anderson', 'william.anderson@example.com', '$2y$10$Gfks8a4yvCINgb0UEIzqtOASuycUAValf8E5iuykK62.VeOQ5O7D6');
 
 --
 -- Indexes for dumped tables
@@ -234,31 +260,38 @@ ALTER TABLE `admins`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `companies`
+--
+ALTER TABLE `companies`
+  ADD PRIMARY KEY (`company_id`);
+
+--
+-- Indexes for table `contact_person`
+--
+ALTER TABLE `contact_person`
+  ADD PRIMARY KEY (`contact_person_id`);
+
+--
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`course_id`);
 
 --
--- Indexes for table `course_docent`
+-- Indexes for table `course_teacher`
 --
-ALTER TABLE `course_docent`
-  ADD PRIMARY KEY (`course_id`,`docent_id`),
-  ADD KEY `docent_id` (`docent_id`);
-
---
--- Indexes for table `docenten`
---
-ALTER TABLE `docenten`
-  ADD PRIMARY KEY (`docent_id`),
-  ADD UNIQUE KEY `email` (`email`);
+ALTER TABLE `course_teacher`
+  ADD PRIMARY KEY (`course_id`,`teacher_id`),
+  ADD KEY `teacher_id` (`teacher_id`);
 
 --
 -- Indexes for table `internships`
 --
 ALTER TABLE `internships`
   ADD PRIMARY KEY (`internship_id`),
-  ADD UNIQUE KEY `student_id` (`student_id`);
+  ADD UNIQUE KEY `student_id` (`student_id`),
+  ADD KEY `fk_company_id` (`company_id`),
+  ADD KEY `fk_contact_person_id` (`contact_person_id`);
 
 --
 -- Indexes for table `skills`
@@ -288,7 +321,13 @@ ALTER TABLE `student_grades`
   ADD PRIMARY KEY (`grade_id`),
   ADD KEY `student_id` (`student_id`),
   ADD KEY `course_id` (`course_id`),
-  ADD KEY `docent_id` (`docent_id`);
+  ADD KEY `teacher_id` (`teacher_id`);
+
+--
+-- Indexes for table `teachers`
+--
+ALTER TABLE `teachers` ADD PRIMARY KEY (`teacher_id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -301,16 +340,22 @@ ALTER TABLE `admins`
   MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `companies`
+--
+ALTER TABLE `companies`
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `contact_person`
+--
+ALTER TABLE `contact_person`
+  MODIFY `contact_person_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
   MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `docenten`
---
-ALTER TABLE `docenten`
-  MODIFY `docent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `internships`
@@ -337,20 +382,28 @@ ALTER TABLE `student_grades`
   MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `teachers`
+--
+ALTER TABLE `teachers`
+  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `course_docent`
+-- Constraints for table `course_teacher`
 --
-ALTER TABLE `course_docent`
-  ADD CONSTRAINT `course_docent_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
-  ADD CONSTRAINT `course_docent_ibfk_2` FOREIGN KEY (`docent_id`) REFERENCES `docenten` (`docent_id`);
+ALTER TABLE `course_teacher`
+  ADD CONSTRAINT `course_teacher_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
+  ADD CONSTRAINT `course_teacher_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
 
 --
 -- Constraints for table `internships`
 --
 ALTER TABLE `internships`
+  ADD CONSTRAINT `fk_company_id` FOREIGN KEY (`company_id`) REFERENCES `companies` (`company_id`),
+  ADD CONSTRAINT `fk_contact_person_id` FOREIGN KEY (`contact_person_id`) REFERENCES `contact_person` (`contact_person_id`),
   ADD CONSTRAINT `internships_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
 
 --
@@ -372,7 +425,7 @@ ALTER TABLE `student_course`
 ALTER TABLE `student_grades`
   ADD CONSTRAINT `student_grades_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`),
   ADD CONSTRAINT `student_grades_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
-  ADD CONSTRAINT `student_grades_ibfk_3` FOREIGN KEY (`docent_id`) REFERENCES `docenten` (`docent_id`);
+  ADD CONSTRAINT `student_grades_ibfk_3` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
