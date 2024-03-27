@@ -2,14 +2,16 @@
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     box-sizing: border-box;
 	margin: 0;
+	
 	padding: 0;
 }
 
 .content{
     margin-top: 15vh;
+	
 }
 
-
+/* NAV BAR*/
 
 li, a, button, .logo {
 	font-family: "Montserrat", sans-serif;
@@ -160,4 +162,152 @@ height: 80px;
     height: 2px;
     background-color: #EC3728;
     margin-top: -50px;
+}
+
+/* SEARCH BAR*/
+
+.search-container {
+    display: flex; 
+    width: fit-content;  
+    margin: 0 auto; 
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 55px; 
+    font-size: 16px;
+    flex: 1; 
+}
+
+.search-button {
+    padding: 10px 20px; 
+    background-color: #EC3728; 
+    color: white;
+	margin-left: 5px;
+    border: none; 
+    border-radius: 55px; 
+    cursor: pointer; 
+}
+
+
+/* TABLE */
+
+.centerdivtable {
+	display: flex; 
+	justify-content: center; 
+	align-items: center; 
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+	
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #EC3728;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #EC3728;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #EC3728;
+}
+
+.add-button {
+    padding: 10px 20px; 
+    background-color: #EC3728; 
+    color: white;
+	margin: 5px;
+    border: none; 
+    border-radius: 55px; 
+    cursor: pointer; 
+}
+.push-button {
+    padding: 10px 20px; 
+    background-color: #729B79; 
+    color: white;
+	margin: 5px;
+    border: none; 
+    border-radius: 55px; 
+    cursor: pointer; 
+}
+.edit-button {
+    padding: 10px 20px; 
+    background-color: #484A47; 
+    color: white;
+	margin: 5px;
+    border: none; 
+    border-radius: 55px; 
+    cursor: pointer; 
+}
+
+/* FOOTER */
+
+
+.footer {
+    background-color: #1A1D22;
+    padding: 20px;
+    position: fixed; /* Makes the footer fixed at the bottom */
+    bottom: 0; /* Positions the bottom of the footer at 0 */
+    width: 100%; /* Ensures the footer stretches across the entire width */
+	height: 15vh;
+	display: flex; 
+	justify-content: center; 
+	align-items: center; 
+}
+
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Aligns footer content to the bottom */
+}
+
+.footer-text-left {
+    color: #fff;
+}
+
+.footer-content-right {
+    display: flex;
+    flex-wrap: wrap; /* Wraps links to multiple lines if needed */
+}
+
+.footer-content-right a {
+    color: #fff;
+    margin-right: 20px;
+    text-decoration: none; /* Removes underline from links */
+}
+
+.footer-content-right a:hover {
+    color: #EC3728; /* Changes link color on hover */
+}
+
+.copyright {
+    color: #fff;
+    font-size: 12px;
+    text-align: right;
 }
