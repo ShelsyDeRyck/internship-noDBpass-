@@ -20,7 +20,7 @@
                     <a class="nav-link" aria-current="page" href="#">My Account</a>
                 </li>
                 <li class="nav-item">
-                    <button><a class="nav-link" href="index.php">Logout</a></button>
+                    <button><a class="nav-link" href="logout.php">Logout</a></button>
                 </li>
                 </ul>
             </div>
