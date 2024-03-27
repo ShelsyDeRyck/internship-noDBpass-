@@ -13,7 +13,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
   if (!$admin) {
     // Geen admin gevonden, zoek in docenten tabel
-    $stmt = $pdo->prepare("SELECT * FROM docenten WHERE email = ? AND password = ?");
+    $stmt = $pdo->prepare("SELECT * FROM docents WHERE email = ? AND password = ?");
     $stmt->execute([$email, $password]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -26,14 +26,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     // ... Voer hier de acties uit na een succesvolle docent login ...
 
     // Voorbeeld: stuur de docent naar het dashboard
-    header('Location: docent_dashboard.php');
+    header('Location: dashboard_docent.php');
     exit;
   }
 
   // ... Voer hier de acties uit na een succesvolle admin login ...
 
   // Voorbeeld: stuur de admin naar het admin panel
-  header('Location: admin_dashboard.php');
+  header('Location: dashboard_admin.php');
   exit;
 }
 

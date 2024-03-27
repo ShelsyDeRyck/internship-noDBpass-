@@ -1,8 +1,8 @@
-<?php include('headerdocent.php'); ?>
+<?php include('header_admin.php'); ?>
 
         <div class="row">
             <div class="col-md text-center">
-                <h1>Welkom op het SyntraPXL DOCENTEN portaal</h1>
+                <h1>Welkom op het SyntraPXL ADMIN portaal</h1>
                 <p>Bij vragen/problemen kan je ons bereiken via <strong>test@test.com</strong></p>
             </div>
         </div>
@@ -26,10 +26,11 @@
                 <button class="bigbtn"><a href="admin.php" class="nav-link">Docent</a></button>
             </div>
             <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Stageplaats</a></button>
+                <button class="bigbtn"><a href="admin.php" class="nav-link">Skills</a></button>
             </div>
             
         </div>
     </div>
 
 <?php include('footer.php'); ?>
+    
