@@ -13,7 +13,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
   if (!$admin) {
     // Geen admin gevonden, zoek in docenten tabel
-    $stmt = $pdo->prepare("SELECT * FROM docents WHERE email = ? AND password = ?");
+    $stmt = $pdo->prepare("SELECT * FROM teachers WHERE email = ? AND password = ?");
     $stmt->execute([$email, $password]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
