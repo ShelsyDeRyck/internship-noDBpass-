@@ -1,57 +1,57 @@
 <?php
 
-class Docent {
+class Teacher {
     private $pdo;
 
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
-    // Adding a new lecturer
+    // Adding a new teacher
     public function create($firstName, $lastName, $email, $password) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Hashing the password
-        $sql = "INSERT INTO docenten (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO teachers (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
         if (!$stmt->execute([$firstName, $lastName, $email, $hashedPassword])) {
-            throw new Exception("Error adding lecturer.");
+            throw new Exception("Error adding teacher.");
         }
     }
 
-    // Getting information about the lecturer(s)
-    public function read($docent_id = null) {
-        if ($docent_id) {
-            $sql = "SELECT docent_id, first_name, last_name, email FROM docenten WHERE docent_id = ?";
+    // Getting information about the teacher(s)
+    public function read($teacher_id = null) {
+        if ($teacher_id) {
+            $sql = "SELECT teacher_id, first_name, last_name, email FROM teachers WHERE teacher_id = ?";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$docent_id]);
+            $stmt->execute([$teacher_id]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
-            $sql = "SELECT docent_id, first_name, last_name, email FROM docenten";
+            $sql = "SELECT teacher_id, first_name, last_name, email FROM teachers";
             $stmt = $this->pdo->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 
-    // Updating lecturer information
-    public function update($docent_id, $firstName, $lastName, $email, $password = null) {
-        $sql = "UPDATE docenten SET first_name = ?, last_name = ?, email = ?" . ($password ? ", password = ?" : "") . " WHERE docent_id = ?";
+    // Updating teacher information
+    public function update($teacher_id, $firstName, $lastName, $email, $password = null) {
+        $sql = "UPDATE teachers SET first_name = ?, last_name = ?, email = ?" . ($password ? ", password = ?" : "") . " WHERE teacher_id = ?";
         $params = [$firstName, $lastName, $email];
         if ($password) {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $params[] = $hashedPassword;
         }
-        $params[] = $docent_id;
+        $params[] = $teacher_id;
         $stmt = $this->pdo->prepare($sql);
         if (!$stmt->execute($params)) {
-            throw new Exception("Error updating lecturer information.");
+            throw new Exception("Error updating teacher information.");
         }
     }
 
-    // Deleting a lecturer
-    public function delete($docent_id) {
-        $sql = "DELETE FROM docenten WHERE docent_id = ?";
+    // Deleting a teacher
+    public function delete($teacher_id) {
+        $sql = "DELETE FROM teachers WHERE teacher_id = ?";
         $stmt = $this->pdo->prepare($sql);
-        if (!$stmt->execute([$docent_id])) {
-            throw new Exception("Error deleting lecturer.");
+        if (!$stmt->execute([$teacher_id])) {
+            throw new Exception("Error deleting teacher.");
         }
     }
 }
