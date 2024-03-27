@@ -14,10 +14,10 @@
         </div>
         <div class="row m-2">
             <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Cursist</a></button>
+                <button class="bigbtn"><a href="student.php" class="nav-link">Cursist</a></button>
             </div>
             <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Course</a></button>
+                <button class="bigbtn"><a href="course.php" class="nav-link">Course</a></button>
             </div>
             
         </div>
@@ -26,7 +26,7 @@
                 <button class="bigbtn"><a href="admin.php" class="nav-link">Docent</a></button>
             </div>
             <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Stageplaats</a></button>
+                <button class="bigbtn"><a href="internship.php" class="nav-link">Stageplaats</a></button>
             </div>
             
         </div>
