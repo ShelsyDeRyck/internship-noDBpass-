@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 27, 2024 at 11:49 AM
+-- Generation Time: Mar 26, 2024 at 11:00 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.0
 
@@ -133,7 +133,7 @@ CREATE TABLE `internships` (
 --
 
 CREATE TABLE `skills` (
-  `skill_id` int(11) NOT NULL,
+  `skill_id` int(111) NOT NULL,
   `name` varchar(255) NOT NULL,
   `type` enum('soft','hard') NOT NULL,
   `description` text
@@ -230,7 +230,7 @@ CREATE TABLE `student_grades` (
 --
 
 CREATE TABLE `teachers` (
-  `teacher_id` int(11) NOT NULL,
+  `docent_id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -241,7 +241,7 @@ CREATE TABLE `teachers` (
 -- Dumping data for table `teachers`
 --
 
-INSERT INTO `teachers` (`teacher_id`, `first_name`, `last_name`, `email`, `password`) VALUES
+INSERT INTO `teachers` (`docent_id`, `first_name`, `last_name`, `email`, `password`) VALUES
 (1, 'Michael', 'Taylor', 'michael.taylor@example.com', '$2y$10$NEL/4tO/snjhKEMOwAQ.N.ky4SLfAhETYIjdTr5NsygePo1W02uba'),
 (2, 'Sophia', 'Martinez', 'sophia.martinez@example.com', '$2y$10$cXEbPIxoVyaWmYI8QqdkK.bU6C3q9qGexsjALlLUhMcvPeZM2ZNci'),
 (3, 'James', 'Wilson', 'james.wilson@example.com', '$2y$10$rfHzWUBlcQcO7IfeWNmxxexvN5PGBMci6bEptbKRLg3EiEv/AG7UO'),
@@ -281,8 +281,8 @@ ALTER TABLE `courses`
 -- Indexes for table `course_teacher`
 --
 ALTER TABLE `course_teacher`
-  ADD PRIMARY KEY (`course_id`,`teacher_id`),
-  ADD KEY `teacher_id` (`teacher_id`);
+  ADD PRIMARY KEY (`course_id`,`docent_id`),
+  ADD KEY `docent_id` (`docent_id`);
 
 --
 -- Indexes for table `internships`
@@ -321,12 +321,13 @@ ALTER TABLE `student_grades`
   ADD PRIMARY KEY (`grade_id`),
   ADD KEY `student_id` (`student_id`),
   ADD KEY `course_id` (`course_id`),
-  ADD KEY `teacher_id` (`teacher_id`);
+  ADD KEY `docent_id` (`docent_id`);
 
 --
 -- Indexes for table `teachers`
 --
-ALTER TABLE `teachers` ADD PRIMARY KEY (`teacher_id`),
+ALTER TABLE `teachers`
+  ADD PRIMARY KEY (`docent_id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
@@ -385,7 +386,7 @@ ALTER TABLE `student_grades`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `docent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -396,7 +397,7 @@ ALTER TABLE `teachers`
 --
 ALTER TABLE `course_teacher`
   ADD CONSTRAINT `course_teacher_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
-  ADD CONSTRAINT `course_teacher_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
+  ADD CONSTRAINT `course_teacher_ibfk_2` FOREIGN KEY (`docent_id`) REFERENCES `teachers` (`docent_id`);
 
 --
 -- Constraints for table `internships`
@@ -425,7 +426,7 @@ ALTER TABLE `student_course`
 ALTER TABLE `student_grades`
   ADD CONSTRAINT `student_grades_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`),
   ADD CONSTRAINT `student_grades_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
-  ADD CONSTRAINT `student_grades_ibfk_3` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
+  ADD CONSTRAINT `student_grades_ibfk_3` FOREIGN KEY (`docent_id`) REFERENCES `teachers` (`docent_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
