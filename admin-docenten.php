@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Docenten</title>
-    <link rel="stylesheet" href="./styles/admin_docenten.css">
+    <link rel="stylesheet" href="./styles/admin-docenten.css">
     <link rel="icon" href="./assets/favicon.ico">
 </head>
 <body class="home-page">
@@ -76,10 +76,11 @@
 		<footer class="footer">
         <div class="footer-container">
             <div class="footer-text-left">
-                KBC: BE83 4517 6050 7115 (KREDBEBB) - BTW BE 0409.773.728
+                KBC: BE83 4517 6050 7115 (KREDBEBB) - BTW BE 0409.773.728   
             </div>
+            
             <div class="footer-content-right">
-                <a href="#">Algemene voorwaarden</a>
+                <a href="#"> Algemene voorwaarden</a>
                 <a href="#">Privacy policy</a>
                 <a href="#">Cookies</a>
                 <a href="#">Disclaimer</a>
