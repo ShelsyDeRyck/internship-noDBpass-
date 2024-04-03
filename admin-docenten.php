@@ -35,8 +35,25 @@
 				<div class="search-container">
         <input type="text" class="search-input" placeholder="search...">
         <button type="button" class="search-button"><img src="./assets/search.png" style="width: 12px"></button>
-    </div>
+</div>
+<br>
+<div class="filters">
 
+<select name="docent" id="docent">
+  <option value="blank">Docent</option>
+  <option value="mdn">Massimo de Nittis</option>
+</select>
+<select name="course" id="course">
+<option value="blank">Course</option>
+  <option value="Fullstack">Fullstack Web Developer</option>
+  <option value="Backend">Back-end Web Developer</option>
+  <option value="Frontend">Front-end Web Developer</option>
+</select>
+<select name="campus" id="campus">
+<option value="blank">Campus</option>
+  <option value="3600">3600</option>
+</select>
+</div>
   <!--    ////////////////////////////////
                        		TABLE
                 ////////////////////////////////-->
