@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Docenten</title>
-    <link rel="stylesheet" href="./styles/admin_docenten.css">
+    <link rel="stylesheet" href="./styles/admin-docenten.css">
     <link rel="icon" href="./assets/favicon.ico">
 </head>
 <body class="home-page">
@@ -35,8 +35,25 @@
 				<div class="search-container">
         <input type="text" class="search-input" placeholder="search...">
         <button type="button" class="search-button"><img src="./assets/search.png" style="width: 12px"></button>
-    </div>
+</div>
+<br>
+<div class="filters">
 
+<select name="docent" id="docent">
+  <option value="blank">Docent</option>
+  <option value="mdn">Massimo de Nittis</option>
+</select>
+<select name="course" id="course">
+<option value="blank">Course</option>
+  <option value="Fullstack">Fullstack Web Developer</option>
+  <option value="Backend">Back-end Web Developer</option>
+  <option value="Frontend">Front-end Web Developer</option>
+</select>
+<select name="campus" id="campus">
+<option value="blank">Campus</option>
+  <option value="3600">3600</option>
+</select>
+</div>
   <!--    ////////////////////////////////
                        		TABLE
                 ////////////////////////////////-->
@@ -76,10 +93,11 @@
 		<footer class="footer">
         <div class="footer-container">
             <div class="footer-text-left">
-                KBC: BE83 4517 6050 7115 (KREDBEBB) - BTW BE 0409.773.728
+                KBC: BE83 4517 6050 7115 (KREDBEBB) - BTW BE 0409.773.728   
             </div>
+            
             <div class="footer-content-right">
-                <a href="#">Algemene voorwaarden</a>
+                <a href="#"> Algemene voorwaarden</a>
                 <a href="#">Privacy policy</a>
                 <a href="#">Cookies</a>
                 <a href="#">Disclaimer</a>
