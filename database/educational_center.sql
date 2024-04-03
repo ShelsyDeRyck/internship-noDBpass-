@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 26, 2024 at 11:00 AM
+-- Generation Time: Apr 03, 2024 at 01:16 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.0
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `admin_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES
+INSERT INTO `admins` (`id`, `first_name`, `last_name`, `email`, `password`) VALUES
 (1, 'Alex', 'Johnson', 'alex.johnson@example.com', '$2y$10$XwSY8FLL7vCTT4NddNhFR.cdCDcYWqEjjV/GBYUMG9/6OohEBa2QO '),
 (2, 'Emma', 'Brown', 'emma.brown@example.com', '$2y$10$lKXi36M10zZQ1qCMstPRk.RPxo7n1fEsB0QMAual4eyqlIhx6T/T6');
 
@@ -50,7 +50,7 @@ INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`
 --
 
 CREATE TABLE `companies` (
-  `company_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `address` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -62,7 +62,7 @@ CREATE TABLE `companies` (
 --
 
 CREATE TABLE `contact_person` (
-  `contact_person_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE `contact_person` (
 --
 
 CREATE TABLE `courses` (
-  `course_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text,
   `duration` varchar(50) DEFAULT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE `courses` (
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`course_id`, `name`, `description`, `duration`, `location`) VALUES
+INSERT INTO `courses` (`id`, `name`, `description`, `duration`, `location`) VALUES
 (1, 'Introduction to Programming', 'This course introduces the fundamental concepts of programming using Python.', '10 weeks', 'Online'),
 (2, 'Web Development Basics', 'Learn the basics of web development to build your first website using HTML, CSS, and JavaScript.', '8 weeks', 'New York'),
 (3, 'Data Analysis with Python', 'Dive into data analysis with Python. Learn how to use Pandas, NumPy, and Matplotlib for data processing and visualization.', '12 weeks', 'Online'),
@@ -117,7 +117,7 @@ CREATE TABLE `course_teacher` (
 --
 
 CREATE TABLE `internships` (
-  `internship_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   `address` text NOT NULL,
   `contact_person_id` int(11) DEFAULT NULL,
@@ -133,7 +133,7 @@ CREATE TABLE `internships` (
 --
 
 CREATE TABLE `skills` (
-  `skill_id` int(111) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `type` enum('soft','hard') NOT NULL,
   `description` text
@@ -143,7 +143,7 @@ CREATE TABLE `skills` (
 -- Dumping data for table `skills`
 --
 
-INSERT INTO `skills` (`skill_id`, `name`, `type`, `description`) VALUES
+INSERT INTO `skills` (`id`, `name`, `type`, `description`) VALUES
 (1, 'Teamwork', 'soft', 'The ability to work effectively and harmoniously in a team.'),
 (2, 'Communication', 'soft', 'Effective verbal and written communication skills.'),
 (3, 'Problem-solving', 'soft', 'The ability to identify and resolve problems quickly and efficiently.'),
@@ -162,7 +162,7 @@ INSERT INTO `skills` (`skill_id`, `name`, `type`, `description`) VALUES
 --
 
 CREATE TABLE `students` (
-  `student_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -175,7 +175,7 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `email`, `course_id`, `date_of_birth`, `study_year`) VALUES
+INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `course_id`, `date_of_birth`, `study_year`) VALUES
 (1, 'John', 'Doe', 'john.doe@example.com', NULL, '2019-01-09', 1),
 (2, 'Jane', 'Smith', 'jane.smith@example.com', NULL, '2014-12-28', 2),
 (3, 'Emily', 'Jones', 'emily.jones@example.com', NULL, '2017-11-19', 1),
@@ -230,7 +230,7 @@ CREATE TABLE `student_grades` (
 --
 
 CREATE TABLE `teachers` (
-  `docent_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -241,7 +241,7 @@ CREATE TABLE `teachers` (
 -- Dumping data for table `teachers`
 --
 
-INSERT INTO `teachers` (`docent_id`, `first_name`, `last_name`, `email`, `password`) VALUES
+INSERT INTO `teachers` (`id`, `first_name`, `last_name`, `email`, `password`) VALUES
 (1, 'Michael', 'Taylor', 'michael.taylor@example.com', '$2y$10$NEL/4tO/snjhKEMOwAQ.N.ky4SLfAhETYIjdTr5NsygePo1W02uba'),
 (2, 'Sophia', 'Martinez', 'sophia.martinez@example.com', '$2y$10$cXEbPIxoVyaWmYI8QqdkK.bU6C3q9qGexsjALlLUhMcvPeZM2ZNci'),
 (3, 'James', 'Wilson', 'james.wilson@example.com', '$2y$10$rfHzWUBlcQcO7IfeWNmxxexvN5PGBMci6bEptbKRLg3EiEv/AG7UO'),
@@ -256,39 +256,39 @@ INSERT INTO `teachers` (`docent_id`, `first_name`, `last_name`, `email`, `passwo
 -- Indexes for table `admins`
 --
 ALTER TABLE `admins`
-  ADD PRIMARY KEY (`admin_id`),
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `companies`
 --
 ALTER TABLE `companies`
-  ADD PRIMARY KEY (`company_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `contact_person`
 --
 ALTER TABLE `contact_person`
-  ADD PRIMARY KEY (`contact_person_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
-  ADD PRIMARY KEY (`course_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `course_teacher`
 --
 ALTER TABLE `course_teacher`
-  ADD PRIMARY KEY (`course_id`,`docent_id`),
-  ADD KEY `docent_id` (`docent_id`);
+  ADD PRIMARY KEY (`course_id`,`teacher_id`),
+  ADD KEY `teacher_id` (`teacher_id`);
 
 --
 -- Indexes for table `internships`
 --
 ALTER TABLE `internships`
-  ADD PRIMARY KEY (`internship_id`),
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `student_id` (`student_id`),
   ADD KEY `fk_company_id` (`company_id`),
   ADD KEY `fk_contact_person_id` (`contact_person_id`);
@@ -297,13 +297,13 @@ ALTER TABLE `internships`
 -- Indexes for table `skills`
 --
 ALTER TABLE `skills`
-  ADD PRIMARY KEY (`skill_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`student_id`),
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `course_id` (`course_id`);
 
@@ -321,13 +321,13 @@ ALTER TABLE `student_grades`
   ADD PRIMARY KEY (`grade_id`),
   ADD KEY `student_id` (`student_id`),
   ADD KEY `course_id` (`course_id`),
-  ADD KEY `docent_id` (`docent_id`);
+  ADD KEY `teacher_id` (`teacher_id`);
 
 --
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
-  ADD PRIMARY KEY (`docent_id`),
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
@@ -335,58 +335,10 @@ ALTER TABLE `teachers`
 --
 
 --
--- AUTO_INCREMENT for table `admins`
---
-ALTER TABLE `admins`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `companies`
---
-ALTER TABLE `companies`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `contact_person`
---
-ALTER TABLE `contact_person`
-  MODIFY `contact_person_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `courses`
---
-ALTER TABLE `courses`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `internships`
---
-ALTER TABLE `internships`
-  MODIFY `internship_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `skills`
---
-ALTER TABLE `skills`
-  MODIFY `skill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `students`
---
-ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
 -- AUTO_INCREMENT for table `student_grades`
 --
 ALTER TABLE `student_grades`
   MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `teachers`
---
-ALTER TABLE `teachers`
-  MODIFY `docent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -396,37 +348,36 @@ ALTER TABLE `teachers`
 -- Constraints for table `course_teacher`
 --
 ALTER TABLE `course_teacher`
-  ADD CONSTRAINT `course_teacher_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
-  ADD CONSTRAINT `course_teacher_ibfk_2` FOREIGN KEY (`docent_id`) REFERENCES `teachers` (`docent_id`);
+  ADD CONSTRAINT `course_teacher_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `course_teacher_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`);
 
 --
 -- Constraints for table `internships`
 --
 ALTER TABLE `internships`
-  ADD CONSTRAINT `fk_company_id` FOREIGN KEY (`company_id`) REFERENCES `companies` (`company_id`),
-  ADD CONSTRAINT `fk_contact_person_id` FOREIGN KEY (`contact_person_id`) REFERENCES `contact_person` (`contact_person_id`),
-  ADD CONSTRAINT `internships_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
+  ADD CONSTRAINT `fk_id` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `fk_new_contact_person_id` FOREIGN KEY (`contact_person_id`) REFERENCES `contact_person` (`id`);
 
 --
 -- Constraints for table `students`
 --
 ALTER TABLE `students`
-  ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`);
+  ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
 
 --
 -- Constraints for table `student_course`
 --
 ALTER TABLE `student_course`
-  ADD CONSTRAINT `student_course_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `student_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_student_course_course_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `fk_student_course_student_id` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `student_course_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
 --
 -- Constraints for table `student_grades`
 --
 ALTER TABLE `student_grades`
-  ADD CONSTRAINT `student_grades_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`),
-  ADD CONSTRAINT `student_grades_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
-  ADD CONSTRAINT `student_grades_ibfk_3` FOREIGN KEY (`docent_id`) REFERENCES `teachers` (`docent_id`);
+  ADD CONSTRAINT `student_grades_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `student_grades_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
