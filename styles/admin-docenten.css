@@ -265,6 +265,27 @@ height: 80px;
     cursor: pointer; 
 }
 
+.filters {
+	
+		display: flex; 
+		width: fit-content;  
+		margin: 0 auto; 
+        
+}
+
+#campus { 
+	border-radius: 55px;
+	padding-right: 5px;
+}
+#docent { 
+	border-radius: 55px;
+	padding-right: 5px;
+}
+#course { 
+	border-radius: 55px;
+	padding-right: 5px;
+}
+
 /* FOOTER */
 
 
