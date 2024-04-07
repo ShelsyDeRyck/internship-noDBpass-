@@ -5,9 +5,21 @@ require_once 'Internship.php';
 // Create an instance of the Internship class
 $internship = new Internship($pdo);
 
+// Check if there is a POST request to delete an internship
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'delete') {
+    $internship_id = $_POST['id'];
+    $success = $internship->delete($internship_id);
+    
+    // Send a JSON response back to the AJAX call
+    header('Content-Type: application/json');
+    echo json_encode(['success' => $success]);
+    exit;
+}
+
 // Get the list of all internships for display
 $internships = $internship->read();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -49,7 +61,8 @@ $internships = $internship->read();
                 <td><?php echo htmlspecialchars($i['end_date']); ?></td>
                 <td>
                     <button class="btn btn-primary btn-sm">Edit</button>
-                    <button class="btn btn-danger btn-sm">Delete</button>
+                    <button class="btn btn-danger btn-sm delete-button" data-id="<?php echo htmlspecialchars($i['id']); ?>">Delete</button>
+
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -67,12 +80,44 @@ $internships = $internship->read();
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
-$(document).ready( function () {
-    $('#internshipsTable').DataTable({
-        // Add additional options here if needed
+$(document).ready(function() {
+    var table = $('#internshipsTable').DataTable({
+        // Additional settings can be added here
+    });
+
+    $('#internshipsTable tbody').on('click', 'button.delete-button', function() {
+        var button = $(this);
+        var internshipId = button.data('id');
+
+        if (confirm('Are you sure you want to delete this record?')) {
+            $.ajax({
+                url: 'http://localhost/Stage2024/interships.php', // Make sure this path is correct
+                type: 'POST',
+                dataType: 'json', // Expecting a JSON response
+                data: {
+                    'id': internshipId,
+                    'action': 'delete'
+                },
+                success: function(result) {
+                    // No need to parse result because dataType is 'json'
+                    if (result.success) {
+                        // Remove the row from DataTables
+                        table.row(button.parents('tr')).remove().draw();
+                        alert('Record deleted.');
+                    } else {
+                        alert('Failed to delete the record.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Log the error so you can see it in the console
+                    console.error(error);
+                    alert('Error occurred while processing the request.');
+                }
+            });
+        }
     });
 });
-</script>
 
+</script>
 </body>
 </html>
