@@ -117,6 +117,55 @@ if (isset($_GET['edit'])) {
 
 <?php
 } // end if (isset($_GET['edit']))
+
+  // EXPORT TO PDF
+if (isset($_GET['export']) && is_numeric($_GET['export'])) {
+  $course_id = $_GET['export'];
+  ob_end_clean();
+  require 'vendor/autoload.php';
+  // use TCPDF\TCPDF;
+
+  $pdf = new \Dompdf\Dompdf(array('enable_remote'  =>  true));
+
+  $query = $db->prepare("SELECT * FROM courses WHERE course_id = :course_id");
+  $query->bindParam(':course_id', $course_id);
+  $query->execute();
+
+  // Check if there are courses
+  if ($query->rowCount() > 0) {
+      // Header
+      $header = array('course_id', 'name', 'description');
+
+      // Data
+      $data = array();
+      while ($course = $query->fetch(PDO::FETCH_ASSOC)) {
+          $data[] = array_values($course);
+      }
+
+      $html = '<h1>Courses Report</h1>';
+      $html .= '<table>';
+      $html .= '<tr>';
+      foreach ($header as $col) {
+          $html .= '<th>' . $col . '</th>';
+      }
+      $html .= '</tr>';
+      foreach ($data as $row) {
+          $html .= '<tr>';
+          foreach ($row as $cell) {
+              $html .= '<td>' . $cell . '</td>';
+          }
+          $html .= '</tr>';
+      }
+      $html .= '</table>';
+      $pdf->loadHtml($html);
+      $pdf->setPaper('A4', 'portrait');
+      $pdf->render();
+      // Close and output PDF
+      $filename = md5($header[1]) . '_course.pdf';
+      $pdf->stream($filename, array("Attachment" => 0)); // 1 = download, 0 = preview
+
+    }
+  }
 ?>
 
 <h2>Bestaande cursussen</h2>
@@ -132,6 +181,7 @@ if (count($courses) > 0) {
         <p><?php echo $course['description']; ?></p>
       </div>
       <div class="course-actions">
+        <a href="course.php?export=<?php echo $course['course_id']; ?>" class="btn btn-success">Exporteren</a>
         <a href="course.php?edit=true" class="btn btn-primary">Bewerken</a>
         <a href="course.php?delete=<?php echo $course['course_id']; ?>" class="btn btn-danger">Verwijderen</a>
       </div>
