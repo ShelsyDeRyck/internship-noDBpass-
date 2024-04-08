@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `admin_id` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL, 
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -50,7 +50,7 @@ INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`
 --
 
 CREATE TABLE `companies` (
-  `company_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL, 
   `name` varchar(255) NOT NULL,
   `address` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -62,7 +62,7 @@ CREATE TABLE `companies` (
 --
 
 CREATE TABLE `contact_person` (
-  `contact_person_id` int(11) NOT NULL,
+  `contact_person_id` int(11) NOT NULL, 
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE `contact_person` (
 --
 
 CREATE TABLE `courses` (
-  `course_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL, 
   `name` varchar(255) NOT NULL,
   `description` text,
   `duration` varchar(50) DEFAULT NULL,
@@ -106,7 +106,7 @@ INSERT INTO `courses` (`course_id`, `name`, `description`, `duration`, `location
 --
 
 CREATE TABLE `course_teacher` (
-  `course_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL, 
   `teacher_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -117,7 +117,7 @@ CREATE TABLE `course_teacher` (
 --
 
 CREATE TABLE `internships` (
-  `internship_id` int(11) NOT NULL,
+  `internship_id` int(11) NOT NULL, 
   `company_id` int(11) NOT NULL,
   `address` text NOT NULL,
   `contact_person_id` int(11) DEFAULT NULL,
@@ -133,7 +133,7 @@ CREATE TABLE `internships` (
 --
 
 CREATE TABLE `skills` (
-  `skill_id` int(111) NOT NULL,
+  `skill_id` int(111) NOT NULL, 
   `name` varchar(255) NOT NULL,
   `type` enum('soft','hard') NOT NULL,
   `description` text
@@ -162,7 +162,7 @@ INSERT INTO `skills` (`skill_id`, `name`, `type`, `description`) VALUES
 --
 
 CREATE TABLE `students` (
-  `student_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL, 
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -204,7 +204,7 @@ INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `email`, `cours
 --
 
 CREATE TABLE `student_course` (
-  `student_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL, 
   `course_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -215,7 +215,7 @@ CREATE TABLE `student_course` (
 --
 
 CREATE TABLE `student_grades` (
-  `grade_id` int(11) NOT NULL,
+  `grade_id` int(11) NOT NULL, 
   `student_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
   `teacher_id` int(11) DEFAULT NULL,
@@ -230,7 +230,7 @@ CREATE TABLE `student_grades` (
 --
 
 CREATE TABLE `teachers` (
-  `docent_id` int(11) NOT NULL,
+  `docent_id` int(11) NOT NULL, 
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -275,7 +275,7 @@ ALTER TABLE `contact_person`
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
-  ADD PRIMARY KEY (`course_id`);
+  MODIFY course_id INT AUTO_INCREMENT PRIMARY KEY;
 
 --
 -- Indexes for table `course_teacher`
@@ -297,7 +297,7 @@ ALTER TABLE `internships`
 -- Indexes for table `skills`
 --
 ALTER TABLE `skills`
-  ADD PRIMARY KEY (`skill_id`);
+  MODIFY skill_id INT AUTO_INCREMENT PRIMARY KEY;
 
 --
 -- Indexes for table `students`
@@ -306,6 +306,7 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`student_id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `course_id` (`course_id`);
+  MODIFY COLUMN student_id INT AUTO_INCREMENT PRIMARY KEY;
 
 --
 -- Indexes for table `student_course`
@@ -368,7 +369,7 @@ ALTER TABLE `internships`
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `skill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `skill_id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -432,3 +433,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
