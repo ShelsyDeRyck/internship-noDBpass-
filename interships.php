@@ -43,6 +43,8 @@ $internships = $internship->read();
                 <th>Company</th>
                 <th>Address</th>
                 <th>Contact Person</th>
+                <th>Contact Phone</th>
+                <th>Contact Email</th>
                 <th>Student</th>
                 <th>Start Date</th>
                 <th>End Date</th>
@@ -56,6 +58,8 @@ $internships = $internship->read();
                 <td><?php echo htmlspecialchars($i['company_name']); // Change to display company name ?></td>
                 <td><?php echo htmlspecialchars($i['address']); ?></td>
                 <td><?php echo htmlspecialchars($i['contact_name']); // Change to display contact person name ?></td>
+                <td><?php echo htmlspecialchars($i['contact_phone']); ?></td>
+                <td><?php echo htmlspecialchars($i['contact_email']); ?></td>
                 <td><?php echo htmlspecialchars($i['student_name']); // Change to display student name ?></td>
                 <td><?php echo htmlspecialchars($i['start_date']); ?></td>
                 <td><?php echo htmlspecialchars($i['end_date']); ?></td>

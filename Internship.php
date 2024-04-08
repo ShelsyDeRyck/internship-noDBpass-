@@ -26,8 +26,8 @@ class Internship {
     public function read($internship_id = null) {
         try {
             if ($internship_id) {
-                // If information about a single internship is needed
-                $sql = "SELECT i.*, c.name AS company_name, CONCAT(cp.first_name, ' ', cp.last_name) AS contact_name, CONCAT(s.first_name, ' ', s.last_name) AS student_name
+                // If information about a specific internship is needed
+                $sql = "SELECT i.*, c.name AS company_name, CONCAT(cp.first_name, ' ', cp.last_name) AS contact_name, cp.phone AS contact_phone, cp.email AS contact_email, CONCAT(s.first_name, ' ', s.last_name) AS student_name
                         FROM internships i
                         INNER JOIN companies c ON i.company_id = c.id
                         INNER JOIN contact_person cp ON i.contact_person_id = cp.id
@@ -38,7 +38,7 @@ class Internship {
                 return $stmt->fetch(PDO::FETCH_ASSOC);
             } else {
                 // If a list of all internships is needed
-                $sql = "SELECT i.*, c.name AS company_name, CONCAT(cp.first_name, ' ', cp.last_name) AS contact_name, CONCAT(s.first_name, ' ', s.last_name) AS student_name
+                $sql = "SELECT i.*, c.name AS company_name, CONCAT(cp.first_name, ' ', cp.last_name) AS contact_name, cp.phone AS contact_phone, cp.email AS contact_email, CONCAT(s.first_name, ' ', s.last_name) AS student_name
                         FROM internships i
                         INNER JOIN companies c ON i.company_id = c.id
                         INNER JOIN contact_person cp ON i.contact_person_id = cp.id
@@ -46,10 +46,11 @@ class Internship {
                 return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
             }
         } catch (PDOException $e) {
-            // Error logging
+            // Error handling should be implemented here
             return false;
         }
     }
+    
     
 
     // Updating internship information
