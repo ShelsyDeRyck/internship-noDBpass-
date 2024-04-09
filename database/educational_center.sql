@@ -106,7 +106,7 @@ INSERT INTO `courses` (`id`, `name`, `description`, `duration`, `location`) VALU
 --
 
 CREATE TABLE `course_teacher` (
-  `course_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL, 
   `teacher_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -204,7 +204,7 @@ INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `course_id`, `
 --
 
 CREATE TABLE `student_course` (
-  `student_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL, 
   `course_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -215,7 +215,7 @@ CREATE TABLE `student_course` (
 --
 
 CREATE TABLE `student_grades` (
-  `grade_id` int(11) NOT NULL,
+  `grade_id` int(11) NOT NULL, 
   `student_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
   `teacher_id` int(11) DEFAULT NULL,
@@ -276,6 +276,7 @@ ALTER TABLE `contact_person`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`);
+  MODIFY course_id INT AUTO_INCREMENT PRIMARY KEY;
 
 --
 -- Indexes for table `course_teacher`
@@ -298,6 +299,7 @@ ALTER TABLE `internships`
 --
 ALTER TABLE `skills`
   ADD PRIMARY KEY (`id`);
+  MODIFY skill_id INT AUTO_INCREMENT PRIMARY KEY;
 
 --
 -- Indexes for table `students`
@@ -306,6 +308,7 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `course_id` (`course_id`);
+  MODIFY COLUMN student_id INT AUTO_INCREMENT PRIMARY KEY;
 
 --
 -- Indexes for table `student_course`
@@ -333,6 +336,48 @@ ALTER TABLE `teachers`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `companies`
+--
+ALTER TABLE `companies`
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `contact_person`
+--
+ALTER TABLE `contact_person`
+  MODIFY `contact_person_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `internships`
+--
+ALTER TABLE `internships`
+  MODIFY `internship_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `skills`
+--
+ALTER TABLE `skills`
+  MODIFY `skill_id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `student_grades`
