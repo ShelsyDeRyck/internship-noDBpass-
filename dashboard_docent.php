@@ -1,4 +1,4 @@
-<?php include('header_docent.php'); ?>
+<?php include('includes/header_docent.php'); ?>
 
         <div class="row">
             <div class="col-md text-center">
@@ -32,4 +32,4 @@
         </div>
     </div>
 
-<?php include('footer.php'); ?>
+<?php include('includes/footer.php'); ?>

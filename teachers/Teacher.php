@@ -1,10 +1,11 @@
-<?php include 'navbar.php'; ?>
+<?php include ('../includes/navbar_admin.php') ?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <title>Docenten beheren</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <?php include ('../includes/bootstrap.php'); ?>
 </head>
 <body>
     <h1>Docenten beheren</h1>
@@ -127,5 +128,4 @@
             });
         });
     </script>
-</body>
-</html>
+<?php include('../includes/footer.php'); ?>
