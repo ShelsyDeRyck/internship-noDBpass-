@@ -325,6 +325,7 @@ ALTER TABLE `contact_person`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`);
+  MODIFY course_id INT AUTO_INCREMENT PRIMARY KEY;
 
 --
 -- Indexes for table `course_teacher`
@@ -347,7 +348,7 @@ ALTER TABLE `internships`
 --
 ALTER TABLE `skills`
   ADD PRIMARY KEY (`id`);
-
+  MODIFY skill_id INT AUTO_INCREMENT PRIMARY KEY; 
 --
 -- Indexes for table `students`
 --
@@ -355,6 +356,7 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `course_id` (`course_id`);
+  MODIFY COLUMN student_id INT AUTO_INCREMENT PRIMARY KEY;
 
 --
 -- Indexes for table `student_course`
@@ -384,6 +386,12 @@ ALTER TABLE `teachers`
 --
 
 --
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
@@ -396,10 +404,28 @@ ALTER TABLE `contact_person`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;  
+
+--
 -- AUTO_INCREMENT for table `internships`
 --
 ALTER TABLE `internships`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `skills`
+--
+ALTER TABLE `skills`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `student_grades`
