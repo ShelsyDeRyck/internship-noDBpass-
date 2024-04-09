@@ -1,4 +1,4 @@
-<?php include('header_admin.php'); ?>
+<?php include('includes/header_admin.php'); ?>
 
         <div class="row">
             <div class="col-md text-center">
@@ -14,7 +14,7 @@
         </div>
         <div class="row m-2">
             <div class="col-md text-center">
-                <button class="bigbtn"><a href="students/students.php" class="nav-link">Cursist</a></button>
+                <button class="bigbtn"><a href="students/student.php" class="nav-link">Cursist</a></button>
             </div>
             <div class="col-md text-center">
                 <button class="bigbtn"><a href="courses/course.php" class="nav-link">Course</a></button>
@@ -32,5 +32,5 @@
         </div>
     </div>
 
-<?php include('footer.php'); ?>
+<?php include('includes/footer.php'); ?>
     
