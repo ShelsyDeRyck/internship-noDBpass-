@@ -143,6 +143,26 @@
                     console.error("No data found for the row.");
                 }
             });
+
+            $('#students-table tbody').on('click', '.export-student-btn', function() {
+                var rowData = table.row($(this).closest('tr')).data();
+                console.log(rowData);
+                if (rowData && rowData.id > 0) {
+                    var studentId = rowData.id;
+                    console.log("Student ID:", studentId);
+                    $.ajax({
+                        url: 'export_student.php',
+                        method: 'POST',
+                        data: { id: studentId },
+                        success: function(response) {
+                            // table.ajax.reload();
+                            window.open("export_student.php", '_blank');
+                        }
+                    });
+                } else {
+                    console.error("No data found for the row. (export)");
+                }
+            });
         });
     </script>
 </body>
