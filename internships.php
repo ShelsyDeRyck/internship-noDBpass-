@@ -26,7 +26,7 @@ $internships = $internship->read();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Internships</title>
+<title>Stageplaats</title>
 <!-- Bootstrap 5 CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 <!-- DataTables Bootstrap 5 CSS -->
@@ -35,20 +35,20 @@ $internships = $internship->read();
 <body>
 
 <div class="container mt-5">
-    <h2>Internships</h2>
+    <h2>Stageplaats</h2>
     <table id="internshipsTable" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Company</th>
-                <th>Address</th>
-                <th>Contact Person</th>
-                <th>Contact Phone</th>
-                <th>Contact Email</th>
+                <th>Bedrijf</th>
+                <th>Adres</th>
+                <th>Contactpersoon</th>
+                <th>Contacttelefoon</th>
+                <th>Contact E-mail</th>
                 <th>Student</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Actions</th>
+                <th>Startdatum</th>
+                <th>Einddatum</th>
+                <th>Acties</th>
             </tr>
         </thead>
         <tbody>
@@ -95,7 +95,7 @@ $(document).ready(function() {
 
         if (confirm('Are you sure you want to delete this record?')) {
             $.ajax({
-                url: 'http://localhost/Stage2024/interships.php', // Make sure this path is correct
+                url: 'http://localhost/Stage2024/internships.php', // Make sure this path is correct
                 type: 'POST',
                 dataType: 'json', // Expecting a JSON response
                 data: {
