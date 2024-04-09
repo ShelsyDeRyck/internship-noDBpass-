@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -50,7 +50,7 @@ INSERT INTO `admins` (`id`, `first_name`, `last_name`, `email`, `password`) VALU
 --
 
 CREATE TABLE `companies` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) NOT NULL,
   `address` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -62,7 +62,7 @@ CREATE TABLE `companies` (
 --
 
 CREATE TABLE `contact_person` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE `contact_person` (
 --
 
 CREATE TABLE `courses` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) NOT NULL,
   `description` text,
   `duration` varchar(50) DEFAULT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE `course_teacher` (
 --
 
 CREATE TABLE `internships` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `company_id` int(11) NOT NULL,
   `address` text NOT NULL,
   `contact_person_id` int(11) DEFAULT NULL,
@@ -133,7 +133,7 @@ CREATE TABLE `internships` (
 --
 
 CREATE TABLE `skills` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) NOT NULL,
   `type` enum('soft','hard') NOT NULL,
   `description` text
@@ -162,7 +162,7 @@ INSERT INTO `skills` (`id`, `name`, `type`, `description`) VALUES
 --
 
 CREATE TABLE `students` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -230,7 +230,7 @@ CREATE TABLE `student_grades` (
 --
 
 CREATE TABLE `teachers` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,

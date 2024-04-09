@@ -19,7 +19,7 @@ if(isset($_POST['id'])) {
     }
 
     // SQL query to delete a teacher
-    $sql = "DELETE FROM teachers WHERE docent_id = $id";
+    $sql = "DELETE FROM teachers WHERE id = $id";
 
     if ($conn->query($sql) === TRUE) {
         echo "Teacher successfully deleted";

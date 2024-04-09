@@ -84,8 +84,8 @@
 
             $('#courses-table tbody').on('click', '.edit-course-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
-                if (rowData && rowData.course_id) {
-                    $('#edit-course-id').val(rowData.course_id);
+                if (rowData && rowData.id) {
+                    $('#edit-course-id').val(rowData.id);
                     $('#edit-name').val(rowData.name);
                     $('#edit-description').val(rowData.description);
                     $('#edit-duration').val(rowData.duration);
@@ -116,13 +116,13 @@
 
             $('#courses-table tbody').on('click', '.delete-course-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
-                if (rowData && rowData.course_id) {
-                    var courseId = rowData.course_id;
-                    console.log("Course ID:", courseId);
+                if (rowData && rowData.id) {
+                    var Id = rowData.id;
+                    console.log("Course ID:", Id);
                     $.ajax({
                         url: 'delete_course.php',
                         method: 'POST',
-                        data: { id: courseId },
+                        data: { id: Id },
                         success: function(response) {
                             table.ajax.reload();
                         }

@@ -86,8 +86,8 @@
 
             $('#skills-table tbody').on('click', '.edit-skill-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
-                if (rowData && rowData.skill_id) {
-                    $('#edit-skill-id').val(rowData.skill_id);
+                if (rowData && rowData.id) {
+                    $('#edit-skill-id').val(rowData.id);
                     $('#edit-name').val(rowData.name);
                     $('#edit-type').val(rowData.type);
                     $('#edit-description').val(rowData.description);
@@ -116,13 +116,13 @@
 
             $('#skills-table tbody').on('click', '.delete-skill-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
-                if (rowData && rowData.skill_id) {
-                    var skillId = rowData.skill_id;
-                    console.log("Skill ID:", skillId);
+                if (rowData && rowData.id) {
+                    var Id = rowData.id;
+                    console.log("ID:", Id)
                     $.ajax({
                         url: 'delete_skill.php',
                         method: 'POST',
-                        data: { id: skillId },
+                        data: { id: Id },
                         success: function(response) {
                             table.ajax.reload();
                         }

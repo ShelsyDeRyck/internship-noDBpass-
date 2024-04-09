@@ -18,7 +18,7 @@ if(isset($_POST['id'])) {
     }
 
     // SQL-query voor het verwijderen van een student
-    $sql = "DELETE FROM students WHERE student_id = $id";
+    $sql = "DELETE FROM students WHERE id = $id";
 
     if ($conn->query($sql) === TRUE) {
         echo "Student successfully deleted";
