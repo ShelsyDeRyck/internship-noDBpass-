@@ -97,7 +97,7 @@
             $('#students-table tbody').on('click', '.edit-student-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
                 if (rowData && rowData.student_id) {
-                    $('#edit-student-id').val(rowData.student_id);
+                    $('#edit-id').val(rowData.id);
                     $('#edit-first_name').val(rowData.first_name);
                     $('#edit-last_name').val(rowData.last_name);
                     $('#edit-email').val(rowData.email);
@@ -120,7 +120,7 @@
                 $.ajax({
                     url: 'update_student.php',
                     method: 'POST',
-                    data: { id: studentId, first_name: first_name, last_name: last_name, email: email, date_of_birth: date_of_birth, study_year: study_year },
+                    data: { id: Id, first_name: first_name, last_name: last_name, email: email, date_of_birth: date_of_birth, study_year: study_year },
                     success: function(response) {
                         table.ajax.reload();
                         $('#edit-student-modal').hide();
@@ -130,13 +130,13 @@
 
             $('#students-table tbody').on('click', '.delete-student-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
-                if (rowData && rowData.student_id) {
-                    var studentId = rowData.student_id;
-                    console.log("Student ID:", studentId);
+                if (rowData && rowData.id) {
+                    var Id = rowData.id;
+                    console.log("Student ID:", Id);
                     $.ajax({
                         url: 'delete_student.php',
                         method: 'POST',
-                        data: { id: studentId },
+                        data: { id: Id },
                         success: function(response) {
                             table.ajax.reload();
                         }

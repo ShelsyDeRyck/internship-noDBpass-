@@ -18,10 +18,10 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">My Account</a>
+                    <a class="nav-link" aria-current="page" href="account/myaccount.php">My Account</a>
                 </li>
                 <li class="nav-item">
-                    <button><a class="nav-link" href="logout.php">Logout</a></button>
+                    <button><a class="nav-link" href="account/logout.php">Logout</a></button>
                 </li>
                 </ul>
             </div>

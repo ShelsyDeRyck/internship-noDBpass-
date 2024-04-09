@@ -18,7 +18,7 @@ if(isset($_POST['id'])) {
     }
 
     // SQL-query voor het verwijderen van een skill
-    $sql = "DELETE FROM skills WHERE skill_id = $id";
+    $sql = "DELETE FROM skills WHERE id = $id";
 
     if ($conn->query($sql) === TRUE) {
         echo "Skill succesvol verwijderd";

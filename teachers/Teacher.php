@@ -81,8 +81,8 @@
 
             $('#teachers-table tbody').on('click', '.edit-teacher-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
-                if (rowData && rowData.docent_id) {
-                    $('#edit-teacher-id').val(rowData.docent_id);
+                if (rowData && rowData.id) {
+                    $('#edit-teacher-id').val(rowData.id);
                     $('#edit-first_name').val(rowData.first_name);
                     $('#edit-last_name').val(rowData.last_name);
                     $('#edit-email').val(rowData.email);
@@ -111,13 +111,13 @@
 
             $('#teachers-table tbody').on('click', '.delete-teacher-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
-                if (rowData && rowData.docent_id) {
-                    var teacherId = rowData.docent_id;
-                    console.log("Teacher ID:", teacherId);
+                if (rowData && rowData.id) {
+                    var Id = rowData.id;
+                    console.log("Teacher ID:", Id);
                     $.ajax({
                         url: 'delete_teacher.php',
                         method: 'POST',
-                        data: { id: teacherId },
+                        data: { id: Id },
                         success: function(response) {
                             table.ajax.reload();
                         }
