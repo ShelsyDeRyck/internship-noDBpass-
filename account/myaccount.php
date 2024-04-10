@@ -2,15 +2,16 @@
 session_start();
 require_once '../db_connect.php'; // Database connection
 
-// Check if the user is logged in as a teacher
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'teacher') {
-    // If the user is not logged in as a teacher, redirect them to the login page
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // If the user is not logged in, redirect them to the login page
     header("Location: ../index.php");
     exit();
 }
 
-// Fetch the teacher ID from the session
-$teacher_id = $_SESSION['user_id'];
+// Fetch the user ID and type from the session
+$user_id = $_SESSION['user_id'];
+$user_type = $_SESSION['user_type'];
 
 // Controleer of het verzoek een POST-verzoek is
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -23,23 +24,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Controleer of het nieuwe wachtwoord overeenkomt met het bevestigde wachtwoord
         if ($new_password === $confirm_password) {
-            // Haal het opgeslagen wachtwoord op uit de database
-            $stmt = $pdo->prepare("SELECT password FROM teachers WHERE id = ?");
-            $stmt->execute([$teacher_id]);
+            // Haal het opgeslagen wachtwoord op uit de database op basis van gebruikerstype
+            $table_name = ($user_type === 'teacher') ? 'teachers' : 'admins';
+            $stmt = $pdo->prepare("SELECT password FROM $table_name WHERE id = ?");
+            $stmt->execute([$user_id]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($result) {
                 // Verifieer het huidige wachtwoord
                 if ($current_password === $result['password']) {
                     // Wijzig het wachtwoord
-                    $update_stmt = $pdo->prepare("UPDATE teachers SET password = ? WHERE id = ?");
-                    $update_stmt->execute([$new_password, $teacher_id]);
+                    $update_stmt = $pdo->prepare("UPDATE $table_name SET password = ? WHERE id = ?");
+                    $update_stmt->execute([$new_password, $user_id]);
                     echo "Wachtwoord succesvol gewijzigd.";
                 } else {
                     echo "Huidig wachtwoord is onjuist.";
                 }
             } else {
-                echo "Docent niet gevonden.";
+                echo "$user_type niet gevonden.";
             }
         } else {
             echo "Nieuwe wachtwoorden komen niet overeen.";
