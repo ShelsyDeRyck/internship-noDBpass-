@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,7 +69,7 @@ $(document).ready(function(){
   <div class="toast-body">
   
   </div>
-</div>
+
 
 
 

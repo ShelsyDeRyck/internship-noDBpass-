@@ -8,7 +8,9 @@
     <?php include ('../includes/bootstrap.php'); ?>
 </head>
 <body>
+    <?php include('../includes/navbar_admin.php'); ?>
 <?php include('../includes/navbar_admin.php'); ?>
+
     <h1>Studenten beheren</h1>
 
     <button id="add-student-btn">Student Toevoegen</button>
@@ -36,6 +38,18 @@
         <input type="number" id="study_year" placeholder="Studiejaar"><br>
         <button id="submit-student-btn">Toevoegen</button>
     </div>
+    
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-header">
+            <strong class="mr-auto">Notification</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <!-- Toast Message -->
+        </div>
+    </div>
 
     <!-- Modaal venster voor student bewerken -->
     <div id="edit-student-modal" style="display: none;">
@@ -50,6 +64,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -78,22 +93,35 @@
             });
 
             $('#submit-student-btn').on('click', function() {
-                var first_name = $('#first_name').val();
-                var last_name = $('#last_name').val();
-                var email = $('#email').val();
-                var date_of_birth = $('#date_of_birth').val();
-                var study_year = $('#study_year').val();
+    var first_name = $('#first_name').val();
+    var last_name = $('#last_name').val();
+    var email = $('#email').val();
+    var date_of_birth = $('#date_of_birth').val();
+    var study_year = $('#study_year').val();
 
-                $.ajax({
-                    url: 'add_student.php',
-                    method: 'POST',
-                    data: { first_name: first_name, last_name: last_name, email: email, date_of_birth: date_of_birth, study_year: study_year },
-                    success: function(response) {
-                        table.ajax.reload();
-                        $('#add-student-modal').hide();
-                    }
-                });
-            });
+    // Check if all fields are filled
+    if (first_name.trim() === '' || last_name.trim() === '' || email.trim() === '' || date_of_birth.trim() === '' || study_year.trim() === '') {
+        showToast("vull alle informatie van de student in.");
+        return;
+    }
+
+    $.ajax({
+        url: 'add_student.php',
+        method: 'POST',
+        data: { first_name: first_name, last_name: last_name, email: email, date_of_birth: date_of_birth, study_year: study_year },
+        success: function(response) {
+            table.ajax.reload();
+            $('#add-student-modal').hide();
+            showToast("Student is toegevoegd.");
+        }
+    });
+});
+
+function showToast(message) {
+    $('.toast-body').text(message);
+    $('.toast').toast('show');
+}
+
 
             $('#students-table tbody').on('click', '.edit-student-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
