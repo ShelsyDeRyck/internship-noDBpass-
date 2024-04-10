@@ -181,15 +181,21 @@ function showToast(message) {
                 if (rowData && rowData.id > 0) {
                     var studentId = rowData.id;
                     console.log("Student ID:", studentId);
+
                     $.ajax({
-                        url: 'export_student.php',
-                        method: 'POST',
-                        data: { id: studentId },
-                        success: function(response) {
-                            // table.ajax.reload();
-                            window.open("export_student.php", '_blank');
-                        }
-                    });
+                            url: 'start_session.php',
+                            method: 'POST',
+                            data: { id: studentId },
+                            success: function(response) {
+                                console.log("Session started successfully");
+                                
+                                window.open("export_student.php", '_blank');
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error starting session:", error);
+                            }
+                        });
+                    
                 } else {
                     console.error("No data found for the row. (export)");
                 }

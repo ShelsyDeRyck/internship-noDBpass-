@@ -69,6 +69,10 @@ $(document).ready(function(){
   <div class="toast-body">
   
   </div>
-</div>
+
+
+
+
+
 
 <?php include('includes/footer.php'); ?>
