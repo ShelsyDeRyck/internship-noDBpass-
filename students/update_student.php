@@ -23,11 +23,11 @@ if ($conn) {
             $study_year = $_POST["study_year"];
 
             // Prepare UPDATE statement
-            $sql = "UPDATE students SET first_name=?, last_name=?, email=?, date_of_birth=?, study_year=? WHERE student_id=?";
+            $sql = "UPDATE students SET first_name=?, last_name=?, email=?, date_of_birth=?, study_year=? WHERE id=?";
 
             // Prepare and bind parameters
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssssii", $first_name, $last_name, $email, $date_of_birth, $study_year, $student_id);
+            $stmt->bind_param("ssssii", $first_name, $last_name, $email, $date_of_birth, $study_year, $id);
 
             // Execute the statement
             if ($stmt->execute()) {

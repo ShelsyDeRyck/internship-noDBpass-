@@ -22,11 +22,11 @@ if ($conn) {
             $location = $_POST["location"];
 
             // Prepare UPDATE statement
-            $sql = "UPDATE courses SET name=?, description=?, duration=?, location=? WHERE course_id=?";
+            $sql = "UPDATE courses SET name=?, description=?, duration=?, location=? WHERE id=?";
 
             // Prepare and bind parameters
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssssi", $name, $description, $duration, $location, $course_id);
+            $stmt->bind_param("ssssi", $name, $description, $duration, $location, $id);
 
             // Execute the statement
             if ($stmt->execute()) {

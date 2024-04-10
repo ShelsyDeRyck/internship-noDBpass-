@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $description = $_POST['description'];
 
         // SQL-query om de vaardigheid bij te werken
-        $sql = "UPDATE skills SET name = ?, type = ?, description = ? WHERE skill_id = ?";
+        $sql = "UPDATE skills SET name = ?, type = ?, description = ? WHERE id = ?";
 
         // Bereid de SQL-query voor uitvoering
         $stmt = $conn->prepare($sql);
