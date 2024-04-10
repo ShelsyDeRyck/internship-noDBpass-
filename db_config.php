@@ -4,7 +4,7 @@
 $host = 'localhost'; // Database host (e.g., localhost)
 $dbname = 'educational_center'; // Database name
 $username = 'root'; // Database username
-$password = 'obama'; // Database password
+$password = 'root'; // Database password
 
 // Attempt to create a PDO instance
 try {
