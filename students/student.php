@@ -17,7 +17,7 @@
         <table id="studentsTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th style="display: none;">ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
@@ -35,7 +35,6 @@
     <!-- Bootstrap Modal for Edit Student -->
     <div id="edit-student-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-            <!-- Modal content -->
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Edit Student</h4>
@@ -80,7 +79,6 @@
     <!-- Bootstrap Modal for Add Student -->
     <div id="add-student-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-            <!-- Modal content -->
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Add Student</h4>
@@ -121,6 +119,7 @@
             </div>
         </div>
     </div>
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap 5 JS Bundle with Popper -->
@@ -129,6 +128,7 @@
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <!-- DataTables Bootstrap 5 JS -->
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+
     <script>
         $(document).ready(function() {
             var table = $('#studentsTable').DataTable({
@@ -137,7 +137,7 @@
                     dataSrc: ""
                 },
                 columns: [
-                    { data: "id" },
+                    { data: "id", visible: false }, // Hide ID column
                     { data: "first_name" },
                     { data: "last_name" },
                     { data: "email" },
@@ -239,7 +239,7 @@
             });
         });
     </script>
+
     <?php include('../includes/footer.php'); ?>
 </body>
 </html>
-
