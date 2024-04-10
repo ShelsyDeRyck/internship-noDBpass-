@@ -12,8 +12,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Query to fetch skill data
-$sql = "SELECT * FROM skills";
+// Query to fetch only active skills
+$sql = "SELECT * FROM skills WHERE status = 'active'";
 $result = $conn->query($sql);
 
 // Array initialization for skill data
