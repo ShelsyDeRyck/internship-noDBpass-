@@ -1,42 +1,36 @@
-
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Studenten beheren</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-    <?php include ('../includes/bootstrap.php'); ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students</title>
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <!-- DataTables Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
 </head>
 <body>
     <?php include('../includes/navbar_admin.php'); ?>
-<?php include('../includes/navbar_admin.php'); ?>
-
-    <h1>Studenten beheren</h1>
-
-    <button id="add-student-btn">Student Toevoegen</button>
-
-    <table id="students-table" class="display">
-        <thead>
-            <tr>
-                <th>Voornaam</th>
-                <th>Achternaam</th>
-                <th>Email</th>
-                <th>Geboortedatum</th>
-                <th>Studiejaar</th>
-                <th>Acties</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
-    <!-- Modaal venster voor student toevoegen -->
-    <div id="add-student-modal" style="display: none;">
-        <input type="text" id="first_name" placeholder="Voornaam"><br>
-        <input type="text" id="last_name" placeholder="Achternaam"><br>
-        <input type="email" id="email" placeholder="Email"><br>
-        <input type="date" id="date_of_birth" placeholder="Geboortedatum"><br>
-        <input type="number" id="study_year" placeholder="Studiejaar"><br>
-        <button id="submit-student-btn">Toevoegen</button>
+    <div class="container mt-5">
+        <h2>Students</h2>
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add-student-modal">Add Student</button>
+        <table id="studentsTable" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Date of Birth</th>
+                    <th>Study Year</th>
+                    <th>Course ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be populated dynamically through JavaScript -->
+            </tbody>
+        </table>
     </div>
     
     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
@@ -50,39 +44,123 @@
             <!-- Toast Message -->
         </div>
     </div>
-
-    <!-- Modaal venster voor student bewerken -->
-    <div id="edit-student-modal" style="display: none;">
-        <input type="hidden" id="edit-student-id">
-        <input type="text" id="edit-first_name" placeholder="Voornaam"><br>
-        <input type="text" id="edit-last_name" placeholder="Achternaam"><br>
-        <input type="email" id="edit-email" placeholder="Email"><br>
-        <input type="date" id="edit-date_of_birth" placeholder="Geboortedatum"><br>
-        <input type="number" id="edit-study_year" placeholder="Studiejaar"><br>
-        <button id="update-student-btn">Bijwerken</button>
+    <!-- Bootstrap Modal for Edit Student -->
+    <div id="edit-student-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Student</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-student-form">
+                        <input type="hidden" id="edit-student-id">
+                        <div class="form-group">
+                            <label for="edit-first-name">First Name:</label>
+                            <input type="text" class="form-control" id="edit-first-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-last-name">Last Name:</label>
+                            <input type="text" class="form-control" id="edit-last-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-email">Email:</label>
+                            <input type="email" class="form-control" id="edit-email">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-date_of_birth">Date of Birth:</label>
+                            <input type="date" class="form-control" id="edit-date_of_birth">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-study-year">Study Year:</label>
+                            <input type="text" class="form-control" id="edit-study-year">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-course-id">Course ID:</label>
+                            <input type="text" class="form-control" id="edit-course-id">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="update-student-btn">Update</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
-
+    <!-- Bootstrap Modal for Add Student -->
+    <div id="add-student-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Student</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-student-form">
+                        <div class="form-group">
+                            <label for="add-first-name">First Name:</label>
+                            <input type="text" class="form-control" id="add-first-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="add-last-name">Last Name:</label>
+                            <input type="text" class="form-control" id="add-last-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="add-email">Email:</label>
+                            <input type="email" class="form-control" id="add-email">
+                        </div>
+                        <div class="form-group">
+                            <label for="add-date_of_birth">Date of Birth:</label>
+                            <input type="date" class="form-control" id="add-date_of_birth">
+                        </div>
+                        <div class="form-group">
+                            <label for="add-study-year">Study Year:</label>
+                            <input type="text" class="form-control" id="add-study-year">
+                        </div>
+                        <div class="form-group">
+                            <label for="add-course-id">Course ID:</label>
+                            <input type="text" class="form-control" id="add-course-id">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="add-student-btn">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables Bootstrap 5 JS -->
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
-            var table = $('#students-table').DataTable({
+            var table = $('#studentsTable').DataTable({
                 ajax: {
-                    url: "get_students.php",
+                    url: "get_students.php", // Endpoint to fetch students data
                     dataSrc: ""
                 },
                 columns: [
+                    { data: "id" },
                     { data: "first_name" },
                     { data: "last_name" },
                     { data: "email" },
                     { data: "date_of_birth" },
                     { data: "study_year" },
+                    { data: "course_id" },
                     { 
-                        data: null, 
+                        data: null,
                         render: function(data, type, row) {
-                            return "<button class='edit-student-btn'>Bewerken</button> <button class='delete-student-btn'>Verwijderen</button>";
+                            return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
+                                '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>';
                         }
                     }
                 ]
@@ -125,49 +203,57 @@ function showToast(message) {
 
             $('#students-table tbody').on('click', '.edit-student-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
-                if (rowData && rowData.student_id) {
-                    $('#edit-id').val(rowData.id);
-                    $('#edit-first_name').val(rowData.first_name);
-                    $('#edit-last_name').val(rowData.last_name);
+                if (rowData && rowData.id) {
+                    $('#edit-student-id').val(rowData.id);
+                    $('#edit-first-name').val(rowData.first_name);
+                    $('#edit-last-name').val(rowData.last_name);
                     $('#edit-email').val(rowData.email);
                     $('#edit-date_of_birth').val(rowData.date_of_birth);
-                    $('#edit-study_year').val(rowData.study_year);
-                    $('#edit-student-modal').show();
+                    $('#edit-study-year').val(rowData.study_year);
+                    $('#edit-course-id').val(rowData.course_id);
+                    $('#edit-student-modal').modal('show');
                 } else {
                     console.error("No data found for the row.");
                 }
             });
 
+            // Handle update student button click
             $('#update-student-btn').on('click', function() {
-                var studentId = $('#edit-student-id').val();
-                var first_name = $('#edit-first_name').val();
-                var last_name = $('#edit-last_name').val();
+                var id = $('#edit-student-id').val();
+                var firstName = $('#edit-first-name').val();
+                var lastName = $('#edit-last-name').val();
                 var email = $('#edit-email').val();
                 var date_of_birth = $('#edit-date_of_birth').val();
-                var study_year = $('#edit-study_year').val();
+                var studyYear = $('#edit-study-year').val();
+                var courseId = $('#edit-course-id').val();
 
                 $.ajax({
                     url: 'update_student.php',
                     method: 'POST',
-                    data: { id: Id, first_name: first_name, last_name: last_name, email: email, date_of_birth: date_of_birth, study_year: study_year },
+                    data: { id: id, first_name: firstName, last_name: lastName, email: email, date_of_birth: date_of_birth, study_year: studyYear, course_id: courseId },
                     success: function(response) {
+                        $('#edit-student-modal').modal('hide');
                         table.ajax.reload();
-                        $('#edit-student-modal').hide();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error updating student:", error);
                     }
                 });
             });
 
-            $('#students-table tbody').on('click', '.delete-student-btn', function() {
-                var rowData = table.row($(this).closest('tr')).data();
-                if (rowData && rowData.id) {
-                    var Id = rowData.id;
-                    console.log("Student ID:", Id);
+            // Handle delete button click
+            $('#studentsTable tbody').on('click', '.delete-btn', function() {
+                var studentId = $(this).data('id');
+                if (studentId) {
                     $.ajax({
                         url: 'delete_student.php',
                         method: 'POST',
-                        data: { id: Id },
+                        data: { id: studentId },
                         success: function(response) {
                             table.ajax.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error deleting student:", error);
                         }
                     });
                 } else {
@@ -175,32 +261,31 @@ function showToast(message) {
                 }
             });
 
-            $('#students-table tbody').on('click', '.export-student-btn', function() {
-                var rowData = table.row($(this).closest('tr')).data();
-                console.log(rowData);
-                if (rowData && rowData.id > 0) {
-                    var studentId = rowData.id;
-                    console.log("Student ID:", studentId);
+            // Handle add student button click
+            $('#add-student-btn').on('click', function() {
+                var firstName = $('#add-first-name').val();
+                var lastName = $('#add-last-name').val();
+                var email = $('#add-email').val();
+                var date_of_birth = $('#add-date_of_birth').val();
+                var studyYear = $('#add-study-year').val();
+                var courseId = $('#add-course-id').val();
 
-                    $.ajax({
-                            url: 'start_session.php',
-                            method: 'POST',
-                            data: { id: studentId },
-                            success: function(response) {
-                                console.log("Session started successfully");
-                                
-                                window.open("export_student.php", '_blank');
-                            },
-                            error: function(xhr, status, error) {
-                                console.error("Error starting session:", error);
-                            }
-                        });
-                    
-                } else {
-                    console.error("No data found for the row. (export)");
-                }
+                $.ajax({
+                    url: 'add_student.php',
+                    method: 'POST',
+                    data: { first_name: firstName, last_name: lastName, email: email, date_of_birth: date_of_birth, study_year: studyYear, course_id: courseId },
+                    success: function(response) {
+                        $('#add-student-modal').modal('hide');
+                        table.ajax.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error adding student:", error);
+                    }
+                });
             });
         });
     </script>
+    <?php include('../includes/footer.php'); ?>
+</body>
+</html>
 
-<?php include ('../includes/footer.php'); ?>
