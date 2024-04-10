@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 03, 2024 at 01:16 PM
+-- Generation Time: Apr 09, 2024 at 08:57 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.0
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -50,10 +50,26 @@ INSERT INTO `admins` (`id`, `first_name`, `last_name`, `email`, `password`) VALU
 --
 
 CREATE TABLE `companies` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) NOT NULL,
   `address` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `companies`
+--
+
+INSERT INTO `companies` (`id`, `name`, `address`) VALUES
+(1, 'Innovatech BVBA', 'Kerkstraat 108, 9050 Gentbrugge'),
+(2, 'Techlogix NV', 'Grensstraat 45, 3010 Kessel-Lo'),
+(3, 'DevSolutions CVBA', 'Stationsstraat 32, 1700 Dilbeek'),
+(4, 'NetCorp SA', 'Rue de l’Industrie 25, 1040 Etterbeek'),
+(5, 'Dataflow BVBA', 'Veldkant 33, 2550 Kontich'),
+(6, 'CloudNetics NV', 'Dendermondestraat 44, 2018 Antwerpen'),
+(7, 'GreenTech Solutions CVBA', 'Rue du Commerce 67, 1000 Bruxelles'),
+(8, 'Codenomic SA', 'Wetstraat 1, 1040 Etterbeek'),
+(9, 'Logiware BVBA', 'Avenue des Arts 3, 1210 Saint-Josse-ten-Noode'),
+(10, 'ThinkBig NV', 'Boulevard du Régent 47, 1000 Bruxelles');
 
 -- --------------------------------------------------------
 
@@ -62,12 +78,29 @@ CREATE TABLE `companies` (
 --
 
 CREATE TABLE `contact_person` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `phone` varchar(20) NOT NULL
+  `phone` varchar(20) NOT NULL,
+  `company_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `contact_person`
+--
+
+INSERT INTO `contact_person` (`id`, `first_name`, `last_name`, `email`, `phone`, `company_id`) VALUES
+(1, 'Pieter', 'De Smet', 'pieter.desmet@innovatech.be', '0486 12 34 56', 1),
+(2, 'Eva', 'Janssens', 'eva.janssens@techlogix.be', '0485 23 45 67', 2),
+(3, 'Tom', 'Willems', 'tom.willems@devsolutions.be', '0475 34 56 78', 3),
+(4, 'Lara', 'Peeters', 'lara.peeters@netcorp.be', '0466 45 67 89', 4),
+(5, 'Simon', 'Maes', 'simon.maes@dataflow.be', '0477 56 78 90', 5),
+(6, 'Emma', 'Claes', 'emma.claes@cloudnetics.be', '0488 65 78 91', 6),
+(7, 'Noah', 'Van Dyck', 'noah.vandyck@greentech.be', '0499 76 89 02', 7),
+(8, 'Louise', 'Hermans', 'louise.hermans@codenomic.be', '0487 87 90 12', 8),
+(9, 'Lucas', 'Martens', 'lucas.martens@logiware.be', '0486 98 01 23', 9),
+(10, 'Zoë', 'Jacobs', 'zoe.jacobs@thinkbig.be', '0475 09 12 34', 10);
 
 -- --------------------------------------------------------
 
@@ -76,7 +109,7 @@ CREATE TABLE `contact_person` (
 --
 
 CREATE TABLE `courses` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) NOT NULL,
   `description` text,
   `duration` varchar(50) DEFAULT NULL,
@@ -106,7 +139,7 @@ INSERT INTO `courses` (`id`, `name`, `description`, `duration`, `location`) VALU
 --
 
 CREATE TABLE `course_teacher` (
-  `course_id` int(11) NOT NULL, 
+  `course_id` int(11) NOT NULL,
   `teacher_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -117,7 +150,7 @@ CREATE TABLE `course_teacher` (
 --
 
 CREATE TABLE `internships` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `company_id` int(11) NOT NULL,
   `address` text NOT NULL,
   `contact_person_id` int(11) DEFAULT NULL,
@@ -126,6 +159,21 @@ CREATE TABLE `internships` (
   `end_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `internships`
+--
+
+INSERT INTO `internships` (`id`, `company_id`, `address`, `contact_person_id`, `student_id`, `start_date`, `end_date`) VALUES
+(1, 1, 'Kerkstraat 108, 9050 Gentbrugge', 1, 1, '2024-05-01', '2024-08-01'),
+(2, 2, 'Grensstraat 45, 3010 Kessel-Lo', 2, 2, '2024-05-15', '2024-08-15'),
+(3, 3, 'Stationsstraat 32, 1700 Dilbeek', 3, 3, '2024-06-01', '2024-09-01'),
+(4, 4, 'Rue de l’Industrie 25, 1040 Etterbeek', 4, 4, '2024-06-15', '2024-09-15'),
+(5, 5, 'Veldkant 33, 2550 Kontich', 5, 5, '2024-07-01', '2024-10-01'),
+(6, 6, 'Dendermondestraat 44, 2018 Antwerpen', 6, 6, '2024-07-15', '2024-10-15'),
+(7, 7, 'Rue du Commerce 67, 1000 Bruxelles', 7, 7, '2024-08-01', '2024-11-01'),
+(8, 8, 'Wetstraat 1, 1040 Etterbeek', 8, 8, '2024-08-15', '2024-11-15'),
+(9, 9, 'Avenue des Arts 3, 1210 Saint-Josse-ten-Noode', 9, 9, '2024-09-01', '2024-12-01');
+
 -- --------------------------------------------------------
 
 --
@@ -133,7 +181,7 @@ CREATE TABLE `internships` (
 --
 
 CREATE TABLE `skills` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) NOT NULL,
   `type` enum('soft','hard') NOT NULL,
   `description` text
@@ -162,7 +210,7 @@ INSERT INTO `skills` (`id`, `name`, `type`, `description`) VALUES
 --
 
 CREATE TABLE `students` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -204,7 +252,7 @@ INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `course_id`, `
 --
 
 CREATE TABLE `student_course` (
-  `student_id` int(11) NOT NULL, 
+  `student_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -215,7 +263,7 @@ CREATE TABLE `student_course` (
 --
 
 CREATE TABLE `student_grades` (
-  `grade_id` int(11) NOT NULL, 
+  `grade_id` int(11) NOT NULL,
   `student_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
   `teacher_id` int(11) DEFAULT NULL,
@@ -230,7 +278,7 @@ CREATE TABLE `student_grades` (
 --
 
 CREATE TABLE `teachers` (
-  `id` int(11) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -269,7 +317,8 @@ ALTER TABLE `companies`
 -- Indexes for table `contact_person`
 --
 ALTER TABLE `contact_person`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_company_id` (`company_id`);
 
 --
 -- Indexes for table `courses`
@@ -299,8 +348,7 @@ ALTER TABLE `internships`
 --
 ALTER TABLE `skills`
   ADD PRIMARY KEY (`id`);
-  MODIFY skill_id INT AUTO_INCREMENT PRIMARY KEY;
-
+  MODIFY skill_id INT AUTO_INCREMENT PRIMARY KEY; 
 --
 -- Indexes for table `students`
 --
@@ -341,43 +389,43 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `contact_person`
 --
 ALTER TABLE `contact_person`
-  MODIFY `contact_person_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;  
 
 --
 -- AUTO_INCREMENT for table `internships`
 --
 ALTER TABLE `internships`
-  MODIFY `internship_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `skill_id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `student_grades`
@@ -388,6 +436,12 @@ ALTER TABLE `student_grades`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `contact_person`
+--
+ALTER TABLE `contact_person`
+  ADD CONSTRAINT `fk_company_id` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
 
 --
 -- Constraints for table `course_teacher`

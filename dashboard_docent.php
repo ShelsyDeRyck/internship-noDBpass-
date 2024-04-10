@@ -1,4 +1,4 @@
-<?php include('header_docent.php'); ?>
+<?php include('includes/header_docent.php'); ?>
 
         <div class="row">
             <div class="col-md text-center">
@@ -9,8 +9,9 @@
         <hr>
         <div class="row m-2">
             <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Algemeen overzicht</a></button>
+                <button class="bigbtn"><a href="internship.php" class="nav-link">Stageplaatsen</a></button>
             </div>
+            
         </div>
         <div class="row m-2">
             <div class="col-md text-center">
@@ -21,15 +22,7 @@
             </div>
             
         </div>
-        <div class="row m-2">
-            <div class="col-md text-center">
-                <button class="bigbtn"><a href="admin.php" class="nav-link">Docent</a></button>
-            </div>
-            <div class="col-md text-center">
-                <button class="bigbtn"><a href="internship.php" class="nav-link">Stageplaats</a></button>
-            </div>
-            
-        </div>
+       
     </div>
 
-<?php include('footer.php'); ?>
+<?php include('includes/footer.php'); ?>

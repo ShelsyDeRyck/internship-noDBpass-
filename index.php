@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stage2024</title>
     <link rel="stylesheet" href="styles/index.css">
-    <?php include('bootstrap.php'); ?>
+    <?php include('includes/bootstrap.php'); ?>
 </head>
 <body>
 <div class="container-fluid">
@@ -75,4 +76,4 @@ $(document).ready(function(){
 
 
 
-<?php include('footer.php'); ?>
+<?php include('includes/footer.php'); ?>

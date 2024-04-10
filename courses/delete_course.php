@@ -18,7 +18,7 @@ if(isset($_POST['id'])) {
     }
 
     // SQL-query voor het verwijderen van een cursus
-    $sql = "DELETE FROM courses WHERE course_id = $id";
+    $sql = "DELETE FROM courses WHERE id = $id";
 
     if ($conn->query($sql) === TRUE) {
         echo "Cursus succesvol verwijderd";
