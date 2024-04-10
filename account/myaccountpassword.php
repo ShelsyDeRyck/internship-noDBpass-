@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container">
         <h1>My Account</h1>
-        <form action="myaccount.php" method="POST">
+        <form action="myaccountpassword.php" method="POST">
             <div class="form-group">
                 <label for="current_password">Huidig wachtwoord:</label>
                 <input type="password" id="current_password" name="current_password" required>
