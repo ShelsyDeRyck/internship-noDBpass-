@@ -1,4 +1,4 @@
-<?php include('../includes/navbar_admin.php'); ?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -8,6 +8,7 @@
     <?php include ('../includes/bootstrap.php'); ?>
 </head>
 <body>
+<?php include('../includes/navbar_admin.php'); ?>
     <h1>Studenten beheren</h1>
 
     <button id="add-student-btn">Student Toevoegen</button>

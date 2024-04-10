@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Docent Dashboard</title>
-    <link rel="stylesheet" href="styles/docent.css">
+    <link rel="stylesheet" href="styles/admin.css">
     
     <?php include ('bootstrap.php'); ?>
 </head>
@@ -21,7 +21,7 @@
                     <a class="nav-link" aria-current="page" href="account/myaccount.php">My Account</a>
                 </li>
                 <li class="nav-item">
-                    <button><a class="nav-link" href="account/logout.php">Logout</a></button>
+                    <button><a class="nav-link" href="logout.php">Logout</a></button>
                 </li>
                 </ul>
             </div>
