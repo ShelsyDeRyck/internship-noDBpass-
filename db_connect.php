@@ -2,7 +2,7 @@
 // Database connection parameters
 $servername = "localhost";
 $username = "root";
-$password = "obama";
+$password = "root";
 $dbname = "educational_center";
 
 // Create connection
