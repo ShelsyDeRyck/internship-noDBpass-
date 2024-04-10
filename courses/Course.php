@@ -1,4 +1,3 @@
-<?php include('../includes/navbar_admin.php'); ?>
 
 <!DOCTYPE html>
 <html lang="EN">
@@ -9,6 +8,8 @@
     <?php include ('../includes/bootstrap.php'); ?>
 </head>
 <body>
+    <?php include('../includes/navbar_admin.php'); ?>
+
     <h1>Cursussen beheren</h1>
 
     <button id="add-course-btn">Cursus Toevoegen</button>
