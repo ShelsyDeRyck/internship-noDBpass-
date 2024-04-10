@@ -17,7 +17,7 @@ if(isset($_POST['id']) && isset($_POST['first_name']) && isset($_POST['last_name
     $email = $_POST['email'];
 
     // Voorbereiden van de SQL-query om de docent bij te werken
-    $sql = "UPDATE teachers SET first_name=?, last_name=?, email=? WHERE docent_id=?";
+    $sql = "UPDATE teachers SET first_name=?, last_name=?, email=? WHERE id=?";
 
     // Voorbereiden van de statement
     $stmt = $conn->prepare($sql);
