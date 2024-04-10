@@ -7,11 +7,7 @@
             </div>
         </div>
         <hr>
-        <div class="row m-2">
-            <div class="col-md text-center">
-                <button class="bigbtn"><a href="internships/internships_admin.php" class="nav-link">Stageplaatsen</a></button>
-            </div>
-        </div>
+        
         <div class="row m-2">
             <div class="col-md text-center">
                 <button class="bigbtn"><a href="students/student.php" class="nav-link">Cursist</a></button>
@@ -20,6 +16,11 @@
                 <button class="bigbtn"><a href="courses/course.php" class="nav-link">Course</a></button>
             </div>
             
+        </div>
+        <div class="row m-2">
+            <div class="col-md text-center">
+                <button class="bigbtn"><a href="internships/internships_admin.php" class="nav-link">Stageplaatsen</a></button>
+            </div>
         </div>
         <div class="row m-2">
             <div class="col-md text-center">
