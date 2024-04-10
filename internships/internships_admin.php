@@ -33,7 +33,7 @@ $internships = $internship->read();
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
 </head>
 <body>
-<?php include('includes/navbar_admin.php'); ?>
+<?php include('../includes/navbar_admin.php'); ?>
 <div class="container mt-5">
     <h2>Stageplaats</h2>
     <table id="internshipsTable" class="table table-striped table-bordered" style="width:100%">
