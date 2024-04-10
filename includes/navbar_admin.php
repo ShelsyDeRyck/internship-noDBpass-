@@ -13,7 +13,7 @@
       <li class="nav-item"><a class="nav-link" href="../courses/course.php">Courses</a></li>
       <li class="nav-item"><a class="nav-link" href="../teachers/teacher.php">Docenten</a></li>
       <li class="nav-item"><a class="nav-link" href="../skills/skills.php">Skills</a></li>
-      <li class="nav-item"><a class="nav-link" href="../Internship.php">Stageplaatsen</a></li>
+      <li class="nav-item"><a class="nav-link" href="../internships/Internships_admin.php">Stageplaatsen</a></li>
     </ul>
   </div>
   

@@ -1,142 +1,221 @@
-
 <!DOCTYPE html>
-<html lang="EN">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Cursussen beheren</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-    <?php include ('../includes/bootstrap.php'); ?>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Courses</title>
+<!-- Bootstrap 5 CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+<!-- DataTables Bootstrap 5 CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
 </head>
 <body>
-    <?php include('../includes/navbar_admin.php'); ?>
-
-    <h1>Cursussen beheren</h1>
-
-    <button id="add-course-btn">Cursus Toevoegen</button>
-
-    <table id="courses-table" class="display">
+<?php include('../includes/navbar_admin.php'); ?>
+<div class="container mt-5">
+    <h2>Courses</h2>
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add-course-modal">Add Course</button>
+    <table id="coursesTable" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>Naam</th>
-                <th>Beschrijving</th>
-                <th>Duur</th>
-                <th>Locatie</th>
-                <th>Acties</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Duration</th>
+                <th>Location</th>
+                <th>Actions</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+            <!-- Data will be populated dynamically through JavaScript -->
+        </tbody>
     </table>
-
-    <!-- Modaal venster voor cursus toevoegen -->
-    <div id="add-course-modal" style="display: none;">
-        <input type="text" id="name" placeholder="Naam"><br>
-        <input type="text" id="description" placeholder="Beschrijving"><br>
-        <input type="text" id="duration" placeholder="Duur"><br>
-        <input type="text" id="location" placeholder="Locatie"><br>
-        <button id="submit-course-btn">Toevoegen</button>
+</div>
+<!-- Bootstrap Modal for Edit Course -->
+<div id="edit-course-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Course</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-course-form">
+                    <input type="hidden" id="edit-course-id">
+                    <div class="form-group">
+                        <label for="edit-name">Name:</label>
+                        <input type="text" class="form-control" id="edit-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-description">Description:</label>
+                        <textarea class="form-control" id="edit-description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-duration">Duration:</label>
+                        <input type="text" class="form-control" id="edit-duration">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-location">Location:</label>
+                        <input type="text" class="form-control" id="edit-location">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="update-course-btn">Update</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-
-    <!-- Modaal venster voor cursus bewerken -->
-    <div id="edit-course-modal" style="display: none;">
-        <input type="hidden" id="edit-course-id">
-        <input type="text" id="edit-name" placeholder="Naam"><br>
-        <input type="text" id="edit-description" placeholder="Beschrijving"><br>
-        <input type="text" id="edit-duration" placeholder="Duur"><br>
-        <input type="text" id="edit-location" placeholder="Locatie"><br>
-        <button id="update-course-btn">Bijwerken</button>
+</div>
+<!-- Bootstrap Modal for Add Course -->
+<div id="add-course-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Course</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-course-form">
+                    <div class="form-group">
+                        <label for="add-name">Name:</label>
+                        <input type="text" class="form-control" id="add-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-description">Description:</label>
+                        <textarea class="form-control" id="add-description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-duration">Duration:</label>
+                        <input type="text" class="form-control" id="add-duration">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-location">Location:</label>
+                        <input type="text" class="form-control" id="add-location">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="add-course-btn">Add</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap 5 JS Bundle with Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<!-- DataTables Bootstrap 5 JS -->
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            var table = $('#courses-table').DataTable({
-                ajax: {
-                    url: "get_courses.php",
-                    dataSrc: ""
-                },
-                columns: [
-                    { data: "name" },
-                    { data: "description" },
-                    { data: "duration" },
-                    { data: "location" },
-                    { data: null, defaultContent: "<button class='edit-course-btn'>Bewerken</button> <button class='delete-course-btn'>Verwijderen</button>" }
-                ]
-            });
-
-            $('#add-course-btn').on('click', function() {
-                $('#add-course-modal').show();
-            });
-
-            $('#submit-course-btn').on('click', function() {
-                var name = $('#name').val();
-                var description = $('#description').val();
-                var duration = $('#duration').val();
-                var location = $('#location').val();
-
-                $.ajax({
-                    url: 'add_course.php',
-                    method: 'POST',
-                    data: { name: name, description: description, duration: duration, location: location },
-                    success: function(response) {
-                        table.ajax.reload();
-                        $('#add-course-modal').hide();
-                    }
-                });
-            });
-
-            $('#courses-table tbody').on('click', '.edit-course-btn', function() {
-                var rowData = table.row($(this).closest('tr')).data();
-                if (rowData && rowData.id) {
-                    $('#edit-course-id').val(rowData.id);
-                    $('#edit-name').val(rowData.name);
-                    $('#edit-description').val(rowData.description);
-                    $('#edit-duration').val(rowData.duration);
-                    $('#edit-location').val(rowData.location);
-                    $('#edit-course-modal').show();
-                } else {
-                    console.error("No data found for the row.");
+<script>
+$(document).ready(function() {
+    var table = $('#coursesTable').DataTable({
+        ajax: {
+            url: "get_courses.php", // Endpoint to fetch courses data
+            dataSrc: ""
+        },
+        columns: [
+            { data: "id" },
+            { data: "name" },
+            { data: "description" },
+            { data: "duration" },
+            { data: "location" },
+            { 
+                data: null,
+                render: function(data, type, row) {
+                    return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
+                           '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>';
                 }
-            });
+            }
+        ]
+    });
 
-            $('#update-course-btn').on('click', function() {
-                var id = $('#edit-course-id').val();
-                var name = $('#edit-name').val();
-                var description = $('#edit-description').val();
-                var duration = $('#edit-duration').val();
-                var location = $('#edit-location').val();
+    // Handle edit button click
+    $('#coursesTable tbody').on('click', '.edit-btn', function() {
+        var rowData = table.row($(this).closest('tr')).data();
+        if (rowData && rowData.id) {
+            $('#edit-course-id').val(rowData.id);
+            $('#edit-name').val(rowData.name);
+            $('#edit-description').val(rowData.description);
+            $('#edit-duration').val(rowData.duration);
+            $('#edit-location').val(rowData.location);
+            $('#edit-course-modal').modal('show');
+        } else {
+            console.error("No data found for the row.");
+        }
+    });
 
-                $.ajax({
-                    url: 'update_course.php',
-                    method: 'POST',
-                    data: { id: id, name: name, description: description, duration: duration, location: location },
-                    success: function(response) {
-                        table.ajax.reload();
-                        $('#edit-course-modal').hide();
-                    }
-                });
-            });
+    // Handle update course button click
+    $('#update-course-btn').on('click', function() {
+        var id = $('#edit-course-id').val();
+        var name = $('#edit-name').val();
+        var description = $('#edit-description').val();
+        var duration = $('#edit-duration').val();
+        var location = $('#edit-location').val();
 
-            $('#courses-table tbody').on('click', '.delete-course-btn', function() {
-                var rowData = table.row($(this).closest('tr')).data();
-                if (rowData && rowData.id) {
-                    var Id = rowData.id;
-                    console.log("Course ID:", Id);
-                    $.ajax({
-                        url: 'delete_course.php',
-                        method: 'POST',
-                        data: { id: Id },
-                        success: function(response) {
-                            table.ajax.reload();
-                        }
-                    });
-                } else {
-                    console.error("No data found for the row.");
-                }
-            });
+        $.ajax({
+            url: 'update_course.php',
+            method: 'POST',
+            data: { id: id, name: name, description: description, duration: duration, location: location },
+            success: function(response) {
+                $('#edit-course-modal').modal('hide');
+                table.ajax.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error updating course:", error);
+            }
         });
-    </script>
+    });
 
+    // Handle delete button click
+    $('#coursesTable tbody').on('click', '.delete-btn', function() {
+        var courseId = $(this).data('id');
+        if (courseId) {
+            $.ajax({
+                url: 'delete_course.php',
+                method: 'POST',
+                data: { id: courseId },
+                success: function(response) {
+                    table.ajax.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error deleting course:", error);
+                }
+            });
+        } else {
+            console.error("No data found for the row.");
+        }
+    });
+
+    // Handle add course button click
+    $('#add-course-btn').on('click', function() {
+        var name = $('#add-name').val();
+        var description = $('#add-description').val();
+        var duration = $('#add-duration').val();
+        var location = $('#add-location').val();
+
+        $.ajax({
+            url: 'add_course.php',
+            method: 'POST',
+            data: { name: name, description: description, duration: duration, location: location },
+            success: function(response) {
+                $('#add-course-modal').modal('hide');
+                table.ajax.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error adding course:", error);
+            }
+        });
+    });
+});
+</script>
 
 <?php include('../includes/footer.php'); ?>
+</body>
+</html>

@@ -15,19 +15,20 @@ if ($conn->connect_error) {
 
 // Receive form data
 $name = $_POST['name'];
-$type = $_POST['type']; // Assuming 'type' is received from the form
 $description = $_POST['description'];
+$duration = $_POST['duration'];
+$location = $_POST['location'];
 
 // Prepare SQL statement
-$sql = "INSERT INTO skills (name, type, description) VALUES (?, ?, ?)";
+$sql = "INSERT INTO courses (name, description, duration, location) VALUES (?, ?, ?, ?)";
 
 // Prepare and bind parameters
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sss", $name, $type, $description);
+$stmt->bind_param("ssss", $name, $description, $duration, $location);
 
 // Execute SQL statement
 if ($stmt->execute() === TRUE) {
-    echo "Skill successfully added";
+    echo "Course successfully added";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
