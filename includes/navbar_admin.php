@@ -1,4 +1,4 @@
-<?php include ('includes/bootstrap.php'); ?>
+<?php include('bootstrap.php'); ?>
 
 
 <style>

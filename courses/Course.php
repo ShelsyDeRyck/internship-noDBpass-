@@ -26,6 +26,7 @@
         <tbody></tbody>
     </table>
 
+
     <!-- Modaal venster voor cursus toevoegen -->
     <div id="add-course-modal" style="display: none;">
         <input type="text" id="name" placeholder="Naam"><br>
@@ -44,9 +45,21 @@
         <input type="text" id="edit-location" placeholder="Locatie"><br>
         <button id="update-course-btn">Bijwerken</button>
     </div>
+    
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-header">
+            <strong class="mr-auto">Notification</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -74,6 +87,11 @@
                 var duration = $('#duration').val();
                 var location = $('#location').val();
 
+                if (name.trim() === '' || description.trim() === '' || duration.trim() === '' || location.trim() === '') {
+                    showToast("vull alle velden in");
+                    return;
+                }
+
                 $.ajax({
                     url: 'add_course.php',
                     method: 'POST',
@@ -81,6 +99,7 @@
                     success: function(response) {
                         table.ajax.reload();
                         $('#add-course-modal').hide();
+                        showToast("Course is succesvol toegevoegd.");
                     }
                 });
             });
@@ -134,6 +153,11 @@
                     console.error("No data found for the row.");
                 }
             });
+            
+            function showToast(message) {
+                $('.toast-body').text(message);
+                $('.toast').toast('show');
+            }
         });
     </script>
 
