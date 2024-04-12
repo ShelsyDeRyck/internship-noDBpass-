@@ -1,14 +1,9 @@
 <?php
 // Include your database connection file if needed
-include '../db_connect.php';
+include_once '../db_connect.php';
 
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Establish database connection using MySQLi
+$conn = connectDB();
 
 // Check connection
 if ($conn->connect_error) {

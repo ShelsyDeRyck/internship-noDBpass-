@@ -1,12 +1,9 @@
 <?php
-// Database connection parameters
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
+// Include database connection file
+include_once "../db_connect.php";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Establish database connection using MySQLi
+$conn = connectDB();
 
 // Check connection
 if ($conn->connect_error) {

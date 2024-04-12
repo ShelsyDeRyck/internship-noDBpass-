@@ -1,43 +1,45 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
+// Include database connection file
+include_once "../db_connect.php";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
+// Check if the request method is POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Controleer of de vereiste velden zijn ingestuurd
+    // Check if all required fields are set
     if (isset($_POST['id']) && isset($_POST['name']) && isset($_POST['type']) && isset($_POST['description'])) {
-        // Ontvang de gegevens van het verzoek
+        // Receive the data from the request
         $id = $_POST['id'];
         $name = $_POST['name'];
         $type = $_POST['type'];
         $description = $_POST['description'];
 
-        // SQL-query om de vaardigheid bij te werken
+        // Establish database connection using MySQLi
+        $conn = connectDB();
+
+        // SQL query to update the skill
         $sql = "UPDATE skills SET name = ?, type = ?, description = ? WHERE id = ?";
 
-        // Bereid de SQL-query voor uitvoering
+        // Prepare the SQL query for execution
         $stmt = $conn->prepare($sql);
 
-        // Bind de parameters aan de SQL-query
+        // Bind parameters to the SQL query
         $stmt->bind_param("sssi", $name, $type, $description, $id);
 
-        // Voer de SQL-query uit
+        // Execute the SQL query
         if ($stmt->execute()) {
-            echo "Skill succesvol bijgewerkt";
+            echo "Skill successfully updated";
         } else {
-            echo "Er is een fout opgetreden bij het bijwerken van de skill: " . $conn->error;
+            echo "Error updating skill: " . $conn->error;
         }
 
-        // Sluit de SQL-instructie
+        // Close the prepared statement
         $stmt->close();
+
+        // Close the database connection
+        $conn->close();
     } else {
-        echo "Niet alle vereiste velden zijn ingevuld";
+        echo "Not all required fields are filled";
     }
 } else {
-    echo "Dit bestand kan alleen worden aangeroepen via een HTTP POST-verzoek";
+    echo "This file can only be accessed via an HTTP POST request";
 }
 ?>

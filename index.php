@@ -20,7 +20,7 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <form method="post" action="login.php" id="loginForm">
+      <form method="post" action="login/login.php" id="loginForm">
         <div class="form-group">
           <label class="form-label" for="email">Email:</label>
           <input class="form-control" type="text" id="email" name="email">

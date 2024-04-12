@@ -1,14 +1,10 @@
 <?php
-// Databaseverbinding maken
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
+// Include database connection file
+include_once "../db_connect.php";
 
-// Maak een verbinding met de database
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Establish database connection using MySQLi
+$conn = connectDB();
 
-// Controleer de verbinding
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -20,15 +16,21 @@ $email = $_POST['email'];
 $date_of_birth = $_POST['date_of_birth'];
 $study_year = $_POST['study_year'];
 
-// SQL-query voor het toevoegen van een student
-$sql = "INSERT INTO students (first_name, last_name, email, date_of_birth, study_year) VALUES ('$first_name', '$last_name', '$email', '$date_of_birth', '$study_year')";
+// Prepare SQL statement
+$sql = "INSERT INTO students (first_name, last_name, email, date_of_birth, study_year) VALUES (?, ?, ?, ?, ?)";
 
-if ($conn->query($sql) === TRUE) {
+// Prepare and bind parameters
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("sssss", $first_name, $last_name, $email, $date_of_birth, $study_year);
+
+// Execute SQL statement
+if ($stmt->execute() === TRUE) {
     echo "Student successfully added";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
-// Sluit de verbinding met de database
+// Close prepared statement and database connection
+$stmt->close();
 $conn->close();
 ?>

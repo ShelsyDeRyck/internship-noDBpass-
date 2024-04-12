@@ -1,39 +1,41 @@
 <?php
-// Database connection parameters
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
+// Include database connection file
+include_once "../db_connect.php";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Check if the request method is POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if all required fields are set
+    if (isset($_POST['name']) && isset($_POST['description']) && isset($_POST['duration']) && isset($_POST['location'])) {
+        // Receive form data
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+        $duration = $_POST['duration'];
+        $location = $_POST['location'];
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+        // Establish database connection using MySQLi
+        $conn = connectDB();
 
-// Receive form data
-$name = $_POST['name'];
-$description = $_POST['description'];
-$duration = $_POST['duration'];
-$location = $_POST['location'];
+        // Prepare SQL statement
+        $sql = "INSERT INTO courses (name, description, duration, location) VALUES (?, ?, ?, ?)";
 
-// Prepare SQL statement
-$sql = "INSERT INTO courses (name, description, duration, location) VALUES (?, ?, ?, ?)";
+        // Prepare and bind parameters
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssss", $name, $description, $duration, $location);
 
-// Prepare and bind parameters
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ssss", $name, $description, $duration, $location);
+        // Execute SQL statement
+        if ($stmt->execute() === TRUE) {
+            echo "Course successfully added";
+        } else {
+            echo "Error adding course: " . $conn->error;
+        }
 
-// Execute SQL statement
-if ($stmt->execute() === TRUE) {
-    echo "Course successfully added";
+        // Close prepared statement and database connection
+        $stmt->close();
+        $conn->close();
+    } else {
+        echo "Not all required fields are filled";
+    }
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "This file can only be accessed via an HTTP POST request";
 }
-
-// Close prepared statement and database connection
-$stmt->close();
-$conn->close();
 ?>

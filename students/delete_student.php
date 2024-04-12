@@ -1,35 +1,47 @@
 <?php
-// Databaseverbinding maken
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
+// Include database connection file
+include_once "../db_connect.php";
+
+// Establish database connection using MySQLi
+$conn = connectDB();
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Controleer of de student-ID is ontvangen via POST
 if(isset($_POST['id'])) {
     // Ontvang de student-ID
     $id = $_POST['id'];
 
-    // Maak een verbinding met de database
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    // SQL-query voor het verwijderen van een student
+    $sql = "DELETE FROM students WHERE id = ?";
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    // Prepare statement
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt === false) {
+        die("Error: " . $conn->error);
     }
 
-    // SQL-query voor het verwijderen van een student
-    $sql = "DELETE FROM students WHERE id = $id";
+    // Bind parameters
+    $stmt->bind_param("i", $id);
 
-    if ($conn->query($sql) === TRUE) {
+    // Execute statement
+    if ($stmt->execute() === TRUE) {
         echo "Student successfully deleted";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
-    // Sluit de verbinding met de database
-    $conn->close();
+    // Close statement
+    $stmt->close();
 } else {
     // Geen student-ID ontvangen, geef een foutmelding terug
     echo "Geen student-ID ontvangen";
 }
+
+// Close the database connection
+$conn->close();
 ?>

@@ -1,21 +1,20 @@
 <?php
-// Databaseverbinding maken
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
+// Include database connection file
+include_once "../db_connect.php";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Establish database connection using MySQLi
+$conn = connectDB();
 
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Query om cursusgegevens op te halen
+// Query to fetch course data
 $sql = "SELECT * FROM courses";
 $result = $conn->query($sql);
 
-// Array initialiseren voor de cursusgegevens
+// Array initialization for course data
 $courses = array();
 
 if ($result->num_rows > 0) {
@@ -24,9 +23,9 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Databaseverbinding sluiten
+// Close database connection
 $conn->close();
 
-// Cursusgegevens teruggeven in JSON-indeling
+// Return course data in JSON format
 echo json_encode($courses);
 ?>

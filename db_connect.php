@@ -1,13 +1,35 @@
 <?php
-// Database connection parameters
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
+// Function to establish a database connection using PDO
+function connectPDO() {
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "educational_center";
 
-// Create connection
-$pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    try {
+        $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        // Set PDO error mode to exception
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $pdo;
+    } catch(PDOException $e) {
+        // If connection fails, throw an exception
+        throw new Exception("PDO Connection failed: " . $e->getMessage());
+    }
+}
 
-// Set the PDO error mode to exception
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Function to establish a database connection using mysqli
+function connectDB() {
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "educational_center";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("MySQLi Connection failed: " . $conn->connect_error);
+    }
+    return $conn;
+}
 ?>

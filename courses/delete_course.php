@@ -1,35 +1,39 @@
 <?php
-// Databaseverbinding maken
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
+// Include database connection file
+include_once "../db_connect.php";
 
-// Controleren of de cursus-ID is ontvangen via POST
+// Check if the course ID is received via POST
 if(isset($_POST['id'])) {
-    // Ontvang de cursus-ID
+    // Receive the course ID
     $id = $_POST['id'];
 
-    // Databaseverbinding maken
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Establish database connection using MySQLi
+    $conn = connectDB();
 
+    // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // SQL-query voor het verwijderen van een cursus
-    $sql = "DELETE FROM courses WHERE id = $id";
+    // SQL query to delete a course
+    $sql = "DELETE FROM courses WHERE id = ?";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Cursus succesvol verwijderd";
+    // Prepare and bind parameters
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo "Course successfully deleted";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error deleting course: " . $conn->error;
     }
 
-    // Databaseverbinding sluiten
+    // Close the prepared statement and database connection
+    $stmt->close();
     $conn->close();
 } else {
-    // Geen cursus-ID ontvangen, geef een foutmelding terug
-    echo "Geen cursus-ID ontvangen";
+    // No course ID received, return an error message
+    echo "No course ID received";
 }
 ?>

@@ -1,24 +1,13 @@
 <?php
-// Databaseverbinding maken
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// Include database connection file
+include_once "../db_connect.php";
 
 // Check if the request is made via POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if ID parameter is provided
     if (isset($_POST["id"])) {
-        // Include database connection file
-        include_once "../db_connect.php";
+        // Establish database connection using MySQLi
+        $conn = connectDB();
 
         // Prepare SQL statement to update the status of the skill to inactive
         $sql = "UPDATE skills SET status = 'inactive' WHERE id = ?";

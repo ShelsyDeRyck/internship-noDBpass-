@@ -1,12 +1,13 @@
 <?php
-// Verbinding maken met de database
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
+// Include database connection file
+include_once "../db_connect.php";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Establish database connection using MySQLi
+$conn = connectDB();
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Controleren of de vereiste velden zijn ontvangen via POST
 if(isset($_POST['id']) && isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['email']) && isset($_POST['password'])) {

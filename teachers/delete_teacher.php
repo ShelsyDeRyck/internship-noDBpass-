@@ -1,17 +1,14 @@
 <?php
-// Database connection parameters
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "educational_center";
+// Include database connection file
+include_once "../db_connect.php";
 
 // Check if the teacher ID is received via POST
 if(isset($_POST['id'])) {
     // Receive the teacher ID
     $id = $_POST['id'];
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Establish database connection using MySQLi
+    $conn = connectDB();
 
     // Check connection
     if ($conn->connect_error) {
@@ -19,15 +16,25 @@ if(isset($_POST['id'])) {
     }
 
     // SQL query to delete a teacher
-    $sql = "DELETE FROM teachers WHERE id = $id";
+    $sql = "DELETE FROM teachers WHERE id = ?";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Teacher successfully deleted";
+    // Prepare the statement
+    $stmt = $conn->prepare($sql);
+
+    if($stmt) {
+        // Bind parameters and execute the statement
+        $stmt->bind_param("i", $id);
+        if ($stmt->execute()) {
+            echo "Teacher successfully deleted";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error preparing statement.";
     }
 
-    // Close database connection
+    // Close the statement and the database connection
+    $stmt->close();
     $conn->close();
 } else {
     // No teacher ID received, return an error message
