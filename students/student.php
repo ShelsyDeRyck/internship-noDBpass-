@@ -14,6 +14,8 @@
     <div class="container mt-5">
         <h2>Students</h2>
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add-student-modal">Add Student</button>
+        <input style='display:none' type="file" id="pdfInput" accept=".pdf">
+        <button onclick="uploadPDF()" id="uploadPDFBtn">Upload PDF</button>
         <table id="studentsTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
@@ -160,7 +162,8 @@
                         data: null,
                         render: function(data, type, row) {
                             return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
-                                '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>';
+                                '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>'
+                                + '<button class="export-student-btn">Export</button>';
                         }
                     }
                 ]
@@ -284,6 +287,41 @@ function showToast(message) {
                 });
             });
         });
+
+    function readPDF(file) {
+        // console.log(file);
+        // let formData = new FormData();
+        // formData.append('file', file);
+        // console.log(formData);
+        
+        $.ajax({
+            url: 'read_pdf.php',
+            method: 'POST',
+            data: { html_content: file },
+            processData: false, 
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    
+    
+    function uploadPDF() {
+        document.getElementById("pdfInput").click(); // Trigger file input click
+    }
+    
+    // Event listener for file input change
+    document.getElementById('pdfInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        // console.log(file);
+        if (file) {
+            readPDF(file);
+        }
+    });
     </script>
 
     <?php include('../includes/footer.php'); ?>
