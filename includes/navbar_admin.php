@@ -3,6 +3,9 @@
 .navbar-nav { 
   align-items: center;
 }
+.hr-nav {
+  color:#EA302D;
+}
 
 </style>
 
@@ -26,4 +29,4 @@
   </div>
   
 </nav>
-<hr>
+<hr class="hr-nav">
