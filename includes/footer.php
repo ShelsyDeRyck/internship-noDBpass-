@@ -1,7 +1,7 @@
 <hr>
 <style>
 .container-fluid.footer {
-    background-color: #da2415;
+    background-color: #1A1D22;
     color: white;
     height: 100px;
     padding: 30px;
