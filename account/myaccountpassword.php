@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
+<!--
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -77,10 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <button type="submit" class="button">Wijzig Wachtwoord</button>
         </form>
-        <!-- Placeholder voor berichten na het wijzigen van het wachtwoord -->
+        
         <div class="message">
-            <!-- Berichten na het wijzigen van het wachtwoord zullen hier verschijnen -->
+            
         </div>
     </div>
 </body>
-</html>
+</html> --> 

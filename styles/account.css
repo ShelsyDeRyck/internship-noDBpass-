@@ -1,0 +1,16 @@
+h2 {
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+}
+
+.email {
+    background-color: #F4F4F4;
+    font-weight: bold;
+}
+
+.wachtwoord {
+    background-color: #EA302D;
+    font-weight: bold;
+    color: white;
+}
