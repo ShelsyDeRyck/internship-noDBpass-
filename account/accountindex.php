@@ -2,12 +2,14 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>My Account</title>
+    <title>Wijzig Account</title>
     <link rel="stylesheet" type="text/css" href="myaccount.css">
+    <?php include ('../includes/bootstrap.php'); ?>
+    <?php include ('../includes/navbar_admin.php'); ?>
 </head>
 <body>
     <div class="container">
-        <h1>My Account</h1>
+        <h1>Wijzig Account</h1>
         <div class="options">
             <h2>Kies een optie:</h2>
             <ul>
@@ -16,5 +18,5 @@
             </ul>
         </div>
     </div>
-</body>
-</html>
+
+<?php include ('../includes/footer.php'); ?>
