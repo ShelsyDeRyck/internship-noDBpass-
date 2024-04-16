@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 16, 2024 at 11:13 AM
+-- Generation Time: Apr 16, 2024 at 01:46 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.0
 
@@ -69,7 +69,8 @@ INSERT INTO `companies` (`id`, `name`, `address`) VALUES
 (7, 'GreenTech Solutions CVBA', 'Rue du Commerce 67, 1000 Bruxelles'),
 (8, 'Codenomic SA', 'Wetstraat 1, 1040 Etterbeek'),
 (9, 'Logiware BVBA', 'Avenue des Arts 3, 1210 Saint-Josse-ten-Noode'),
-(10, 'ThinkBig NV', 'Boulevard du Régent 47, 1000 Bruxelles');
+(10, 'ThinkBig NV', 'Boulevard du Régent 47, 1000 Bruxelles'),
+(11, 'CloudNetics NV2131', 'Dendermondestraat 44, 2018 Antwerpen');
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,8 @@ INSERT INTO `contact_person` (`id`, `first_name`, `last_name`, `email`, `phone`,
 (7, 'Noah', 'Van Dyck', 'noah.vandyck@greentech.be', '0499 76 89 02', 7),
 (8, 'Louise', 'Hermans', 'louise.hermans@codenomic.be', '0487 87 90 12', 8),
 (9, 'Lucas', 'Martens', 'lucas.martens@logiware.be', '0486 98 01 23', 9),
-(10, 'Zoë', 'Jacobs', 'zoe.jacobs@thinkbig.be', '0475 09 12 34', 10);
+(10, 'Zoë', 'Jacobs', 'zoe.jacobs@thinkbig.be', '0475 09 12 34', 10),
+(11, 'Emma', 'Claes', 'emma.claes@cloudnetics.be', '0488 65 78 91', 11);
 
 -- --------------------------------------------------------
 
@@ -156,6 +158,22 @@ CREATE TABLE `course_teacher` (
   `teacher_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `course_teacher`
+--
+
+INSERT INTO `course_teacher` (`course_id`, `teacher_id`) VALUES
+(1, 1),
+(2, 1),
+(1, 2),
+(2, 2),
+(1, 3),
+(2, 3),
+(1, 4),
+(2, 4),
+(1, 5),
+(2, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -182,7 +200,8 @@ INSERT INTO `internships` (`id`, `company_id`, `contact_person_id`) VALUES
 (7, 7, 7),
 (8, 8, 8),
 (9, 9, 9),
-(10, 10, 10);
+(10, 10, 10),
+(11, 11, 11);
 
 -- --------------------------------------------------------
 
@@ -484,13 +503,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `contact_person`
 --
 ALTER TABLE `contact_person`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -508,13 +527,13 @@ ALTER TABLE `course_skill`
 -- AUTO_INCREMENT for table `internships`
 --
 ALTER TABLE `internships`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `internship_student`
 --
 ALTER TABLE `internship_student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `skills`
