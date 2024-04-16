@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 16, 2024 at 07:40 AM
+-- Generation Time: Apr 16, 2024 at 08:46 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.0
 
@@ -223,7 +223,8 @@ INSERT INTO `skills` (`id`, `name`, `type`, `description`, `status`) VALUES
 CREATE TABLE `skill_student` (
   `id` int(11) NOT NULL,
   `skill_id` int(11) DEFAULT NULL,
-  `student_id` int(11) DEFAULT NULL
+  `student_id` int(11) DEFAULT NULL,
+  `grade` decimal(3,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -306,21 +307,6 @@ INSERT INTO `student_course` (`student_id`, `course_id`) VALUES
 (18, 9),
 (19, 10),
 (20, 10);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `student_grades`
---
-
-CREATE TABLE `student_grades` (
-  `grade_id` int(11) NOT NULL,
-  `student_id` int(11) DEFAULT NULL,
-  `course_id` int(11) DEFAULT NULL,
-  `teacher_id` int(11) DEFAULT NULL,
-  `academic_year` varchar(9) DEFAULT NULL,
-  `grade` decimal(5,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -430,15 +416,6 @@ ALTER TABLE `student_course`
   ADD KEY `course_id` (`course_id`);
 
 --
--- Indexes for table `student_grades`
---
-ALTER TABLE `student_grades`
-  ADD PRIMARY KEY (`grade_id`),
-  ADD KEY `student_id` (`student_id`),
-  ADD KEY `course_id` (`course_id`),
-  ADD KEY `teacher_id` (`teacher_id`);
-
---
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
@@ -504,12 +481,6 @@ ALTER TABLE `students`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `student_grades`
---
-ALTER TABLE `student_grades`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- Constraints for dumped tables
 --
 
@@ -558,12 +529,6 @@ ALTER TABLE `students`
 ALTER TABLE `student_course`
   ADD CONSTRAINT `fk_student_course_course_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
   ADD CONSTRAINT `student_course_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
-
---
--- Constraints for table `student_grades`
---
-ALTER TABLE `student_grades`
-  ADD CONSTRAINT `student_grades_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
