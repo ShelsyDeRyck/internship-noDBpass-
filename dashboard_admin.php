@@ -51,7 +51,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admins') {
         <p>Bij vragen/problemen kan je ons bereiken via <strong>test@test.com</strong></p>
     </div>
 </div>
-<hr>
+<hr style="color: white; width: 80%; margin-left: auto; margin-right: auto;">
 
 <div class="row m-2">
     <div class="col-md text-center">
