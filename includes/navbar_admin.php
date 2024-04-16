@@ -29,7 +29,12 @@
       
     </ul>
     <ul class="navbar-nav ms-auto secondnav">
-      <li class="nav-item"><a class="nav-link" href="../account/myaccount.php">Account</a></li>
+      <li class="nav-item">
+        <a class="nav-link" href="../account/accountindex.php">Account</a>
+      </li>
+      <li class="nav-item">
+          <button><a class="nav-link" href="logout.php">Logout</a></button>
+      </li>
     </ul>
   </div>
   
