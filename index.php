@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once './db_connect.php';
+
 function fetchUser($pdo, $email, $tables)
 {
   foreach ($tables as $table) {
@@ -14,6 +15,8 @@ function fetchUser($pdo, $email, $tables)
   return [null, null];
 }
 
+$loginError = ''; // Initialize an error message variable
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];
@@ -23,23 +26,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
     $tables = ['teachers', 'admins', 'students'];
     list($user, $type) = fetchUser($pdo, $email, $tables);
 
-    if ($user && password_verify($password, $user['password'])) {
-      $_SESSION['user_id'] = $user['id'];
-      $_SESSION['user_type'] = $type;
+    if ($user) {
+      if (password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_type'] = $type;
 
-      // Debugging output
-      echo "Session user_id set to: " . $_SESSION['user_id'];
-      echo "Session user_type set to: " . $_SESSION['user_type'];
-
-      // Redirect based on user type
-      if ($type === 'teachers') {
-        header('Location: ./dashboard_docent.php');
-      } elseif ($type === 'admins') {
-        header('Location: ./dashboard_admin.php');
+        // Redirect based on user type
+        if ($type === 'teachers') {
+          header('Location: ./dashboard_docent.php');
+        } elseif ($type === 'admins') {
+          header('Location: ./dashboard_admin.php');
+        }
+        exit;
+      } else {
+        $loginError = 'Verkeerd wachtwoord!';
       }
-      exit;
     } else {
-      echo 'Login failed!';
+      $loginError = 'Gebruiker niet gevonden!';
     }
   } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -60,11 +63,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
 <body>
   <div class="container" id="container">
     <div class="form-container sign-in-container">
-      <form action="#">
+      <form method="POST" action="#">
         <h1>Log in</h1>
-        <input type="email" placeholder="Email" class="input-email" />
-        <input type="password" placeholder="Password" />
-        <button class="login-button">Log In</button>
+        <input type="email" placeholder="Email" name="email" class="input-email" required />
+        <input type="password" placeholder="Password" name="password" required />
+        <button type="submit" class="login-button">Log In</button>
+        <?php if ($loginError) : ?>
+          <p class="error"><?php echo $loginError; ?></p>
+        <?php endif; ?>
       </form>
     </div>
     <div class="overlay-container">
@@ -76,17 +82,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
       </div>
     </div>
   </div>
-
-
   <script>
     $(document).ready(function() {
       $('#loginForm').submit(function(e) {
         var email = $('#email').val();
         var password = $('#password').val();
-
         if (email.trim() === '' || password.trim() === '') {
           e.preventDefault();
-          showToast('gelieven een email en wachtwoord in te vullen');
+          showToast('Gelieve een email en wachtwoord in te vullen.');
         }
       });
 
@@ -94,18 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
         $('.toast-body').text(message);
         $('.toast').toast('show');
       }
-    });
-
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
-    const container = document.getElementById('container');
-
-    signUpButton.addEventListener('click', () => {
-      container.classList.add("right-panel-active");
-    });
-
-    signInButton.addEventListener('click', () => {
-      container.classList.remove("right-panel-active");
     });
   </script>
   <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
@@ -116,7 +107,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
       </button>
     </div>
     <div class="toast-body">
-
     </div>
   </div>
   <?php include('includes/footer.php'); ?>
+</body>
+
+</html>
