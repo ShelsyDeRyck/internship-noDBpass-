@@ -14,9 +14,7 @@ function fetchUser($pdo, $email, $tables)
   }
   return [null, null];
 }
-
 $loginError = ''; // Initialize an error message variable
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];
@@ -49,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
   }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
