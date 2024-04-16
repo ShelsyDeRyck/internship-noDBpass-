@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admins') {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <?php include ('includes/bootstrap.php'); ?>
-    <link rel="stylesheet" href="./styles/admin.css">
+    <link rel="stylesheet" href="./styles/dashboard.css">
     
 
     
@@ -57,7 +57,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admins') {
         <div class="row m-2">
             <div class="col-md text-center">
                 <button class="bigbtn"><a href="students/student.php" class="nav-link">Cursist</a></button>
-                <button class="bigbtn"><a href="internships/internships_admin.php" class="nav-link">Stageplaatsen</a></button>
+                <button class="bigbtn"><a href="internships/internship_page.php" class="nav-link">Stageplaatsen</a></button>
                 <button class="bigbtn"><a href="courses/course.php" class="nav-link">Course</a></button>
             </div>
         </div>
