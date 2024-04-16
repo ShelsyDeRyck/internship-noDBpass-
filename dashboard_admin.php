@@ -1,7 +1,8 @@
 <?php include('includes/header_admin.php'); ?>
 
+
         <div class="row">
-            <div class="col-md text-center">
+            <div class="col-md text-center title">
                 <h1>Welkom op het SyntraPXL ADMIN portaal</h1>
                 <p>Bij vragen/problemen kan je ons bereiken via <strong>test@test.com</strong></p>
             </div>
