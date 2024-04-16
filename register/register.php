@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
   try {
     $pdo = connectPDO();
     // Insert into the specific table based on user type selected
-    if (in_array($userType, ['teachers', 'admins', 'students'])) {
+    if (in_array($userType, ['teachers', 'admins'])) {
       $stmt = $pdo->prepare("INSERT INTO $userType (email, password, first_name, last_name) VALUES (?, ?, ?, ?)");
       $stmt->execute([$email, $password, $firstname, $lastname]);
       echo 'User registered successfully!';
@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
     <option value="">Select User Type</option>
     <option value="teachers">Teacher</option>
     <option value="admins">Admin</option>
-    <option value="students">Student</option>
   </select><br>
   <button type="submit">Register</button>
 </form>

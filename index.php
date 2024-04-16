@@ -37,8 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
         header('Location: ./dashboard_docent.php');
       } elseif ($type === 'admins') {
         header('Location: ./dashboard_admin.php');
-      } elseif ($type === 'students') {
-        header('Location: ./dashboard_student.php');
       }
       exit;
     } else {
