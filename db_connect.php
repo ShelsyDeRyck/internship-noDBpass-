@@ -1,7 +1,7 @@
 <?php
 // Function to establish a database connection using PDO
 function connectPDO() {
-    $servername = "localhost";
+    $servername = "127.0.0.1";
     $username = "root";
     $password = "root";
     $dbname = "educational_center";
