@@ -25,7 +25,6 @@
                     <th>Email</th>
                     <th>Date of Birth</th>
                     <th>Study Year</th>
-                    <th>Course ID</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -77,10 +76,6 @@
                             <label for="edit-study-year">Study Year:</label>
                             <input type="text" class="form-control" id="edit-study-year">
                         </div>
-                        <div class="form-group">
-                            <label for="edit-course-id">Course ID:</label>
-                            <input type="text" class="form-control" id="edit-course-id">
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -120,10 +115,6 @@
                             <label for="add-study-year">Study Year:</label>
                             <input type="text" class="form-control" id="add-study-year">
                         </div>
-                        <div class="form-group">
-                            <label for="add-course-id">Course ID:</label>
-                            <input type="text" class="form-control" id="add-course-id">
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -157,7 +148,6 @@
                     { data: "email" },
                     { data: "date_of_birth" },
                     { data: "study_year" },
-                    { data: "course_id" },
                     { 
                         data: null,
                         render: function(data, type, row) {
@@ -213,7 +203,6 @@ function showToast(message) {
                     $('#edit-email').val(rowData.email);
                     $('#edit-date_of_birth').val(rowData.date_of_birth);
                     $('#edit-study-year').val(rowData.study_year);
-                    $('#edit-course-id').val(rowData.course_id);
                     $('#edit-student-modal').modal('show');
                 } else {
                     console.error("No data found for the row.");
@@ -228,7 +217,6 @@ function showToast(message) {
                 var email = $('#edit-email').val();
                 var date_of_birth = $('#edit-date_of_birth').val();
                 var studyYear = $('#edit-study-year').val();
-                var courseId = $('#edit-course-id').val();
 
                 $.ajax({
                     url: 'update_student.php',
@@ -271,12 +259,11 @@ function showToast(message) {
                 var email = $('#add-email').val();
                 var date_of_birth = $('#add-date_of_birth').val();
                 var studyYear = $('#add-study-year').val();
-                var courseId = $('#add-course-id').val();
 
                 $.ajax({
                     url: 'add_student.php',
                     method: 'POST',
-                    data: { first_name: firstName, last_name: lastName, email: email, date_of_birth: date_of_birth, study_year: studyYear, course_id: courseId },
+                    data: { first_name: firstName, last_name: lastName, email: email, date_of_birth: date_of_birth, study_year: studyYear },
                     success: function(response) {
                         $('#add-student-modal').modal('hide');
                         table.ajax.reload();
