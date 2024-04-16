@@ -34,11 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
 
       // Redirect based on user type
       if ($type === 'teachers') {
-        header('Location: ../dashboard_docent.php');
+        header('Location: ./dashboard_docent.php');
       } elseif ($type === 'admins') {
-        header('Location: ../dashboard_admin.php');
-      } elseif ($type === 'students') {
-        header('Location: ../dashboard_student.php');
+        header('Location: ./dashboard_admin.php');
       }
       exit;
     } else {
