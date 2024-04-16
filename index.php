@@ -35,29 +35,7 @@
   </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script>
-$(document).ready(function(){
-  $('#loginForm').submit(function(e){
-    var email = $('#email').val();
-    var password = $('#password').val();
-    
-    if(email.trim() === '' || password.trim() === '') {
-      e.preventDefault();
-      showToast('gelieven een email en wachtwoord in te vullen');
-    }
-  });
-
-  function showToast(message) {
-    $('.toast-body').text(message);
-    $('.toast').toast('show');
-  }
-});
-</script>
-
+</div> <!-- Closing container-fluid -->
 
 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
   <div class="toast-header">
@@ -69,10 +47,38 @@ $(document).ready(function(){
   <div class="toast-body">
   
   </div>
+</div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<script>
+ $(document).ready(function(){
+    $('#loginForm').submit(function(e){
+      var email = $('#email').val();
+      var password = $('#password').val();
+      
+      if(email.trim() === '' && password.trim() === '') {
+        e.preventDefault();
+        showToast('gelieven een email en wachtwoord in te vullen');
+      } else if(email.trim() === '') {
+        e.preventDefault();
+        showToast('gelieven een email in te vullen');
+      } else if(password.trim() === '') {
+        e.preventDefault();
+        showToast('gelieven een wachtwoord in te vullen');
+      }
+    });
 
-
-
+  function showToast(message) {
+    $('.toast-body').text(message);
+    $('.toast').toast('show');
+  }
+});
+</script>
 
 <?php include('includes/footer.php'); ?>
+</body>
+</html>
+
