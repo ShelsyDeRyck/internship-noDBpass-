@@ -161,7 +161,7 @@
                         render: function(data, type, row) {
                             return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
                                 '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>'
-                                + '<button class="edit-form-btn">Edit internship form</button>';
+                                + '<button class=" btn btn-primary edit-form-btn">Edit internship form</button>';
                         }
                     }
                 ]
