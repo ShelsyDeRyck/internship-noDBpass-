@@ -1,4 +1,4 @@
-<hr>
+
 <style>
 .container-fluid.footer {
     background-color: #1A1D22;

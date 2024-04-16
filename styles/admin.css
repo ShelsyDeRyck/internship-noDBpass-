@@ -2,13 +2,44 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: #22262da5;
 }
 
-.hr-nav {
-    color:#EA302D;
-  }
 
 h1 {
     text-align: center;
-    color: red;
+    color: white;
+    font-weight: bold;
 }
+
+p {
+    color: white;
+}
+
+/* Button */
+.bigbtn {
+    margin: 10px;
+    padding: 40px;
+    background-color: #EA302D;
+    color: white; 
+    border-radius: 10px;
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+/* NAV BAR*/
+.navbar {  
+    background-color: white;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;  
+    border-bottom-color: #EA302D;
+}
+
+.secondnav {
+    align-items: center;
+}
+
+/*media queries*/
