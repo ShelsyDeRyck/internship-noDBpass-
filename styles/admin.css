@@ -2,33 +2,43 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #22262da5;
+    background-color: #F7F7F7;
 }
 
 
 h1 {
     text-align: center;
-    color: white;
     font-weight: bold;
 }
 
-p {
-    color: white;
+strong {
+    color: #EA302D;
 }
-
 /* Button */
 .bigbtn {
-    margin: 10px;
-    padding: 40px;
-    background-color: #EA302D;
-    color: white; 
-    border-radius: 10px;
-    border: none;
+    padding: 20px;
+    margin: 5%;
+    border-top-color: #EA302D;
+    border-style: ridge;
+    background-color: white;
     font-size: 25px;
     font-weight: bold;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+
 }
 
+.bigbtn:hover {
+    background-color: #EA302D;
+    color: white;
+}
+
+.btnLogout {
+    color: #EA302D;
+}
+
+.btnLogout:hover {
+    color: white;
+}
 
 /* NAV BAR*/
 .navbar {  
@@ -42,4 +52,6 @@ p {
     align-items: center;
 }
 
-/*media queries*/
+.nav-item:hover {
+    font-weight: bold;
+}
