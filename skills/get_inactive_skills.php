@@ -14,22 +14,16 @@ if ($conn->connect_error) {
 $sql = "SELECT * FROM skills WHERE status = 'inactive'";
 $result = $conn->query($sql);
 
-// Check if there are any results
+$inactiveSkills = array();
 if ($result->num_rows > 0) {
-    // Initialize an empty array to store inactive skills
-    $inactiveSkills = array();
-
-    // Fetch each row and add it to the inactiveSkills array
     while ($row = $result->fetch_assoc()) {
         $inactiveSkills[] = $row;
     }
-
-    // Encode the array as JSON and echo it
-    echo json_encode($inactiveSkills);
-} else {
-    echo "No inactive skills found";
 }
 
-// Close the connection
+// Close the database connection
 $conn->close();
+
+// Return the JSON representation of the inactive skills
+echo json_encode($inactiveSkills);
 ?>

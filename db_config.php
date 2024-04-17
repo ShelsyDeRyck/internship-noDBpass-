@@ -1,7 +1,7 @@
 <?php
 
 // Database configuration
-$host = 'localhost'; // Database host (e.g., localhost)
+$host = '127.0.0.1'; // Database host (e.g., localhost)
 $dbname = 'educational_center'; // Database name
 $username = 'root'; // Database username
 $password = 'root'; // Database password

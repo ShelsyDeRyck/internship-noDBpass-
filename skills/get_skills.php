@@ -14,13 +14,24 @@ if ($conn->connect_error) {
 $sql = "SELECT * FROM skills WHERE status = 'active'";
 $result = $conn->query($sql);
 
-// Array initialization for skill data
+// Initialize an empty array for skill data
 $skills = array();
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $skills[] = $row;
+// Check if the query was executed successfully
+if ($result) {
+    // Check if there are any rows returned
+    if ($result->num_rows > 0) {
+        // Loop through the result set and fetch data
+        while ($row = $result->fetch_assoc()) {
+            $skills[] = $row;
+        }
+    } else {
+        // No active skills found
+        echo "No active skills found.";
     }
+} else {
+    // Query execution failed
+    echo "Error executing query: " . $conn->error;
 }
 
 // Close database connection

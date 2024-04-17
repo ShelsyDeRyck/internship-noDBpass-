@@ -14,8 +14,6 @@
     <div class="container mt-5">
         <h2>Students</h2>
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add-student-modal">Add Student</button>
-        <input style='display:none' type="file" id="pdfInput" accept=".pdf">
-        <button onclick="uploadPDF()" id="uploadPDFBtn">Upload PDF</button>
         <table id="studentsTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
@@ -25,7 +23,6 @@
                     <th>Email</th>
                     <th>Date of Birth</th>
                     <th>Study Year</th>
-                    <th>Course ID</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -77,10 +74,6 @@
                             <label for="edit-study-year">Study Year:</label>
                             <input type="text" class="form-control" id="edit-study-year">
                         </div>
-                        <div class="form-group">
-                            <label for="edit-course-id">Course ID:</label>
-                            <input type="text" class="form-control" id="edit-course-id">
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -119,10 +112,6 @@
                         <div class="form-group">
                             <label for="add-study-year">Study Year:</label>
                             <input type="text" class="form-control" id="add-study-year">
-                        </div>
-                        <div class="form-group">
-                            <label for="add-course-id">Course ID:</label>
-                            <input type="text" class="form-control" id="add-course-id">
                         </div>
                     </form>
                 </div>
@@ -171,13 +160,12 @@
                     { data: "email" },
                     { data: "date_of_birth" },
                     { data: "study_year" },
-                    { data: "course_id" },
                     { 
                         data: null,
                         render: function(data, type, row) {
                             return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
                                 '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>'
-                                + '<button class="export-student-btn">Export</button>';
+                                + '<button class=" btn btn-primary edit-form-btn">Edit internship form</button>';
                         }
                     }
                 ]
@@ -241,22 +229,34 @@ function showToast(message) {
 }
 
 
+            $('#students-table tbody').on('click', '.edit-student-btn', function() {
+                var rowData = table.row($(this).closest('tr')).data();
+                if (rowData && rowData.id) {
+                    $('#edit-student-id').val(rowData.id);
+                    $('#edit-first-name').val(rowData.first_name);
+                    $('#edit-last-name').val(rowData.last_name);
+                    $('#edit-email').val(rowData.email);
+                    $('#edit-date_of_birth').val(rowData.date_of_birth);
+                    $('#edit-study-year').val(rowData.study_year);
+                    $('#edit-student-modal').modal('show');
+                } else {
+                    console.error("No data found for the row.");
+                }
+            });
+
+            // Handle update student button click
+            $('#update-student-btn').on('click', function() {
+                var id = $('#edit-student-id').val();
+                var firstName = $('#edit-first-name').val();
+                var lastName = $('#edit-last-name').val();
+                var email = $('#edit-email').val();
+                var date_of_birth = $('#edit-date_of_birth').val();
+                var studyYear = $('#edit-study-year').val();
 
 
-
-
-
-$('#update-student-btn').on('click', function() {
-    var id = $('#edit-student-id').val();
-    var firstName = $('#edit-first-name').val();
-    var lastName = $('#edit-last-name').val();
-    var email = $('#edit-email').val();
-    var date_of_birth = $('#edit-date_of_birth').val();
-    var studyYear = $('#edit-study-year').val();
-    var courseId = $('#edit-course-id').val();
 
     // Controleer of alle velden leeg zijn
-    if (firstName.trim() === '' && lastName.trim() === '' && email.trim() === '' && date_of_birth.trim() === '' && studyYear.trim() === '' && courseId.trim() === '') {
+    if (firstName.trim() === '' && lastName.trim() === '' && email.trim() === '' && date_of_birth.trim() === '' && studyYear.trim() === '') {
         showToast("Gelieve alle velden in te vullen");
     } else if (firstName.trim() === '') {
         showToast("Gelieve de voornaam van de student in te vullen");
@@ -268,14 +268,12 @@ $('#update-student-btn').on('click', function() {
         showToast("Gelieve de geboortedatum van de student in te vullen");
     } else if (studyYear.trim() === '') {
         showToast("Gelieve het studiejaar van de student in te vullen");
-    } else if (courseId.trim() === '') {
-        showToast("Gelieve de cursus ID van de student in te vullen");
     } else {
         // Als alle velden zijn ingevuld, voer AJAX-verzoek uit
         $.ajax({
             url: 'update_student.php',
             method: 'POST',
-            data: { id: id, first_name: firstName, last_name: lastName, email: email, date_of_birth: date_of_birth, study_year: studyYear, course_id: courseId },
+            data: { id: id, first_name: firstName, last_name: lastName, email: email, date_of_birth: date_of_birth, study_year: studyYear },
             success: function(response) {
                 $('#edit-student-modal').modal('hide');
                 table.ajax.reload();
@@ -288,7 +286,7 @@ $('#update-student-btn').on('click', function() {
     }
 });
 
-            // Handle delete button click
+
            // Handle delete button click
 $('#studentsTable tbody').on('click', '.delete-btn', function() {
     var studentId = $(this).data('id');
@@ -320,12 +318,11 @@ $('#studentsTable tbody').on('click', '.delete-btn', function() {
                 var email = $('#add-email').val();
                 var date_of_birth = $('#add-date_of_birth').val();
                 var studyYear = $('#add-study-year').val();
-                var courseId = $('#add-course-id').val();
 
                 $.ajax({
                     url: 'add_student.php',
                     method: 'POST',
-                    data: { first_name: firstName, last_name: lastName, email: email, date_of_birth: date_of_birth, study_year: studyYear, course_id: courseId },
+                    data: { first_name: firstName, last_name: lastName, email: email, date_of_birth: date_of_birth, study_year: studyYear },
                     success: function(response) {
                         $('#add-student-modal').modal('hide');
                         table.ajax.reload();
@@ -335,26 +332,33 @@ $('#studentsTable tbody').on('click', '.delete-btn', function() {
                     }
                 });
             });
-        });
+            //edit student form
+            $('#students-table tbody').on('click', '.edit-form-btn', function() {
+                let rowData = table.row($(this).closest('tr')).data();
+                console.log(rowData);
+                if (rowData && rowData.id > 0) {
+                    let studentId = rowData.id;
+                    console.log("Student ID:", studentId);
 
-    function readPDF(file) {
-        // console.log(file);
-        // let formData = new FormData();
-        // formData.append('file', file);
-        // console.log(formData);
-        
-        $.ajax({
-            url: 'read_pdf.php',
-            method: 'POST',
-            data: { html_content: file },
-            processData: false, 
-            contentType: false,
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
+                    $.ajax({
+                            url: 'start_session.php',
+                            method: 'POST',
+                            data: { id: studentId },
+                            success: function(response) {
+                                console.log("Session started successfully");
+                                
+                                window.open("edit_form.php", '_blank');
+                                
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error starting session:", error);
+                            }
+                        });
+                    
+                } else {
+                    console.error("No data found for the row. (export)");
+                }
+            });
         });
     }
     
@@ -367,14 +371,6 @@ $('#studentsTable tbody').on('click', '.delete-btn', function() {
         document.getElementById("pdfInput").click(); // Trigger file input click
     }
     
-    // Event listener for file input change
-    document.getElementById('pdfInput').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        // console.log(file);
-        if (file) {
-            readPDF(file);
-        }
-    });
     </script>
 
     <?php include('../includes/footer.php'); ?>

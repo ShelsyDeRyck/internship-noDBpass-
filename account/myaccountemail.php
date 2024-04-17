@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
+<!--
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -67,10 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <button type="submit" class="button">Wijzig E-mailadres</button>
         </form>
-        <!-- Placeholder voor berichten na het wijzigen van het e-mailadres -->
         <div class="message">
-            <!-- Berichten na het wijzigen van het e-mailadres zullen hier verschijnen -->
         </div>
     </div>
 </body>
-</html>
+</html> -->
