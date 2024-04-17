@@ -4,7 +4,7 @@ ob_end_clean();
 // Databaseverbinding maken
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $dbname = "educational_center";
 
 session_start();
@@ -42,6 +42,8 @@ if(session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['id']) && !empty($
             cp.email AS contact_person_email,
             cp.phone AS contact_person_phone,
             co.name AS company_name
+            cs.active AS active
+            s.study_year AS study_year
         FROM
             students s
         LEFT JOIN internship_student ist ON s.id = ist.student_id 
