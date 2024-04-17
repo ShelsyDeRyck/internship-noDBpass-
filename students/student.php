@@ -50,17 +50,7 @@ if (isset($_SESSION['user_type'])) {
         </table>
     </div>
 
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-        <div class="toast-header">
-            <strong class="mr-auto">Notification</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="toast-body">
-            <!-- Toast Message -->
-        </div>
-    </div>
+
     <!-- Bootstrap Modal for Edit Student -->
     <div id="edit-student-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -181,7 +171,7 @@ if (isset($_SESSION['user_type'])) {
                         render: function(data, type, row) {
                             return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
                                 '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>' +
-                                '<button class=" btn btn-primary btn-sm edit-form-btn">Internship</button>';
+                                '<button class=" btn btn-primary btn-sm edit-form-btn" data-id="' + row.id + '">Internship</button>';
                         }
                     }
                 ]
@@ -216,7 +206,7 @@ if (isset($_SESSION['user_type'])) {
                 });
             });
 
-
+            // Behandel klik op edit student knop
             $('#studentsTable tbody').on('click', '.edit-student-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
                 if (rowData && rowData.id) {
@@ -317,10 +307,12 @@ if (isset($_SESSION['user_type'])) {
                 });
             });
             //edit student form
+
             $('#studentsTable tbody').on('click', '.edit-form-btn', function() {
                 let studentId = $(this).data('id');
                 console.log(studentId);
                 if (studentId) {
+
 
                     $.ajax({
                         url: 'start_session.php',
@@ -344,11 +336,6 @@ if (isset($_SESSION['user_type'])) {
                 }
             });
         });
-
-
-        function uploadPDF() {
-            document.getElementById("pdfInput").click(); // Trigger file input click
-        }
     </script>
 
     <?php include('../includes/footer.php'); ?>
