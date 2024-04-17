@@ -16,6 +16,12 @@ $email = $_POST['email'];
 $date_of_birth = $_POST['date_of_birth'];
 $study_year = $_POST['study_year'];
 
+// Check if all required fields are provided
+if (empty($first_name) || empty($last_name) || empty($email) || empty($date_of_birth) || empty($study_year)) {
+    echo "All fields are required";
+    exit; // Stop further execution
+}
+
 // Prepare SQL statement
 $sql = "INSERT INTO students (first_name, last_name, email, date_of_birth, study_year) VALUES (?, ?, ?, ?, ?)";
 

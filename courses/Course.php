@@ -1,5 +1,23 @@
+<?php
+session_start();
+
+// Check if the user is logged in and has a user type set in the session
+if (isset($_SESSION['user_type'])) {
+    // Include the navbar based on the user type
+    if ($_SESSION['user_type'] === 'admins') {
+        include('../includes/navbar_admin.php');
+    } elseif ($_SESSION['user_type'] === 'teachers') {
+        include('../includes/navbar_docent.php');
+    }
+} else {
+    // If user is not logged in, redirect to login page
+    header('Location: ./index.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +27,8 @@
     <!-- DataTables Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
 </head>
+
 <body>
-    <?php include('../includes/navbar_admin.php'); ?>
     <div class="container mt-5">
         <h2>Courses</h2>
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add-course-modal">Add Course</button>
@@ -118,13 +136,23 @@
                     url: "get_courses.php", // Endpoint to fetch courses data
                     dataSrc: ""
                 },
-                columns: [
-                    { data: "id", visible: false }, // Hide ID column
-                    { data: "name" },
-                    { data: "description" },
-                    { data: "duration" },
-                    { data: "location" },
-                    { 
+                columns: [{
+                        data: "id",
+                        visible: false
+                    }, // Hide ID column
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "description"
+                    },
+                    {
+                        data: "duration"
+                    },
+                    {
+                        data: "location"
+                    },
+                    {
                         data: null,
                         render: function(data, type, row) {
                             return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
@@ -147,7 +175,9 @@
                 } else {
                     console.error("No data found for the row.");
                 }
+
             });
+
 
             // Handle update course button click
             $('#update-course-btn').on('click', function() {
@@ -160,60 +190,72 @@
                 $.ajax({
                     url: 'update_course.php',
                     method: 'POST',
-                    data: { id: id, name: name, description: description, duration: duration, location: location },
+                    data: {
+                        id: id,
+                        name: name,
+                        description: description,
+                        duration: duration,
+                        location: location
+                    },
                     success: function(response) {
                         $('#edit-course-modal').modal('hide');
                         table.ajax.reload();
                     },
                     error: function(xhr, status, error) {
-                        console.error("Error updating course:", error);
+                        console.error("Fout bij bijwerken cursus:", error);
                     }
                 });
             });
+        });
 
-            // Handle delete button click
-            $('#coursesTable tbody').on('click', '.delete-btn', function() {
-                var courseId = $(this).data('id');
-                if (courseId) {
-                    $.ajax({
-                        url: 'delete_course.php',
-                        method: 'POST',
-                        data: { id: courseId },
-                        success: function(response) {
-                            table.ajax.reload();
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Error deleting course:", error);
-                        }
-                    });
-                } else {
-                    console.error("No data found for the row.");
-                }
-            });
 
-            // Handle add course button click
-            $('#add-course-btn').on('click', function() {
-                var name = $('#add-name').val();
-                var description = $('#add-description').val();
-                var duration = $('#add-duration').val();
-                var location = $('#add-location').val();
-
+        $('#coursesTable tbody').on('click', '.delete-btn', function() {
+            var courseId = $(this).data('id');
+            if (courseId) {
                 $.ajax({
-                    url: 'add_course.php',
+                    url: 'delete_course.php',
                     method: 'POST',
-                    data: { name: name, description: description, duration: duration, location: location },
+                    data: {
+                        id: courseId
+                    },
                     success: function(response) {
-                        $('#add-course-modal').modal('hide');
                         table.ajax.reload();
                     },
                     error: function(xhr, status, error) {
-                        console.error("Error adding course:", error);
+                        console.error("Error deleting course:", error);
                     }
                 });
+            } else {
+                console.error("No data found for the row.");
+            }
+        });
+
+        // Handle add course button click
+        $('#add-course-btn').on('click', function() {
+            var name = $('#add-name').val();
+            var description = $('#add-description').val();
+            var duration = $('#add-duration').val();
+            var location = $('#add-location').val();
+
+
+            $.ajax({
+                url: 'add_course.php',
+                method: 'POST',
+                data: {
+                    name: name,
+                    description: description,
+                    duration: duration,
+                    location: location
+                },
+                success: function(response) {
+                    $('#add-course-modal').modal('hide');
+                    table.ajax.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Fout bij toevoegen cursus:", error);
+                }
             });
         });
     </script>
 
     <?php include('../includes/footer.php'); ?>
-</body>
-</html>

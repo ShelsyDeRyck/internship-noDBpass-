@@ -2,42 +2,47 @@
 // Include database connection file
 include_once "../db_connect.php";
 
-// Establish database connection using MySQLi
-$conn = connectDB();
+// Check if the request method is POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if all required fields are set
+    if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['email']) && isset($_POST['password'])) {
+        // Receive POST data
+        $first_name = $_POST['first_name'];
+        $last_name = $_POST['last_name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+        // Check if any required field is empty
+        if (empty($first_name) || empty($last_name) || empty($email) || empty($password)) {
+            echo "All fields are required";
+            exit; // Stop further execution
+        }
 
-// Check if all required fields are received via POST
-if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['email']) && isset($_POST['password'])) {
-    // Receive POST data
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $email = $_POST['email'];
-    $password = $_POST['password']; // Add password field
+        // Establish database connection using MySQLi
+        $conn = connectDB();
 
-    // Prepare SQL statement
-    $sql = "INSERT INTO teachers (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
+        // Prepare SQL statement
+        $sql = "INSERT INTO teachers (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
 
-    // Prepare and bind parameters
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $first_name, $last_name, $email, $password); // Adjust bind_param to include password
+        // Prepare and bind parameters
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssss", $first_name, $last_name, $email, $password);
 
-    // Execute SQL statement
-    if ($stmt->execute() === TRUE) {
-        echo "Teacher successfully added";
+        // Execute SQL statement
+        if ($stmt->execute() === TRUE) {
+            echo "Teacher successfully added";
+        } else {
+            echo "Error adding teacher: " . $conn->error;
+        }
+
+        // Close prepared statement and database connection
+        $stmt->close();
+        $conn->close();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Not all required fields are filled";
     }
-
-    // Close prepared statement
-    $stmt->close();
 } else {
-    echo "Not all required fields are received.";
+    echo "This file can only be accessed via an HTTP POST request";
 }
-
-// Close database connection
-$conn->close();
 ?>
+

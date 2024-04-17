@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 16, 2024 at 08:46 AM
+-- Generation Time: Apr 16, 2024 at 01:46 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.0
 
@@ -69,7 +69,8 @@ INSERT INTO `companies` (`id`, `name`, `address`) VALUES
 (7, 'GreenTech Solutions CVBA', 'Rue du Commerce 67, 1000 Bruxelles'),
 (8, 'Codenomic SA', 'Wetstraat 1, 1040 Etterbeek'),
 (9, 'Logiware BVBA', 'Avenue des Arts 3, 1210 Saint-Josse-ten-Noode'),
-(10, 'ThinkBig NV', 'Boulevard du Régent 47, 1000 Bruxelles');
+(10, 'ThinkBig NV', 'Boulevard du Régent 47, 1000 Bruxelles'),
+(11, 'CloudNetics NV2131', 'Dendermondestraat 44, 2018 Antwerpen');
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,8 @@ INSERT INTO `contact_person` (`id`, `first_name`, `last_name`, `email`, `phone`,
 (7, 'Noah', 'Van Dyck', 'noah.vandyck@greentech.be', '0499 76 89 02', 7),
 (8, 'Louise', 'Hermans', 'louise.hermans@codenomic.be', '0487 87 90 12', 8),
 (9, 'Lucas', 'Martens', 'lucas.martens@logiware.be', '0486 98 01 23', 9),
-(10, 'Zoë', 'Jacobs', 'zoe.jacobs@thinkbig.be', '0475 09 12 34', 10);
+(10, 'Zoë', 'Jacobs', 'zoe.jacobs@thinkbig.be', '0475 09 12 34', 10),
+(11, 'Emma', 'Claes', 'emma.claes@cloudnetics.be', '0488 65 78 91', 11);
 
 -- --------------------------------------------------------
 
@@ -156,6 +158,22 @@ CREATE TABLE `course_teacher` (
   `teacher_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `course_teacher`
+--
+
+INSERT INTO `course_teacher` (`course_id`, `teacher_id`) VALUES
+(1, 1),
+(2, 1),
+(1, 2),
+(2, 2),
+(1, 3),
+(2, 3),
+(1, 4),
+(2, 4),
+(1, 5),
+(2, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -182,7 +200,52 @@ INSERT INTO `internships` (`id`, `company_id`, `contact_person_id`) VALUES
 (7, 7, 7),
 (8, 8, 8),
 (9, 9, 9),
-(10, 10, 10);
+(10, 10, 10),
+(11, 11, 11);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `internship_student`
+--
+
+CREATE TABLE `internship_student` (
+  `id` int(11) NOT NULL,
+  `internship_id` int(11) DEFAULT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `about` text,
+  `scope` text,
+  `feedback` text,
+  `employment` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `internship_student`
+--
+
+INSERT INTO `internship_student` (`id`, `internship_id`, `student_id`, `start_date`, `end_date`, `about`, `scope`, `feedback`, `employment`) VALUES
+(1, 3, 8, '2024-01-15', '2023-12-13', 'EcoTech werkt aan duurzame technologische oplossingen in energiebeheer.', 'Implementeer een slim energiebeheersysteem.', 'Groen denken, geweldig in teamverband, soms te detailgericht.', 'Aangenomen als projectleider in duurzaamheid.'),
+(2, 9, 11, '2023-10-14', '2024-02-21', 'CloudConnect specialiseert zich in cloud storage oplossingen voor multinationals.', 'Implementeer een veilige en schaalbare cloud opslagdienst.', 'Sterk analytisch vermogen, kan sneller besluiten nemen.', 'Aangenomen als cloud engineer.'),
+(3, 8, 14, '2023-10-26', '2023-12-18', 'VirtualMarket creëert virtuele marktplaatsen voor digitale economieën.', 'Creëer een augmented reality interface voor online winkelen.', 'Creatief en technisch bekwaam, moet werken aan punctualiteit.', 'Aangenomen als ontwikkelaar voor AR-commerce systemen.'),
+(4, 2, 15, '2023-09-14', '2024-03-20', 'CyberSecure biedt geavanceerde beveiligingsoplossingen voor bedrijfsdata.', 'Versterk de netwerkbeveiliging tegen potentiële cyberaanvallen.', 'Zeer betrouwbaar in beveiligingsmanagement, moet teamwork vaardigheden verbeteren.', 'Aangenomen als hoofd van IT-security.'),
+(5, 10, 4, '2024-01-04', '2023-12-17', 'SmartSolutions focust op softwareontwikkeling en projectbeheer.', 'Manage een team dat een intern bedrijfsnetwerk opzet.', 'Heeft een goede grip op netwerkbeveiliging, kan efficiënter werken.', 'Aangenomen als netwerkbeheerder.'),
+(6, 1, 3, '2024-01-01', '2024-02-25', 'TechAdvancers biedt consultancy voor cybersecurity en risicomanagement.', 'Versterk de IT-infrastructuur tegen cyberaanvallen.', 'Uitstekend in probleemoplossing, moet nog werken aan documentatie.', 'Aangenomen als cybersecurity consultant.'),
+(7, 1, 6, '2023-11-25', '2023-12-24', 'NextGen Leaders is een consultancybureau in de gezondheidszorgtechnologie.', 'Ontwikkel een patiëntvolgsysteem voor ziekenhuizen.', 'Gedreven en methodisch, uitstekend in klantinteracties.', 'Aangenomen als systeemanalist.'),
+(8, 4, 9, '2023-11-11', '2023-11-20', 'FinTech Revolution innoveert financiële technologieën voor banken.', 'Ontwikkel nieuwe algoritmen voor high-frequency trading.', 'Zeer intelligent, soms te snel in besluitvorming.', 'Aangenomen als algoritme ontwikkelaar.'),
+(9, 6, 16, '2024-01-08', '2024-03-23', 'DataDriven Insights biedt data-analyse diensten voor marketing doeleinden.', 'Analyseer consumentendata om marketingstrategieën te verbeteren.', 'Data-savvy, moet zijn vaardigheden in real-time data processing verbeteren.', 'Aangenomen als data analist.'),
+(10, 9, 10, '2023-12-23', '2024-02-03', 'Robotix focust op robotica oplossingen voor industriële automatisering.', 'Ontwerp een prototype voor een automatische assemblagelijn.', 'Technisch zeer bekwaam, moet werken aan soft skills.', 'Aangenomen als robotica ingenieur.'),
+(11, 8, 2, '2023-10-24', '2023-10-21', 'Innovatie Hub, gericht op AI en automatisering voor kleine bedrijven.', 'Implementeer machine learning modellen voor klantsegmentatie.', 'Moet werken aan communicatieve vaardigheden, maar technisch sterk.', 'Aangenomen als junior AI-specialist.'),
+(12, 7, 1, '2023-11-22', '2023-10-28', 'Priceless-IT is een innovatief IT-bedrijf dat gespecialiseerd is in cloudoplossingen.', 'Ontwikkel een geautomatiseerd data-analyse systeem.', 'Zeer leergierig en proactief, neemt regelmatig het initiatief.', 'Aangenomen als data-analist.'),
+(13, 5, 5, '2024-02-18', '2023-10-26', 'CodeCrafters specialiseert zich in webontwikkeling en e-commerce oplossingen.', 'Bouw en onderhoud webshops voor verschillende klanten.', 'Sterk in coderen, moet meer aandacht besteden aan testing.', 'Aangenomen als full-stack webontwikkelaar.'),
+(14, 7, 17, '2023-12-16', '2024-01-27', 'EcoSolutions ontwikkelt ecologische producten voor duurzaam wonen.', 'Ontwikkel nieuwe biologisch afbreekbare materialen.', 'Innovatief en duurzaam, kan efficiënter werken onder druk.', 'Aangenomen als productontwikkelaar in duurzaamheid.'),
+(15, 3, 18, '2024-02-07', '2023-10-20', 'TechPioneers is een startup gericht op de nieuwste technologieën in AI.', 'Implementeer AI om bedrijfsprocessen te automatiseren.', 'AI-expert, moet beter leren omgaan met ongestructureerde data.', 'Aangenomen als AI consultant.'),
+(16, 7, 20, '2024-01-04', '2024-02-03', 'AutoTech innoveert in de automobielindustrie met focus op elektrische voertuigen.', 'Ontwerp een systeem voor autonome navigatie in elektrische auto\'s.', 'Technisch sterk, moet communicatievaardigheden verbeteren.', 'Aangenomen als ingenieur in autonome systemen.'),
+(17, 10, 7, '2023-12-23', '2024-03-25', 'VirtualTech speelt in op virtual reality toepassingen voor educatie.', 'Creëer een VR-trainingssysteem voor scholen.', 'Innovatief en creatief, moet technische vaardigheden verbeteren.', 'Aangenomen als VR content developer.'),
+(18, 1, 12, '2023-12-06', '2023-10-09', 'GreenPlanet innovatie in duurzame landbouwtechnologieën.', 'Ontwikkel een AI-gestuurd systeem voor precisielandbouw.', 'Uitstekend in innovatie, moet communicatie met teamleden verbeteren.', 'Aangenomen als specialist in AI en landbouwtechnologieën.'),
+(19, 2, 13, '2023-09-14', '2024-02-21', 'QuantumComputing levert geavanceerde berekeningen voor wetenschappelijk onderzoek.', 'Bouw een simulatieplatform voor kwantummechanica experimenten.', 'Heeft diepgaand technisch inzicht, soms te perfectionistisch.', 'Aangenomen als onderzoeker in kwantumcomputing.'),
+(20, 4, 19, '2024-02-04', '2024-02-15', 'HealthInnovate specialiseert zich in technologische gezondheidsoplossingen.', 'Ontwikkel apps om patiënten te monitoren en te managen.', 'Goed in gezondheidstechnologie, moet medische kennis verbreden.', 'Aangenomen als ontwikkelaar van medische toepassingen.');
 
 -- --------------------------------------------------------
 
@@ -239,37 +302,34 @@ CREATE TABLE `students` (
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `date_of_birth` date DEFAULT NULL,
-  `internship_id` int(11) DEFAULT NULL,
-  `start_date_internship` date DEFAULT NULL,
-  `end_date_internship` date DEFAULT NULL,
-  `Internship_report` text
+  `study_year` varchar(9) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `date_of_birth`, `internship_id`, `start_date_internship`, `end_date_internship`, `Internship_report`) VALUES
-(1, 'John', 'Doe', 'john.doe@example.com', '2019-01-09', NULL, NULL, NULL, NULL),
-(2, 'Jane', 'Smith', 'jane.smith@example.com', '2014-12-28', NULL, NULL, NULL, NULL),
-(3, 'Emily', 'Jones', 'emily.jones@example.com', '2017-11-19', NULL, NULL, NULL, NULL),
-(4, 'Daniel', 'Lee', 'daniel.lee@example.com', '2004-06-25', NULL, NULL, NULL, NULL),
-(5, 'Laura', 'White', 'laura.white@example.com', '2008-09-24', NULL, NULL, NULL, NULL),
-(6, 'Ethan', 'Harris', 'ethan.harris@example.com', '2010-03-24', NULL, NULL, NULL, NULL),
-(7, 'Madison', 'Clark', 'madison.clark@example.com', '2004-12-11', NULL, NULL, NULL, NULL),
-(8, 'Alex', 'Robinson', 'alex.robinson@example.com', '2014-01-15', NULL, NULL, NULL, NULL),
-(9, 'Isabella', 'Rodriguez', 'isabella.rodriguez@example.com', '2015-05-26', NULL, NULL, NULL, NULL),
-(10, 'Jacob', 'Walker', 'jacob.walker@example.com', '2014-11-16', NULL, NULL, NULL, NULL),
-(11, 'Ava', 'Perez', 'ava.perez@example.com', '2008-03-14', NULL, NULL, NULL, NULL),
-(12, 'Mason', 'Hall', 'mason.hall@example.com', '2016-05-14', NULL, NULL, NULL, NULL),
-(13, 'Mia', 'Young', 'mia.young@example.com', '2017-04-04', NULL, NULL, NULL, NULL),
-(14, 'Benjamin', 'Allen', 'benjamin.allen@example.com', '2017-03-14', NULL, NULL, NULL, NULL),
-(15, 'Charlotte', 'Sanchez', 'charlotte.sanchez@example.com', '2014-03-30', NULL, NULL, NULL, NULL),
-(16, 'Jack', 'Wright', 'jack.wright@example.com', '2019-08-15', NULL, NULL, NULL, NULL),
-(17, 'Lily', 'King', 'lily.king@example.com', '2015-05-23', NULL, NULL, NULL, NULL),
-(18, 'Logan', 'Scott', 'logan.scott@example.com', '2018-02-06', NULL, NULL, NULL, NULL),
-(19, 'Zoe', 'Adams', 'zoe.adams@example.com', '2004-05-09', NULL, NULL, NULL, NULL),
-(20, 'Luke', 'Baker', 'luke.baker@example.com', '2007-06-11', NULL, NULL, NULL, NULL);
+INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `date_of_birth`, `study_year`) VALUES
+(1, 'John', 'Doe', 'john.doe@example.com', '2019-01-09', '2023-2024'),
+(2, 'Jane', 'Smith', 'jane.smith@example.com', '2014-12-28', '2023-2024'),
+(3, 'Emily', 'Jones', 'emily.jones@example.com', '2017-11-19', '2023-2024'),
+(4, 'Daniel', 'Lee', 'daniel.lee@example.com', '2004-06-25', '2023-2024'),
+(5, 'Laura', 'White', 'laura.white@example.com', '2008-09-24', '2023-2024'),
+(6, 'Ethan', 'Harris', 'ethan.harris@example.com', '2010-03-24', '2023-2024'),
+(7, 'Madison', 'Clark', 'madison.clark@example.com', '2004-12-11', '2023-2024'),
+(8, 'Alex', 'Robinson', 'alex.robinson@example.com', '2014-01-15', '2023-2024'),
+(9, 'Isabella', 'Rodriguez', 'isabella.rodriguez@example.com', '2015-05-26', '2023-2024'),
+(10, 'Jacob', 'Walker', 'jacob.walker@example.com', '2014-11-16', '2023-2024'),
+(11, 'Ava', 'Perez', 'ava.perez@example.com', '2008-03-14', '2023-2024'),
+(12, 'Mason', 'Hall', 'mason.hall@example.com', '2016-05-14', '2023-2024'),
+(13, 'Mia', 'Young', 'mia.young@example.com', '2017-04-04', '2023-2024'),
+(14, 'Benjamin', 'Allen', 'benjamin.allen@example.com', '2017-03-14', '2023-2024'),
+(15, 'Charlotte', 'Sanchez', 'charlotte.sanchez@example.com', '2014-03-30', '2023-2024'),
+(16, 'Jack', 'Wright', 'jack.wright@example.com', '2019-08-15', '2023-2024'),
+(17, 'Lily', 'King', 'lily.king@example.com', '2015-05-23', '2023-2024'),
+(18, 'Logan', 'Scott', 'logan.scott@example.com', '2018-02-06', '2023-2024'),
+(19, 'Zoe', 'Adams', 'zoe.adams@example.com', '2004-05-09', '2023-2024'),
+(20, 'Luke', 'Baker', 'luke.baker@example.com', '2007-06-11', '2023-2024');
 
 -- --------------------------------------------------------
 
@@ -396,6 +456,14 @@ ALTER TABLE `internships`
   ADD KEY `fk_contact_person_id` (`contact_person_id`);
 
 --
+-- Indexes for table `internship_student`
+--
+ALTER TABLE `internship_student`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `internship_id` (`internship_id`),
+  ADD KEY `student_id` (`student_id`);
+
+--
 -- Indexes for table `skills`
 --
 ALTER TABLE `skills`
@@ -414,8 +482,7 @@ ALTER TABLE `skill_student`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `fk_internship_id` (`internship_id`);
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `student_course`
@@ -445,13 +512,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `contact_person`
 --
 ALTER TABLE `contact_person`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -475,7 +542,13 @@ ALTER TABLE `course_skill`
 -- AUTO_INCREMENT for table `internships`
 --
 ALTER TABLE `internships`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `internship_student`
+--
+ALTER TABLE `internship_student`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `skills`
@@ -526,17 +599,18 @@ ALTER TABLE `internships`
   ADD CONSTRAINT `fk_internship_contact_person_id` FOREIGN KEY (`contact_person_id`) REFERENCES `contact_person` (`id`);
 
 --
+-- Constraints for table `internship_student`
+--
+ALTER TABLE `internship_student`
+  ADD CONSTRAINT `internship_student_ibfk_1` FOREIGN KEY (`internship_id`) REFERENCES `internships` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `internship_student_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `skill_student`
 --
 ALTER TABLE `skill_student`
   ADD CONSTRAINT `skill_student_ibfk_1` FOREIGN KEY (`skill_id`) REFERENCES `skills` (`id`),
   ADD CONSTRAINT `skill_student_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
-
---
--- Constraints for table `students`
---
-ALTER TABLE `students`
-  ADD CONSTRAINT `fk_internship_id` FOREIGN KEY (`internship_id`) REFERENCES `internships` (`id`);
 
 --
 -- Constraints for table `student_course`

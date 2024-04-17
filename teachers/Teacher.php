@@ -1,5 +1,23 @@
+<?php
+session_start();
+
+// Check if the user is logged in and has a user type set in the session
+if (isset($_SESSION['user_type'])) {
+    // Include the navbar based on the user type
+    if ($_SESSION['user_type'] === 'admins') {
+        include('../includes/navbar_admin.php');
+    } elseif ($_SESSION['user_type'] === 'teachers') {
+        include('../includes/navbar_docent.php');
+    }
+} else {
+    // If user is not logged in, redirect to login page
+    header('Location: ./index.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +27,8 @@
     <!-- DataTables Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
 </head>
+
 <body>
-    <?php include('../includes/navbar_admin.php'); ?>
     <div class="container mt-5">
         <h2>Teachers</h2>
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add-teacher-modal">Add Teacher</button>
@@ -118,18 +136,26 @@
                     url: "get_teachers.php", // Endpoint to fetch teachers data
                     dataSrc: ""
                 },
-                columns: [
-                    { data: "id", visible: false }, // Hide ID column
-                    { data: "first_name" },
-                    { data: "last_name" },
-                    { data: "email" },
-                    { 
-                        data: "password", 
+                columns: [{
+                        data: "id",
+                        visible: false
+                    }, // Hide ID column
+                    {
+                        data: "first_name"
+                    },
+                    {
+                        data: "last_name"
+                    },
+                    {
+                        data: "email"
+                    },
+                    {
+                        data: "password",
                         render: function(data, type, row) {
                             return '<span class="password-text">********</span><button class="btn btn-link reveal-password" data-password="' + data + '">Reveal</button>';
                         }
                     },
-                    { 
+                    {
                         data: null,
                         render: function(data, type, row) {
                             return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
@@ -154,7 +180,7 @@
                 }
             });
 
-            // Handle update teacher button click
+            // Behandel klik op bijwerken leraar knop
             $('#update-teacher-btn').on('click', function() {
                 var id = $('#edit-teacher-id').val();
                 var firstName = $('#edit-first-name').val();
@@ -165,13 +191,19 @@
                 $.ajax({
                     url: 'update_teacher.php',
                     method: 'POST',
-                    data: { id: id, first_name: firstName, last_name: lastName, email: email, password: password },
+                    data: {
+                        id: id,
+                        first_name: firstName,
+                        last_name: lastName,
+                        email: email,
+                        password: password
+                    },
                     success: function(response) {
                         $('#edit-teacher-modal').modal('hide');
                         table.ajax.reload();
                     },
                     error: function(xhr, status, error) {
-                        console.error("Error updating teacher:", error);
+                        console.error("Fout bij bijwerken leraar:", error);
                     }
                 });
             });
@@ -183,7 +215,9 @@
                     $.ajax({
                         url: 'delete_teacher.php',
                         method: 'POST',
-                        data: { id: teacherId },
+                        data: {
+                            id: teacherId
+                        },
                         success: function(response) {
                             table.ajax.reload();
                         },
@@ -196,7 +230,7 @@
                 }
             });
 
-            // Handle add teacher button click
+
             $('#add-teacher-btn').on('click', function() {
                 var firstName = $('#add-first-name').val();
                 var lastName = $('#add-last-name').val();
@@ -206,13 +240,18 @@
                 $.ajax({
                     url: 'add_teacher.php',
                     method: 'POST',
-                    data: { first_name: firstName, last_name: lastName, email: email, password: password },
+                    data: {
+                        first_name: firstName,
+                        last_name: lastName,
+                        email: email,
+                        password: password
+                    },
                     success: function(response) {
                         $('#add-teacher-modal').modal('hide');
                         table.ajax.reload();
                     },
                     error: function(xhr, status, error) {
-                        console.error("Error adding teacher:", error);
+                        console.error("Fout bij toevoegen leraar:", error);
                     }
                 });
             });
@@ -235,5 +274,3 @@
     </script>
 
     <?php include('../includes/footer.php'); ?>
-</body>
-</html>
