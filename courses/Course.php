@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+// Check if the user is logged in and has a user type set in the session
+if (isset($_SESSION['user_type'])) {
+    // Include the navbar based on the user type
+    if ($_SESSION['user_type'] === 'admins') {
+        include('../includes/navbar_admin.php');
+    } elseif ($_SESSION['user_type'] === 'teachers') {
+        include('../includes/navbar_docent.php');
+    }
+} else {
+    // If user is not logged in, redirect to login page
+    header('Location: ./index.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -12,7 +29,6 @@
 </head>
 
 <body>
-    <?php include('../includes/navbar_admin.php'); ?>
     <div class="container mt-5">
         <h2>Courses</h2>
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add-course-modal">Add Course</button>
