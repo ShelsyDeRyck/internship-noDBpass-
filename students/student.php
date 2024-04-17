@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,6 @@
     <!-- DataTables Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
 </head>
-
 <body>
     <?php include('../includes/navbar_admin.php'); ?>
     <div class="container mt-5">
@@ -25,6 +23,7 @@
                     <th>Email</th>
                     <th>Date of Birth</th>
                     <th>Study Year</th>
+                    <th>Course ID</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -33,7 +32,7 @@
             </tbody>
         </table>
     </div>
-
+    
     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
         <div class="toast-header">
             <strong class="mr-auto">Notification</strong>
@@ -76,6 +75,10 @@
                             <label for="edit-study-year">Study Year:</label>
                             <input type="text" class="form-control" id="edit-study-year">
                         </div>
+                        <div class="form-group">
+                            <label for="edit-course-id">Course ID:</label>
+                            <input type="text" class="form-control" id="edit-course-id">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -115,6 +118,10 @@
                             <label for="add-study-year">Study Year:</label>
                             <input type="text" class="form-control" id="add-study-year">
                         </div>
+                        <div class="form-group">
+                            <label for="add-course-id">Course ID:</label>
+                            <input type="text" class="form-control" id="add-course-id">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -141,31 +148,20 @@
                     url: "get_students.php", // Endpoint to fetch students data
                     dataSrc: ""
                 },
-                columns: [{
-                        data: "id",
-                        visible: false
-                    }, // Hide ID column
-                    {
-                        data: "first_name"
-                    },
-                    {
-                        data: "last_name"
-                    },
-                    {
-                        data: "email"
-                    },
-                    {
-                        data: "date_of_birth"
-                    },
-                    {
-                        data: "study_year"
-                    },
-                    {
+                columns: [
+                    { data: "id", visible: false }, // Hide ID column
+                    { data: "first_name" },
+                    { data: "last_name" },
+                    { data: "email" },
+                    { data: "date_of_birth" },
+                    { data: "study_year" },
+                    { data: "course_id" },
+                    { 
                         data: null,
                         render: function(data, type, row) {
                             return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
-                                '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>' +
-                                '<button class=" btn btn-success btn-sm edit-form-btn" data-id="' + row.id + '">Internship</button>';
+                                '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>'
+                                + '<button class=" btn btn-primary btn-sm edit-form-btn">Internship</button>';
                         }
                     }
                 ]
@@ -175,36 +171,33 @@
                 $('#add-student-modal').show();
             });
 
-            // Behandel klik op toevoegen student knop
             $('#submit-student-btn').on('click', function() {
-                var first_name = $('#first_name').val();
-                var last_name = $('#last_name').val();
-                var email = $('#email').val();
-                var date_of_birth = $('#date_of_birth').val();
-                var study_year = $('#study_year').val();
+    var first_name = $('#first_name').val();
+    var last_name = $('#last_name').val();
+    var email = $('#email').val();
+    var date_of_birth = $('#date_of_birth').val();
+    var study_year = $('#study_year').val();
 
-                $.ajax({
-                    url: 'add_student.php',
-                    method: 'POST',
-                    data: {
-                        first_name: first_name,
-                        last_name: last_name,
-                        email: email,
-                        date_of_birth: date_of_birth,
-                        study_year: study_year
-                    },
-                    success: function(response) {
-                        table.ajax.reload();
-                        $('#add-student-modal').hide();
-                    }
-                });
-            });
+    // Check if all fields are filled
+    if (first_name.trim() === '' || last_name.trim() === '' || email.trim() === '' || date_of_birth.trim() === '' || study_year.trim() === '') {
+        // showToast("vull alle informatie van de student in.");
+        return;
+    }
+
+    $.ajax({
+        url: 'add_student.php',
+        method: 'POST',
+        data: { first_name: first_name, last_name: last_name, email: email, date_of_birth: date_of_birth, study_year: study_year },
+        success: function(response) {
+            table.ajax.reload();
+            $('#add-student-modal').hide();
+        }
+    });
+});
 
 
-            // Handle edit student button click
-            $('#studentsTable tbody').on('click', '.edit-btn', function() {
+            $('#studentsTable tbody').on('click', '.edit-student-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
-                
                 if (rowData && rowData.id) {
                     $('#edit-student-id').val(rowData.id);
                     $('#edit-first-name').val(rowData.first_name);
@@ -212,6 +205,7 @@
                     $('#edit-email').val(rowData.email);
                     $('#edit-date_of_birth').val(rowData.date_of_birth);
                     $('#edit-study-year').val(rowData.study_year);
+                    $('#edit-course-id').val(rowData.course_id);
                     $('#edit-student-modal').modal('show');
                 } else {
                     console.error("No data found for the row.");
@@ -226,72 +220,31 @@
                 var email = $('#edit-email').val();
                 var date_of_birth = $('#edit-date_of_birth').val();
                 var studyYear = $('#edit-study-year').val();
-                // console.log("edit Student ID:", id);
+                var courseId = $('#edit-course-id').val();
+
                 $.ajax({
                     url: 'update_student.php',
                     method: 'POST',
-                    data: {
-                        id: id,
-                        first_name: firstName,
-                        last_name: lastName,
-                        email: email,
-                        date_of_birth: date_of_birth,
-                        study_year: studyYear
-                    },
+                    data: { id: id, first_name: firstName, last_name: lastName, email: email, date_of_birth: date_of_birth, study_year: studyYear, course_id: courseId },
                     success: function(response) {
                         $('#edit-student-modal').modal('hide');
                         table.ajax.reload();
-                        showToast("Student succesvol bijgewerkt.");
                     },
                     error: function(xhr, status, error) {
-                        console.error("Fout bij bijwerken student:", error);
+                        console.error("Error updating student:", error);
                     }
                 });
-
             });
-
-            $('#studentsTable tbody').on('click', '.edit-form-btn', function() {
-                let studentId = $(this).data('id');
-                console.log(studentId);
-                if (studentId) {
-                    // let studentId = rowData.id;
-                    // console.log("Student ID:", studentId);
-
-                    $.ajax({
-                        url: 'start_session.php',
-                        method: 'POST',
-                        data: {
-                            id: studentId
-                        },
-                        success: function(response) {
-                            console.log("Session started successfully");
-                            window.open("edit_form.php", '_blank');
-
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Error starting session:", error);
-                        }
-                    });
-
-                } else {
-                    console.error("No data found for the row.");
-                }
-            });
-
 
             // Handle delete button click
             $('#studentsTable tbody').on('click', '.delete-btn', function() {
                 var studentId = $(this).data('id');
-                // console.log("delete Student ID:", studentId);
                 if (studentId) {
                     $.ajax({
                         url: 'delete_student.php',
                         method: 'POST',
-                        data: {
-                            id: studentId
-                        },
+                        data: { id: studentId },
                         success: function(response) {
-                            // Reload the table data
                             table.ajax.reload();
                         },
                         error: function(xhr, status, error) {
@@ -303,7 +256,6 @@
                 }
             });
 
-
             // Handle add student button click
             $('#add-student-btn').on('click', function() {
                 var firstName = $('#add-first-name').val();
@@ -311,17 +263,12 @@
                 var email = $('#add-email').val();
                 var date_of_birth = $('#add-date_of_birth').val();
                 var studyYear = $('#add-study-year').val();
-                
+                var courseId = $('#add-course-id').val();
+
                 $.ajax({
                     url: 'add_student.php',
                     method: 'POST',
-                    data: {
-                        first_name: firstName,
-                        last_name: lastName,
-                        email: email,
-                        date_of_birth: date_of_birth,
-                        study_year: studyYear
-                    },
+                    data: { first_name: firstName, last_name: lastName, email: email, date_of_birth: date_of_birth, study_year: studyYear, course_id: courseId },
                     success: function(response) {
                         $('#add-student-modal').modal('hide');
                         table.ajax.reload();
@@ -331,12 +278,36 @@
                     }
                 });
             });
-           
+            //edit student form
+            $('#studentsTable tbody').on('click', '.edit-form-btn', function() {
+                let studentId = $(this).data('id');
+                console.log(studentId);
+                if (studentId) {
+
+                    $.ajax({
+                            url: 'start_session.php',
+                            method: 'POST',
+                            data: { id: studentId },
+                            success: function(response) {
+                                console.log("Session started successfully");
+                                
+                                window.open("edit_form.php", '_blank');
+                                
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error starting session:", error);
+                            }
+                        });
+                    
+                } else {
+                    console.error("No data found for the row. (export)");
+                }
+            });
         });
 
-        function uploadPDF() {
-            document.getElementById("pdfInput").click(); // Trigger file input click
-        }
+    
     </script>
 
     <?php include('../includes/footer.php'); ?>
+</body>
+</html>
