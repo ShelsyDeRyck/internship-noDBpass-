@@ -2,6 +2,7 @@
 session_start();
 require_once './db_connect.php';
 
+
 function fetchUser($pdo, $email, $tables)
 {
   foreach ($tables as $table) {
@@ -14,7 +15,7 @@ function fetchUser($pdo, $email, $tables)
   }
   return [null, null];
 }
-
+$loginError = ''; // Initialize an error message variable
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];
@@ -24,29 +25,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
     $tables = ['teachers', 'admins', 'students'];
     list($user, $type) = fetchUser($pdo, $email, $tables);
 
-    if ($user && password_verify($password, $user['password'])) {
-      $_SESSION['user_id'] = $user['id'];
-      $_SESSION['user_type'] = $type;
+    if ($user) {
+      if (password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_type'] = $type;
 
-      // Debugging output
-      echo "Session user_id set to: " . $_SESSION['user_id'];
-      echo "Session user_type set to: " . $_SESSION['user_type'];
-
-      // Redirect based on user type
-      if ($type === 'teachers') {
-        header('Location: ./dashboard_docent.php');
-      } elseif ($type === 'admins') {
-        header('Location: ./dashboard_admin.php');
+        // Redirect based on user type
+        if ($type === 'teachers') {
+          header('Location: ./dashboard_docent.php');
+        } elseif ($type === 'admins') {
+          header('Location: ./dashboard_admin.php');
+        }
+        exit;
+      } else {
+        $loginError = 'Verkeerd wachtwoord!';
       }
-      exit;
     } else {
-      echo 'Login failed!';
+      $loginError = 'Gebruiker niet gevonden!';
     }
   } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
   }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,79 +61,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
 </head>
 
 <body>
-  <div class="container-fluid">
-
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <h1><img src="assets/logo.png" alt="logo" class="logo"></h1>
-          <h2>WELKOM BIJ SYNTRA PXL STAGE MANAGEMENT</h2>
-          <p>Gelieve eerst in te loggen.</p>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <form method="post" id="loginForm">
-            <div class="form-group">
-              <label class="form-label" for="email">Email:</label>
-              <input class="form-control" type="text" id="email" name="email">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="password">Password:</label>
-              <input class="form-control" type="password" id="password" name="password">
-            </div>
-            <button class="btn btn-primary mt-3" type="submit">Login</button>
-          </form>
+  <div class="container" id="container">
+    <div class="form-container sign-in-container">
+      <form method="POST" action="#">
+        <h1>Log in</h1>
+        <input type="email" placeholder="Email" name="email" class="input-email" required />
+        <input type="password" placeholder="Password" name="password" required />
+        <button type="submit" class="login-button">Log In</button>
+        <?php if ($loginError) : ?>
+          <p class="error"><?php echo $loginError; ?></p>
+        <?php endif; ?>
+      </form>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-right">
+          <img class="login-logo" src="https://cookie-cdn.cookiepro.com/logos/564c6d45-0689-43be-9dd4-ee251b128a04/4f6aa339-3a53-4c89-8f20-5486b2bfad47/f2341983-ce70-4e2a-96ad-4e89b6a30ccd/SyntraPXL_Logo_Digitaal_Wit.png" alt="">
+          <p style="font-weight: bolder;">Welkom bij de stagebegeleidingstool voor de docenten van SyntraPXL.</p>
         </div>
       </div>
     </div>
-
   </div>
-</div>
+  <script>
+    $(document).ready(function() {
+      $('#loginForm').submit(function(e) {
+        var email = $('#email').val();
+        var password = $('#password').val();
+        if (email.trim() === '' || password.trim() === '') {
+          e.preventDefault();
+          showToast('Gelieve een email en wachtwoord in te vullen.');
+        }
+      });
 
-</div> <!-- Closing container-fluid -->
-
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-  <div class="toast-header">
-    <strong class="mr-auto">Attention</strong>
-    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="toast-body">
-  
-  </div>
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script>
- $(document).ready(function(){
-    $('#loginForm').submit(function(e){
-      var email = $('#email').val();
-      var password = $('#password').val();
-      
-      if(email.trim() === '' && password.trim() === '') {
-        e.preventDefault();
-        showToast('gelieven een email en wachtwoord in te vullen');
-      } else if(email.trim() === '') {
-        e.preventDefault();
-        showToast('gelieven een email in te vullen');
-      } else if(password.trim() === '') {
-        e.preventDefault();
-        showToast('gelieven een wachtwoord in te vullen');
+      function showToast(message) {
+        $('.toast-body').text(message);
+        $('.toast').toast('show');
       }
     });
+  </script>
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+    <div class="toast-header">
+      <strong class="mr-auto">Attention</strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+    </div>
+  </div>
+  <?php include('includes/footer.php'); ?>
+</body>
 
-  function showToast(message) {
-    $('.toast-body').text(message);
-    $('.toast').toast('show');
-  }
-});
-</script>
-
-
-      <?php include('includes/footer.php'); ?>
+</html>
