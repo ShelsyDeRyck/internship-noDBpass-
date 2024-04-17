@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <!-- DataTables Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
 </head>
+
 <body>
     <?php include('../includes/navbar_admin.php'); ?>
     <div class="container mt-5">
@@ -102,20 +104,6 @@
         </div>
     </div>
 
-    <div aria-live="polite" aria-atomic="true" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-  <div class="toast" style="width: 300px;">
-    <div class="toast-header">
-      <strong class="mr-auto">Notification</strong>
-      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="toast-body">
-      This is a toast message.
-    </div>
-  </div>
-</div>
-
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap 5 JS Bundle with Popper -->
@@ -132,13 +120,23 @@
                     url: "get_courses.php", // Endpoint to fetch courses data
                     dataSrc: ""
                 },
-                columns: [
-                    { data: "id", visible: false }, // Hide ID column
-                    { data: "name" },
-                    { data: "description" },
-                    { data: "duration" },
-                    { data: "location" },
-                    { 
+                columns: [{
+                        data: "id",
+                        visible: false
+                    }, // Hide ID column
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "description"
+                    },
+                    {
+                        data: "duration"
+                    },
+                    {
+                        data: "location"
+                    },
+                    {
                         data: null,
                         render: function(data, type, row) {
                             return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
@@ -161,114 +159,87 @@
                 } else {
                     console.error("No data found for the row.");
                 }
+
             });
+
 
             // Handle update course button click
             $('#update-course-btn').on('click', function() {
-    var id = $('#edit-course-id').val();
-    var name = $('#edit-name').val();
-    var description = $('#edit-description').val();
-    var duration = $('#edit-duration').val();
-    var location = $('#edit-location').val();
+                var id = $('#edit-course-id').val();
+                var name = $('#edit-name').val();
+                var description = $('#edit-description').val();
+                var duration = $('#edit-duration').val();
+                var location = $('#edit-location').val();
 
-    // Controleer of alle velden leeg zijn
-    if (name.trim() === '' && description.trim() === '' && duration.trim() === '' && location.trim() === '') {
-        showToast("Gelieve alle velden in te vullen");
-    } else if (name.trim() === '') {
-        showToast("Gelieve de naam van de cursus in te vullen");
-    } else if (description.trim() === '') {
-        showToast("Gelieve de beschrijving van de cursus in te vullen");
-    } else if (duration.trim() === '') {
-        showToast("Gelieve de duur van de cursus in te vullen");
-    } else if (location.trim() === '') {
-        showToast("Gelieve de locatie van de cursus in te vullen");
-    } else {
-        // Als alle velden zijn ingevuld, voer AJAX-verzoek uit
-        $.ajax({
-            url: 'update_course.php',
-            method: 'POST',
-            data: { id: id, name: name, description: description, duration: duration, location: location },
-            success: function(response) {
-                $('#edit-course-modal').modal('hide');
-                table.ajax.reload();
-                showToast("Cursus succesvol bijgewerkt.");
-            },
-            error: function(xhr, status, error) {
-                console.error("Fout bij bijwerken cursus:", error);
+                $.ajax({
+                    url: 'update_course.php',
+                    method: 'POST',
+                    data: {
+                        id: id,
+                        name: name,
+                        description: description,
+                        duration: duration,
+                        location: location
+                    },
+                    success: function(response) {
+                        $('#edit-course-modal').modal('hide');
+                        table.ajax.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Fout bij bijwerken cursus:", error);
+                    }
+                });
+            });
+        });
+
+
+        $('#coursesTable tbody').on('click', '.delete-btn', function() {
+            var courseId = $(this).data('id');
+            if (courseId) {
+                $.ajax({
+                    url: 'delete_course.php',
+                    method: 'POST',
+                    data: {
+                        id: courseId
+                    },
+                    success: function(response) {
+                        table.ajax.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error deleting course:", error);
+                    }
+                });
+            } else {
+                console.error("No data found for the row.");
             }
         });
-    }
-});
+
+        // Handle add course button click
+        $('#add-course-btn').on('click', function() {
+            var name = $('#add-name').val();
+            var description = $('#add-description').val();
+            var duration = $('#add-duration').val();
+            var location = $('#add-location').val();
 
 
-function showToast(message) {
-    $('.toast-body').text(message);
-    $('.toast').toast('show');
-}
-
-
-            $('#coursesTable tbody').on('click', '.delete-btn', function() {
-    var courseId = $(this).data('id');
-    if (courseId) {
-        $.ajax({
-            url: 'delete_course.php',
-            method: 'POST',
-            data: { id: courseId },
-            success: function(response) {
-                table.ajax.reload();
-                showToast("Course deleted successfully.");
-            },
-            error: function(xhr, status, error) {
-                console.error("Error deleting course:", error);
-                showToast("Failed to delete course. Please try again.");
-            }
+            $.ajax({
+                url: 'add_course.php',
+                method: 'POST',
+                data: {
+                    name: name,
+                    description: description,
+                    duration: duration,
+                    location: location
+                },
+                success: function(response) {
+                    $('#add-course-modal').modal('hide');
+                    table.ajax.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Fout bij toevoegen cursus:", error);
+                }
+            });
         });
-    } else {
-        console.error("No data found for the row.");
-    }
-});
-
-            // Handle add course button click
-            $('#add-course-btn').on('click', function() {
-    var name = $('#add-name').val();
-    var description = $('#add-description').val();
-    var duration = $('#add-duration').val();
-    var location = $('#add-location').val();
-
-    // Controleer of alle velden leeg zijn
-    if (name.trim() === '' && description.trim() === '' && duration.trim() === '' && location.trim() === '') {
-        showToast("Gelieve alle velden in te vullen");
-    } else if (name.trim() === '') {
-        showToast("Gelieve de naam van de cursus in te vullen");
-    } else if (description.trim() === '') {
-        showToast("Gelieve de beschrijving van de cursus in te vullen");
-    } else if (duration.trim() === '') {
-        showToast("Gelieve de duur van de cursus in te vullen");
-    } else if (location.trim() === '') {
-        showToast("Gelieve de locatie van de cursus in te vullen");
-    } else {
-        // Als alle velden zijn ingevuld, voer AJAX-verzoek uit
-        $.ajax({
-            url: 'add_course.php',
-            method: 'POST',
-            data: { name: name, description: description, duration: duration, location: location },
-            success: function(response) {
-                $('#add-course-modal').modal('hide');
-                table.ajax.reload();
-            },
-            error: function(xhr, status, error) {
-                console.error("Fout bij toevoegen cursus:", error);
-            }
-        });
-    }
-});
-
-        function showToast(message) {
-    $('.toast-body').text(message);
-    $('.toast').toast('show');
-}
     </script>
 
     <?php include('../includes/footer.php'); ?>
-</body>
-</html>
