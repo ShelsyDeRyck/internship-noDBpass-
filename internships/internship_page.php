@@ -231,7 +231,7 @@ $(document).ready(function() {
 
         if (confirm('Are you sure you want to delete this record?')) {
             $.ajax({
-                url: 'http://localhost/Stage2024/internships_admin.php',
+                url: 'http://localhost/Stage2024/internships/internship_page.php',
                 type: 'POST',
                 dataType: 'json',  // Expect JSON response
                 data: {
@@ -286,7 +286,7 @@ $('#editInternshipForm').submit(function(e) {
     var companyId = $(this).find('#editCompanyId').val(); // Assumes there is a field with the company ID in the form
 
     $.ajax({
-        url: 'http://localhost/Stage2024/internships_admin.php',
+        url: 'http://localhost/Stage2024/internships/internship_page.php',
         type: 'POST',
         data: formData + '&action=update', // formData already contains companyId
         success: function(data) {
@@ -309,7 +309,7 @@ $('#editInternshipForm').submit(function(e) {
         var formData = $(this).serialize();
         
         $.ajax({
-            url: 'http://localhost/Stage2024/internships_admin.php', 
+            url: 'http://localhost/Stage2024/internships/internship_page.php', 
             type: 'POST',
             data: formData,
             success: function(data) {

@@ -99,38 +99,38 @@ public function delete($internship_id) {
     try {
         $this->db->beginTransaction();
         
-        // Find company ID associated with internship
-        $sql_company_id = "SELECT company_id FROM internships WHERE id = ?";
-        $stmt_company_id = $this->db->prepare($sql_company_id);
-        $stmt_company_id->execute([$internship_id]);
-        $company_id = $stmt_company_id->fetchColumn();
-
-        // Find contact_person ID associated with internship
-        $sql_contact_id = "SELECT contact_person_id FROM internships WHERE id = ?";
-        $stmt_contact_id = $this->db->prepare($sql_contact_id);
-        $stmt_contact_id->execute([$internship_id]);
-        $contact_id = $stmt_contact_id->fetchColumn();
+        // Get company ID and contact_person ID associated with the internship
+        $sql_ids = "SELECT company_id, contact_person_id FROM internships WHERE id = ?";
+        $stmt_ids = $this->db->prepare($sql_ids);
+        $stmt_ids->execute([$internship_id]);
+        $ids = $stmt_ids->fetch(PDO::FETCH_ASSOC);
+        $company_id = $ids['company_id'];
+        $contact_id = $ids['contact_person_id'];
 
         // Delete record from internships table
         $sql_internship = "DELETE FROM internships WHERE id = ?";
         $stmt_internship = $this->db->prepare($sql_internship);
         $stmt_internship->execute([$internship_id]);
 
-        // Delete associated record from companies table
-        $sql_company = "DELETE FROM companies WHERE id = ?";
-        $stmt_company = $this->db->prepare($sql_company);
-        $stmt_company->execute([$company_id]);
-
         // Delete associated record from contact_person table
-        $sql_contact = "DELETE FROM contact_person WHERE id = ?";
-        $stmt_contact = $this->db->prepare($sql_contact);
-        $stmt_contact->execute([$contact_id]);
+        if ($contact_id) {
+            $sql_contact = "DELETE FROM contact_person WHERE id = ?";
+            $stmt_contact = $this->db->prepare($sql_contact);
+            $stmt_contact->execute([$contact_id]);
+        }
+
+        // Delete associated record from companies table
+        if ($company_id) {
+            $sql_company = "DELETE FROM companies WHERE id = ?";
+            $stmt_company = $this->db->prepare($sql_company);
+            $stmt_company->execute([$company_id]);
+        }
 
         $this->db->commit();
         return true;
     } catch (PDOException $e) {
         $this->db->rollBack();
-        // Ideally, log the error
+        error_log("Ошибка при удалении: " . $e->getMessage()); // Log the error
         return false;
     }
 }
