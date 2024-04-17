@@ -181,7 +181,7 @@ if (isset($_SESSION['user_type'])) {
                         render: function(data, type, row) {
                             return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
                                 '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>' +
-                                '<button class=" btn btn-primary edit-form-btn">Edit internship form</button>';
+                                '<button class=" btn btn-primary btn-sm edit-form-btn">Internship</button>';
                         }
                     }
                 ]
@@ -217,8 +217,7 @@ if (isset($_SESSION['user_type'])) {
             });
 
 
-            // Handle edit student button click
-            $('#students-table tbody').on('click', '.edit-btn', function() {
+            $('#studentsTable tbody').on('click', '.edit-student-btn', function() {
                 var rowData = table.row($(this).closest('tr')).data();
                 if (rowData && rowData.id) {
                     $('#edit-student-id').val(rowData.id);
@@ -318,12 +317,10 @@ if (isset($_SESSION['user_type'])) {
                 });
             });
             //edit student form
-            $('#students-table tbody').on('click', '.edit-form-btn', function() {
-                var rowData = table.row($(this).closest('tr')).data();
-                console.log(rowData);
-                if (rowData && rowData.id > 0) {
-                    let studentId = rowData.id;
-                    console.log("Student ID:", studentId);
+            $('#studentsTable tbody').on('click', '.edit-form-btn', function() {
+                let studentId = $(this).data('id');
+                console.log(studentId);
+                if (studentId) {
 
                     $.ajax({
                         url: 'start_session.php',
