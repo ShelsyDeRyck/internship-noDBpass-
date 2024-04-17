@@ -85,18 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
   </div>
   </div>
 
-  </div> <!-- Closing container-fluid -->
-
-  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-    <div class="toast-header">
-      <strong class="mr-auto">Attention</strong>
-      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="toast-body">
-
-    </div>
   </div>
 
 
