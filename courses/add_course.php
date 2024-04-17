@@ -12,6 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $duration = $_POST['duration'];
         $location = $_POST['location'];
 
+        // Check if any required field is empty
+        if (empty($name) || empty($description) || empty($duration) || empty($location)) {
+            echo "All fields are required";
+            exit; // Stop further execution
+        }
+
         // Establish database connection using MySQLi
         $conn = connectDB();
 
@@ -39,3 +45,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "This file can only be accessed via an HTTP POST request";
 }
 ?>
+

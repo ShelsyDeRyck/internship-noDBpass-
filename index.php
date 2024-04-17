@@ -86,44 +86,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_PO
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </div>
+</div>
 
-    <script>
-      $(document).ready(function() {
-        $('#loginForm').submit(function(e) {
-          var email = $('#email').val();
-          var password = $('#password').val();
+</div> <!-- Closing container-fluid -->
 
-          if (email.trim() === '' || password.trim() === '') {
-            e.preventDefault();
-            showToast('gelieven een email en wachtwoord in te vullen');
-          }
-        });
-
-        function showToast(message) {
-          $('.toast-body').text(message);
-          $('.toast').toast('show');
-        }
-      });
-    </script>
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+  <div class="toast-header">
+    <strong class="mr-auto">Attention</strong>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+  
+  </div>
+</div>
 
 
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-      <div class="toast-header">
-        <strong class="mr-auto">Attention</strong>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="toast-body">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-      </div>
+<script>
+ $(document).ready(function(){
+    $('#loginForm').submit(function(e){
+      var email = $('#email').val();
+      var password = $('#password').val();
+      
+      if(email.trim() === '' && password.trim() === '') {
+        e.preventDefault();
+        showToast('gelieven een email en wachtwoord in te vullen');
+      } else if(email.trim() === '') {
+        e.preventDefault();
+        showToast('gelieven een email in te vullen');
+      } else if(password.trim() === '') {
+        e.preventDefault();
+        showToast('gelieven een wachtwoord in te vullen');
+      }
+    });
 
-
-
-
+  function showToast(message) {
+    $('.toast-body').text(message);
+    $('.toast').toast('show');
+  }
+});
+</script>
 
 
       <?php include('includes/footer.php'); ?>
