@@ -90,16 +90,17 @@
         // echo $response['contact_person_first_name'];
     ?>
 
-    <div class="container">
+<div class="container">
         <div class="row">
             <div class="col-md-12">
                 <nav class="navbar bg-body-tertiary">
                     <button class="btn btn-outline-danger"><a href="students.php" class="nav-link">Terug</a></button>
                     <button class="btn btn-outline-danger" id="export-student-btn" onclick="exportStudent()">export</button>
-                    <button class="btn btn-outline-danger"><a href="students.php" class="nav-link">Opslaan</a></button>
                 </nav>
             </div>
         </div>
+    <form method="post" action="update_data.php">
+    
         <div class="row">
             <div class="col-md-12">
                 <p><b><?php echo $response['contact_person_first_name'] . ' ' . $response['contact_person_last_name'] ?></b></p>
@@ -118,9 +119,9 @@
         <div class="row">
             <div class="col-md-12">
                 <p><b>Omgeving: <?php echo $response['company_name'] ?></b></p>
-                <textarea class="form-control" placeholder=""><?php echo !empty($response['about']) ? $response['about'] : '' ?></textarea>
+                <textarea class="form-control" name="about"  placeholder=""><?php echo !empty($response['about']) ? $response['about'] : '' ?></textarea>
                 <p><b>Scope</b></p>
-                <textarea class="form-control" placeholder=""><?php echo !empty($response['scope']) ? $response['scope'] : '' ?></textarea>
+                <textarea class="form-control" name="scope" placeholder=""><?php echo !empty($response['scope']) ? $response['scope'] : '' ?></textarea>
             </div>
         </div>
         <div class="row">
@@ -132,13 +133,15 @@
         <div class="row">
             <div class="col-md-12">
                 <p><b>Goede ervaringen en werkpunten: te bepalen door stagementor:</b></p>
-                <textarea class="form-control" placeholder=""><?php echo !empty($response['feedback']) ? $response['feedback'] : '' ?></textarea>
+                <textarea class="form-control" name="feedback" placeholder=""><?php echo !empty($response['feedback']) ? $response['feedback'] : '' ?></textarea>
                 <p><b>Zou u deze stagair op basis van uw ervaringen aannemen in uw bedrijf</b></p>
-                <textarea class="form-control" placeholder=""><?php echo !empty($response['employment']) ? $response['employment'] : '' ?></textarea>
+                <textarea class="form-control" name="employment" placeholder=""><?php echo !empty($response['employment']) ? $response['employment'] : '' ?></textarea>
                 <p><b>Totaal:</b> veranderd niet tot deze data is opgeslagen</p>
                 <p>Softskill: %, Hardskill: %</p>
+                <button type="submit" class="btn btn-outline-danger">Save</button>
             </div>
         </div>
+    </form>
     </div>
 </body>
 <script>
