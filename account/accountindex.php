@@ -1,16 +1,35 @@
+<?php
+session_start();
+
+// Check if the user is logged in and has a user type set in the session
+if (isset($_SESSION['user_type'])) {
+    // Include the navbar based on the user type
+    if ($_SESSION['user_type'] === 'admins') {
+        include('../includes/navbar_admin.php');
+    } elseif ($_SESSION['user_type'] === 'teachers') {
+        include('../includes/navbar_docent.php');
+    }
+} else {
+    // If user is not logged in, redirect to login page
+    header('Location: ./index.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <title>Wijzig Account</title>
     <link rel="stylesheet" type="text/css" href="../styles/account.css">
-    <?php include ('../includes/bootstrap.php'); ?>
-    <?php include ('../includes/navbar_admin.php'); ?>
+    <?php include('../includes/bootstrap.php'); ?>
 </head>
+
 <body>
     <div class="container">
         <div class="row">
-        <h2>Wijzig Account Gegevens</h2>
+            <h2>Wijzig Account Gegevens</h2>
             <div class="col-md m-3 email">
                 <div class="emailWijziging m-3">
                     <h4>Email wijzigen</h4>
@@ -21,7 +40,7 @@
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="new_email">Nieuw e-mailadres:</label>
-                            <input class="form-control" type="email" id="new_email" name="new_email"  required>
+                            <input class="form-control" type="email" id="new_email" name="new_email" required>
                         </div>
                         <button type="submit" class="btn btn-outline-secondary">Wijzig E-mailadres</button>
                     </form>
@@ -56,7 +75,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 
-<?php include ('../includes/footer.php'); ?>
+    <?php include('../includes/footer.php'); ?>

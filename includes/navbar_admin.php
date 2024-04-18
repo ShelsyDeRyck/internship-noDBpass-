@@ -9,8 +9,20 @@
     align-items: center;
   }
 
-  .hr-nav {
+  nav {
+    border-bottom: #EA302D solid 5px;
+  }
+
+  .btnLogout {
     color: #EA302D;
+  }
+
+  .btnLogout:hover {
+    color: white;
+  }
+
+  .nav-item:hover {
+    font-weight: bold;
   }
 </style>
 
@@ -44,4 +56,3 @@
   </div>
 
 </nav>
-<hr class="hr-nav">

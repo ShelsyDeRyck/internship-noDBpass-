@@ -43,9 +43,7 @@ strong {
 /* NAV BAR*/
 .navbar {  
     background-color: white;
-    border-bottom-width: 5px;
-    border-bottom-style: solid;  
-    border-bottom-color: #EA302D;
+    border-bottom: #EA302D solid 5px;
 }
 
 .secondnav {

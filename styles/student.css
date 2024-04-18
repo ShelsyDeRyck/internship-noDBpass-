@@ -1,0 +1,100 @@
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  /* Container for content */
+  .container {
+    max-width: 85%;
+    margin: 50px auto;
+    padding: 40px;
+    background-color:#F7F7F7;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-color: black;
+    border-top-color: #EA302D;
+    border-style: ridge;
+    
+  }
+  
+  /* Header */
+  h1, h2 {
+    font-weight: normal;
+    margin: 0 0 15px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+
+  
+  .btn-orange {
+    background-color: #ff6600;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .btn-orange:hover {
+    background-color: #f55000;
+  }
+  
+  /* Edit button (blue) */
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Delete button (red) */
+  .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  /* Add course button (green) */
+  .btn-success {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  /* Form for adding a new course */
+  
+  .modal-content {
+    background-color: #fff;
+    border-radius: 5px;
+    border-color: black;
+    border-top-color: #EA302D;
+    border-style: ridge;
+    padding: 20px;
+  }
+  form {
+    margin-top: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  input[type="submit"] {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

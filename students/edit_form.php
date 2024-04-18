@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <?php include('../includes/bootstrap.php'); ?>
     <style>
         .top {
-          position: fixed;
-          left: 0;
-          bottom: 0;
-          width: 100%;
-          background-color: red;
-          color: white;
-          text-align: center;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
         }
     </style>
 </head>
+
 <body>
-    <?php 
-        $servername = "localhost";
-        $username = "root";
-        $password = "root";
-        $dbname = "educational_center";
+    <?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "educational_center";
 
-        session_start();
-        $response = array();
+    session_start();
+    $response = array();
 
-        if(session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['id']) && !empty($_SESSION['id'])) {
-            $id = $_SESSION['id'];
+    if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['id']) && !empty($_SESSION['id'])) {
+        $id = $_SESSION['id'];
 
-            $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli($servername, $username, $password, $dbname);
 
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
-            $sql = "SELECT * FROM students WHERE id = $id";
+        $sql = "SELECT * FROM students WHERE id = $id";
 
-            $query = $conn->prepare("
+        $query = $conn->prepare("
             SELECT
                 s.first_name AS student_first_name,
                 s.last_name AS student_last_name,
@@ -74,29 +77,29 @@
             WHERE
                 s.id = ?;
             ");
-            $query->bind_param('i', $id);
-            $query->execute();
-            $result = $query->get_result();
+        $query->bind_param('i', $id);
+        $query->execute();
+        $result = $query->get_result();
 
-            
 
-            if ($result->num_rows > 0) {
-                $response = $result->fetch_assoc();
-                //  print_r($response);
-                // echo $first_name;
-            }
-            // echo $response['contact_person_first_name'];
+
+        if ($result->num_rows > 0) {
+            $response = $result->fetch_assoc();
+            //  print_r($response);
+            // echo $first_name;
         }
         // echo $response['contact_person_first_name'];
+    }
+    // echo $response['contact_person_first_name'];
     ?>
 
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <nav class="navbar bg-body-tertiary">
-                    <button class="btn btn-outline-danger"><a href="students.php" class="nav-link">Terug</a></button>
-                    <button class="btn btn-outline-danger" id="export-student-btn" onclick="exportStudent()">export</button>
-                    <button class="btn btn-outline-danger"><a href="students.php" class="nav-link">Opslaan</a></button>
+                    <button class="btn btn-outline-danger"><a href="student.php" class="nav-link"><i class="bi bi-backspace-fill"></i></a></button>
+                    <button class="btn btn-outline-danger" id="export-student-btn" onclick="exportStudent()">Export</button>
+                    <button class="btn btn-outline-danger"><a href="student.php" class="nav-link">Opslaan</a></button>
                 </nav>
             </div>
         </div>
@@ -110,9 +113,9 @@
         <div class="row">
             <div class="col-md-12">
                 <p><b>Docent:</b></p>
-                <p><?php echo $response['teacher_first_name']. ' ' .$response['teacher_last_name']?></p>
+                <p><?php echo $response['teacher_first_name'] . ' ' . $response['teacher_last_name'] ?></p>
                 <p><b>Periode:</b></p>
-                <p><?php echo $response['internship_start_date'] . ' - ' . $response['internship_end_date']?></p>
+                <p><?php echo $response['internship_start_date'] . ' - ' . $response['internship_end_date'] ?></p>
             </div>
         </div>
         <div class="row">
@@ -146,8 +149,7 @@
         /* window.location.href = "export_student.php"; */
         window.open("export_student.php", '_blank');
     }
-
-
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </html>
