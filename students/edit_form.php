@@ -97,7 +97,7 @@
         <div class="row">
             <div class="col-md-12">
                 <nav class="navbar bg-body-tertiary">
-                    <button class="btn btn-outline-danger"><a href="students.php" class="nav-link">Terug</a></button>
+                    <button class="btn btn-outline-danger"><a href="student.php" class="nav-link">Terug</a></button>
                     <button class="btn btn-outline-danger" id="export-student-btn" onclick="exportStudent()">export</button>
                 </nav>
             </div>
