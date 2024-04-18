@@ -46,7 +46,7 @@
     <div class="collapse navbar-collapse justify-content-end id=" navbarNav">
       <ul class="navbar-nav ms-auto secondnav">
         <li class="nav-item">
-          <a class="nav-link" href="account/accountindex.php">Account</a>
+          <a class="nav-link" href="../account/accountindex.php">Account</a>
         </li>
         <li class="nav-item">
           <button type="button" class="btn btn-sm btn-outline-danger"><a class="nav-link btnLogout" href="../logout.php">Logout</a></button>
