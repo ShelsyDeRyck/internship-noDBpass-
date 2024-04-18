@@ -191,6 +191,85 @@ if (isset($_SESSION['user_type'])) {
             </div>
         </div>
     </div>
+    <?php include('../includes/navbar_admin.php'); ?>
+    <div class="container mt-5">
+        <h2>Stageplaats</h2>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createInternshipModal">
+            Stageplaats Toevoegen
+        </button>
+        <table id="internshipsTable" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Bedrijf</th>
+                    <th>Adres</th>
+                    <th>Contactpersoon</th>
+                    <th>Contacttelefoon</th>
+                    <th>Contact E-mail</th>
+                    <th>Acties</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($internships as $i) : ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($i['name']); // Change to display company name 
+                            ?></td>
+                        <td><?php echo htmlspecialchars($i['address']); ?></td>
+                        <td><?php echo htmlspecialchars($i['contact_name']); // Change to display contact person name 
+                            ?></td>
+                        <td><?php echo htmlspecialchars($i['contact_phone']); ?></td>
+                        <td><?php echo htmlspecialchars($i['contact_email']); ?></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm edit-button" data-id="<?php echo htmlspecialchars($i['id']); ?>" data-company-id="<?php echo htmlspecialchars($i['company_id'] ?? ''); ?>">Bewerken</button>
+                            <button class="btn btn-danger btn-sm delete-button" data-id="<?php echo htmlspecialchars($i['id']); ?>">Verwijderen</button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal for Editing Internship -->
+    <div class="modal fade" id="editInternshipModal" tabindex="-1" aria-labelledby="editInternshipModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editInternshipModalLabel">Bewerk Stage</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editInternshipForm">
+                        <input type="hidden" id="editInternshipId" name="id">
+                        <!-- Добавляем скрытое поле для action -->
+                        <input type="hidden" name="action" value="update">
+                        <div class="mb-3">
+                            <label for="editCompanyName" class="form-label">Bedrijfsnaam:</label>
+                            <input type="text" class="form-control" id="editCompanyName" name="companyName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAddress" class="form-label">Adres:</label>
+                            <input type="text" class="form-control" id="editAddress" name="address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editContactFirstName" class="form-label">Voornaam Contactpersoon:</label>
+                            <input type="text" class="form-control" id="editContactFirstName" name="contactFirstName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editContactLastName" class="form-label">Achternaam Contactpersoon:</label>
+                            <input type="text" class="form-control" id="editContactLastName" name="contactLastName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editContactEmail" class="form-label">Contact Email:</label>
+                            <input type="email" class="form-control" id="editContactEmail" name="contactEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editContactPhone" class="form-label">Contact Telefoon:</label>
+                            <input type="tel" class="form-control" id="editContactPhone" name="contactPhone" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Opslaan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal for Creating Internship -->
     <div class="modal fade" id="createInternshipModal" tabindex="-1" aria-labelledby="createInternshipModalLabel" aria-hidden="true">
@@ -252,7 +331,7 @@ if (isset($_SESSION['user_type'])) {
 
                 if (confirm('Are you sure you want to delete this record?')) {
                     $.ajax({
-                        url: 'http://localhost/Stage2024/internships_admin.php',
+                        url: 'http://localhost/Stage2024/internships_page.php',
                         type: 'POST',
                         dataType: 'json', // Expect JSON response
                         data: {
@@ -307,7 +386,7 @@ if (isset($_SESSION['user_type'])) {
                 var companyId = $(this).find('#editCompanyId').val(); // Assumes there is a field with the company ID in the form
 
                 $.ajax({
-                    url: 'http://localhost/Stage2024/internships_admin.php',
+                    url: 'http://localhost/Stage2024/internships/internship_page.php',
                     type: 'POST',
                     data: formData + '&action=update', // formData already contains companyId
                     success: function(data) {
@@ -330,7 +409,7 @@ if (isset($_SESSION['user_type'])) {
                 var formData = $(this).serialize();
 
                 $.ajax({
-                    url: 'http://localhost/Stage2024/internships_admin.php',
+                    url: 'http://localhost/Stage2024/internships_page.php',
                     type: 'POST',
                     data: formData,
                     success: function(data) {
@@ -344,5 +423,6 @@ if (isset($_SESSION['user_type'])) {
             });
         });
     </script>
+</body>
 
-    <?php include('../includes/footer.php'); ?>
+</html>
