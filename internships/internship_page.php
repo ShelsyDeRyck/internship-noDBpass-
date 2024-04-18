@@ -119,7 +119,7 @@ $internships = $internship->read();
                 <td><?php echo htmlspecialchars($i['contact_phone']); ?></td>
                 <td><?php echo htmlspecialchars($i['contact_email']); ?></td>
                 <td>
-                    <button class="btn btn-primary btn-sm edit-button" data-id="<?php echo htmlspecialchars($i['id']); ?>">Berwerken</button>
+                    <button class="btn btn-primary btn-sm edit-button" data-id="<?php echo htmlspecialchars($i['id']); ?>" data-company-id="<?php echo htmlspecialchars($i['company_id'] ?? ''); ?>">Bewerken</button>
                     <button class="btn btn-danger btn-sm delete-button" data-id="<?php echo htmlspecialchars($i['id']); ?>">Verwijderen</button>
                 </td>
             </tr>
