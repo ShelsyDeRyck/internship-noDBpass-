@@ -2,10 +2,7 @@
 require '../vendor/autoload.php';
 ob_end_clean();
 // Databaseverbinding maken
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "educational_center";
+include_once "../db_connect.php";
 
 session_start();
 // Controleer of de student-ID is ontvangen via POST
@@ -14,7 +11,7 @@ if(session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['id']) && !empty($
     $id = $_SESSION['id'];
 
     // Maak een verbinding met de database
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = connectDB();
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -42,8 +39,6 @@ if(session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['id']) && !empty($
             cp.email AS contact_person_email,
             cp.phone AS contact_person_phone,
             co.name AS company_name
-            cs.active AS active
-            s.study_year AS study_year
         FROM
             students s
         LEFT JOIN internship_student ist ON s.id = ist.student_id 
@@ -102,8 +97,8 @@ if(session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['id']) && !empty($
         $pdf->render();
     
         // Close and output PDF
-        $filename = md5($id . '_student_information.pdf');
-        $pdf->stream($filename, array("Attachment" => 1)); // 1 = download, 0 = preview
+        $filename = md5($response['student_first_name'].'_'. $response['student_last_name'] . '_internship.pdf');
+        $pdf->stream($filename, array("Attachment" => 0)); // 1 = download, 0 = preview
     }
 
     // Sluit de verbinding met de database
