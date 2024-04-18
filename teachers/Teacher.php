@@ -21,26 +21,27 @@ if (isset($_SESSION['user_type'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teachers</title>
+    <title>Docenten</title>
     <!-- Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <!-- DataTables Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../styles/teacher.css">
 </head>
 
 <body>
     <div class="container mt-5">
-        <h2>Teachers</h2>
-        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add-teacher-modal">Add Teacher</button>
+        <h2>Docenten</h2>
+        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#add-teacher-modal"><i class="bi bi-plus-square m-2"></i>Docent Toevoegen</button>
         <table id="teachersTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
                     <th style="display: none;">ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Voornaam</th>
+                    <th>Achternaam</th>
                     <th>Email</th>
-                    <th>Password</th>
-                    <th>Actions</th>
+                    <th>Wachtwoord</th>
+                    <th>Acties</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,18 +54,18 @@ if (isset($_SESSION['user_type'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Teacher</h4>
+                    <h4 class="modal-title">Docent Bewerken</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="edit-teacher-form">
                         <input type="hidden" id="edit-teacher-id">
                         <div class="form-group">
-                            <label for="edit-first-name">First Name:</label>
+                            <label for="edit-first-name">Voornaam:</label>
                             <input type="text" class="form-control" id="edit-first-name">
                         </div>
                         <div class="form-group">
-                            <label for="edit-last-name">Last Name:</label>
+                            <label for="edit-last-name">Achternaam:</label>
                             <input type="text" class="form-control" id="edit-last-name">
                         </div>
                         <div class="form-group">
@@ -72,14 +73,13 @@ if (isset($_SESSION['user_type'])) {
                             <input type="email" class="form-control" id="edit-email">
                         </div>
                         <div class="form-group">
-                            <label for="edit-password">Password:</label>
+                            <label for="edit-password">Wachtwoord:</label>
                             <input type="password" class="form-control" id="edit-password">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="update-teacher-btn">Update</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="update-teacher-btn">Opslaan</button>
                 </div>
             </div>
         </div>
@@ -89,17 +89,17 @@ if (isset($_SESSION['user_type'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Teacher</h4>
+                    <h4 class="modal-title">Docent Toevoegen</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="add-teacher-form">
                         <div class="form-group">
-                            <label for="add-first-name">First Name:</label>
+                            <label for="add-first-name">Voornaam:</label>
                             <input type="text" class="form-control" id="add-first-name">
                         </div>
                         <div class="form-group">
-                            <label for="add-last-name">Last Name:</label>
+                            <label for="add-last-name">Achternaam:</label>
                             <input type="text" class="form-control" id="add-last-name">
                         </div>
                         <div class="form-group">
@@ -107,14 +107,13 @@ if (isset($_SESSION['user_type'])) {
                             <input type="email" class="form-control" id="add-email">
                         </div>
                         <div class="form-group">
-                            <label for="add-password">Password:</label>
+                            <label for="add-password">Wachtwoord:</label>
                             <input type="password" class="form-control" id="add-password">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="add-teacher-btn">Add</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="add-teacher-btn">Toevoegen</button>
                 </div>
             </div>
         </div>
@@ -158,8 +157,8 @@ if (isset($_SESSION['user_type'])) {
                     {
                         data: null,
                         render: function(data, type, row) {
-                            return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
-                                '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>';
+                            return '<button class="btn btn-primary btn-sm edit-btn m-1"><i class="bi bi-pencil-square"></i></button>' +
+                                '<button class="btn btn-danger btn-sm delete-btn m-1" data-id="' + row.id + '"><i class="bi bi-trash3"></i></button>';
                         }
                     }
                 ]

@@ -57,14 +57,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admins') {
 
         <div class="row m-2">
             <div class="col-md text-center">
-                <button class="bigbtn"><a href="students/student.php" class="nav-link">Cursist</a></button>
+                <button class="bigbtn"><a href="students/student.php" class="nav-link">Cursisten</a></button>
                 <button class="bigbtn"><a href="internships/internship_page.php" class="nav-link">Stageplaatsen</a></button>
-                <button class="bigbtn"><a href="courses/course.php" class="nav-link">Course</a></button>
+                <button class="bigbtn"><a href="courses/course.php" class="nav-link">Courses</a></button>
             </div>
         </div>
         <div class="row m-2">
             <div class="col-md text-center">
-                <button class="bigbtn"><a href="teachers/teacher.php" class="nav-link">Docent</a></button>
+                <button class="bigbtn"><a href="teachers/teacher.php" class="nav-link">Docenten</a></button>
                 <button class="bigbtn"><a href="skills/skills.php" class="nav-link">Skills</a></button>
             </div>
         </div>

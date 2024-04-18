@@ -22,26 +22,25 @@ if (isset($_SESSION['user_type'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students</title>
-    <!-- Bootstrap 5 CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <!-- DataTables Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../styles/student.css">
 </head>
 
 <body>
     <div class="container mt-5">
-        <h2>Students</h2>
-        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add-student-modal">Add Student</button>
+        <h2>Cursisten</h2>
+        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#add-student-modal"><i class="bi bi-plus-square m-2"></i>Cursist Toevoegen</button>
         <table id="studentsTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
                     <th style="display: none;">ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Voornaam</th>
+                    <th>Achternaam</th>
                     <th>Email</th>
-                    <th>Date of Birth</th>
-                    <th>Study Year</th>
-                    <th>Actions</th>
+                    <th>Geboortedatum</th>
+                    <th>Studiejaar</th>
+                    <th>Acties</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,18 +55,18 @@ if (isset($_SESSION['user_type'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Student</h4>
+                    <h4 class="modal-title">Cursist Bewerken</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="edit-student-form">
                         <input type="hidden" id="edit-student-id">
                         <div class="form-group">
-                            <label for="edit-first-name">First Name:</label>
+                            <label for="edit-first-name">Voornaam:</label>
                             <input type="text" class="form-control" id="edit-first-name">
                         </div>
                         <div class="form-group">
-                            <label for="edit-last-name">Last Name:</label>
+                            <label for="edit-last-name">Achternaam:</label>
                             <input type="text" class="form-control" id="edit-last-name">
                         </div>
                         <div class="form-group">
@@ -75,18 +74,17 @@ if (isset($_SESSION['user_type'])) {
                             <input type="email" class="form-control" id="edit-email">
                         </div>
                         <div class="form-group">
-                            <label for="edit-date_of_birth">Date of Birth:</label>
+                            <label for="edit-date_of_birth">Geboortedatum:</label>
                             <input type="date" class="form-control" id="edit-date_of_birth">
                         </div>
                         <div class="form-group">
-                            <label for="edit-study-year">Study Year:</label>
+                            <label for="edit-study-year">Studiejaar:</label>
                             <input type="text" class="form-control" id="edit-study-year">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="update-student-btn">Update</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="update-student-btn">Opslaan</button>
                 </div>
             </div>
         </div>
@@ -96,36 +94,35 @@ if (isset($_SESSION['user_type'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Student</h4>
+                    <h4 class="modal-title">Nieuwe Cursist Toevoegen</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="add-student-form">
                         <div class="form-group">
-                            <label for="add-first-name">First Name:</label>
+                            <label class="form-label" for="add-first-name">Voornaam:</label>
                             <input type="text" class="form-control" id="add-first-name">
                         </div>
                         <div class="form-group">
-                            <label for="add-last-name">Last Name:</label>
+                            <label class="form-label" for="add-last-name">Achternaam:</label>
                             <input type="text" class="form-control" id="add-last-name">
                         </div>
                         <div class="form-group">
-                            <label for="add-email">Email:</label>
+                            <label class="form-label" for="add-email">Email:</label>
                             <input type="email" class="form-control" id="add-email">
                         </div>
                         <div class="form-group">
-                            <label for="add-date_of_birth">Date of Birth:</label>
+                            <label class="form-label" for="add-date_of_birth">Geboortedatum:</label>
                             <input type="date" class="form-control" id="add-date_of_birth">
                         </div>
                         <div class="form-group">
-                            <label for="add-study-year">Study Year:</label>
+                            <label class="form-label" for="add-study-year">Studiejaar:</label>
                             <input type="text" class="form-control" id="add-study-year">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="add-student-btn">Add</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="add-student-btn">Toevoegen</button>
                 </div>
             </div>
         </div>
@@ -169,9 +166,9 @@ if (isset($_SESSION['user_type'])) {
                     {
                         data: null,
                         render: function(data, type, row) {
-                            return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
-                                '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>' +
-                                '<button class=" btn btn-primary btn-sm edit-form-btn" data-id="' + row.id + '">Internship</button>';
+                            return '<button class=" btn btn-secondary btn-sm edit-form-btn m-2" data-id="' + row.id + '">Stage Rapport</button>' +
+                                '<button class="btn btn-primary btn-sm edit-btn m-1"><i class="bi bi-pencil-square"></i></button>' +
+                                '<button class="btn btn-danger btn-sm delete-btn m-1" data-id="' + row.id + '"><i class="bi bi-trash3"></i></button>';
                         }
                     }
                 ]

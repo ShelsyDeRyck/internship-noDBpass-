@@ -22,36 +22,26 @@ if (isset($_SESSION['user_type'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skills</title>
-    <!-- Bootstrap 5 CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <!-- DataTables Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="../styles/skills.css">
 </head>
 
 <body>
     <div class="container mt-5">
         <h2>Skills</h2>
-        <div class="row mb-3">
-            <div class="col">
-                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#add-skill-modal">Add Skill</button>
-                <!-- Button to activate skills -->
-                <button type="button" class="btn btn-success mb-3 ml-2" id="activate-skills-btn">Activate Skills</button>
-            </div>
-        </div>
+        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#add-skill-modal"><i class="bi bi-plus-square m-2"></i>Skill Toevoegen</button>
+        <!-- Button to activate skills -->
+        <button type="button" class="btn btn-success mb-3 ml-2" id="activate-skills-btn">Skills Activeren</button>
         <table id="skillsTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
-                    <th class="hidden">ID</th>
-                    <th>Name</th>
+                    <th style="display: none;">ID</th>
+                    <th>Naam</th>
                     <th>Type</th>
-                    <th>Description</th>
+                    <th>Beschrijving</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    <th>Acties</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,13 +55,13 @@ if (isset($_SESSION['user_type'])) {
             <!-- Modal content -->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Skill</h4>
+                    <h4 class="modal-title">Nieuwe Skill Toevoegen</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="add-skill-form">
                         <div class="form-group">
-                            <label for="add-name">Name:</label>
+                            <label for="add-name">Naam:</label>
                             <input type="text" class="form-control" id="add-name">
                         </div>
                         <div class="form-group">
@@ -82,16 +72,15 @@ if (isset($_SESSION['user_type'])) {
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="add-description">Description:</label>
+                            <label for="add-description">Beschrijving:</label>
                             <textarea class="form-control" id="add-description"></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="add-skill-btn">Add</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="add-skill-btn">Toevoegen</button>
                     <!-- Button to reactivate inactive skills -->
-                    <button type="button" class="btn btn-success" id="reactivate-skills-btn">Reactivate Inactive Skills</button>
+                    <button type="button" class="btn btn-success" id="reactivate-skills-btn">Reactiveren Inactieve Skills</button>
                 </div>
             </div>
         </div>
@@ -102,14 +91,14 @@ if (isset($_SESSION['user_type'])) {
             <!-- Modal content -->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Skill</h4>
+                    <h4 class="modal-title">Skill Bewerken</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="edit-skill-form">
                         <input type="hidden" id="edit-skill-id">
                         <div class="form-group">
-                            <label for="edit-name">Name:</label>
+                            <label for="edit-name">Naam:</label>
                             <input type="text" class="form-control" id="edit-name">
                         </div>
                         <div class="form-group">
@@ -120,14 +109,13 @@ if (isset($_SESSION['user_type'])) {
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="edit-description">Description:</label>
+                            <label for="edit-description">Beschrijving:</label>
                             <textarea class="form-control" id="edit-description"></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="update-skill-btn">Update</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="update-skill-btn">Opslaan</button>
                 </div>
             </div>
         </div>
@@ -138,7 +126,7 @@ if (isset($_SESSION['user_type'])) {
             <!-- Modal content -->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Reactivate Skills</h4>
+                    <h4 class="modal-title">Reactiveren Skills</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -155,8 +143,7 @@ if (isset($_SESSION['user_type'])) {
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="reactivate-selected-btn">Reactivate Selected</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="reactivate-selected-btn">Reactiveren</button>
                 </div>
             </div>
         </div>
@@ -198,8 +185,8 @@ if (isset($_SESSION['user_type'])) {
                     {
                         data: null,
                         render: function(data, type, row) {
-                            return '<button class="btn btn-primary btn-sm edit-btn">Edit</button>' +
-                                '<button class="btn btn-danger btn-sm delete-btn" data-id="' + row.id + '">Delete</button>';
+                            return '<button class="btn btn-primary btn-sm edit-btn "><i class="bi bi-pencil-square"></i></button>' +
+                                '<button class="btn btn-danger btn-sm delete-btn m-1" data-id="' + row.id + '"> <i class="bi bi-trash3"></i></button>';
                         }
                     }
                 ]

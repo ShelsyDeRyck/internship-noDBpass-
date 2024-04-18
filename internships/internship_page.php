@@ -110,13 +110,15 @@ if (isset($_SESSION['user_type'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <!-- DataTables Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+
+    <link rel="stylesheet" href="../styles/internship.css">
 </head>
 
 <body>
     <div class="container mt-5">
-        <h2>Stageplaats</h2>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createInternshipModal">
-            Stageplaats Toevoegen
+        <h2>Stageplaatsen</h2>
+        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createInternshipModal">
+            <i class="bi bi-plus-square m-2"></i>Stageplaats Toevoegen
         </button>
         <table id="internshipsTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
@@ -140,8 +142,8 @@ if (isset($_SESSION['user_type'])) {
                         <td><?php echo htmlspecialchars($i['contact_phone']); ?></td>
                         <td><?php echo htmlspecialchars($i['contact_email']); ?></td>
                         <td>
-                            <button class="btn btn-primary btn-sm edit-button" data-id="<?php echo htmlspecialchars($i['id']); ?>">Berwerken</button>
-                            <button class="btn btn-danger btn-sm delete-button" data-id="<?php echo htmlspecialchars($i['id']); ?>">Verwijderen</button>
+                            <button class="btn btn-primary btn-sm edit-button" data-id="<?php echo htmlspecialchars($i['id']); ?>"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-danger btn-sm delete-button" data-id="<?php echo htmlspecialchars($i['id']); ?>"><i class="bi bi-trash3"></i></button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -153,7 +155,7 @@ if (isset($_SESSION['user_type'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editInternshipModalLabel">Bewerk Stage</h5>
+                    <h5 class="modal-title" id="editInternshipModalLabel">Stageplaats Bewerken</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
                 </div>
                 <div class="modal-body">
@@ -185,7 +187,7 @@ if (isset($_SESSION['user_type'])) {
                             <label for="editContactPhone" class="form-label">Contact Telefoon:</label>
                             <input type="tel" class="form-control" id="editContactPhone" name="contactPhone" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Opslaan</button>
+                        <button type="submit" class="btn btn-success">Opslaan</button>
                     </form>
                 </div>
             </div>
@@ -197,7 +199,7 @@ if (isset($_SESSION['user_type'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createInternshipModalLabel">Nieuwe Stage</h5>
+                    <h5 class="modal-title" id="createInternshipModalLabel">Nieuwe Stageplaats Toevoegen</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
                 </div>
                 <div class="modal-body">
@@ -226,7 +228,7 @@ if (isset($_SESSION['user_type'])) {
                             <label for="contactPhone" class="form-label">Contact Telefoon:</label>
                             <input type="tel" class="form-control" id="contactPhone" name="contactPhone" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Opslaan</button>
+                        <button type="submit" class="btn btn-success">Toevoegen</button>
                     </form>
                 </div>
             </div>
