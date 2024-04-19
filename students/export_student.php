@@ -59,6 +59,44 @@ if(session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['id']) && !empty($
     $query->execute();
     $result = $query->get_result();
 
+    
+    $gradeSoft = 0;
+    $gradeHard = 0;
+    $total = 0;
+    $intHard = 0;
+    $intSoft = 0;
+
+    $queryGrades = $conn->prepare("
+            SELECT
+                s.name AS skill_name,
+                ss.grade AS grade
+            FROM
+                skill_student ss
+            LEFT JOIN skills s ON ss.skill_id = s.id
+            WHERE
+                ss.student_id = ?;
+        ");
+    $queryGrades->bind_param('i', $id);
+    $queryGrades->execute();
+    $resultGrades = $queryGrades->get_result();
+    if ($resultGrades->num_rows > 0) {
+        for($i = 0; $i < $resultGrades->num_rows; $i++) {
+            $responseGrades[$i] = $resultGrades->fetch_assoc();
+            $total += $responseGrades[$i]['grade'];
+            if($responseGrades[$i]['type'] == 'H') {
+                $gradeHard += $responseGrades[$i]['grade'];
+                $intHard++;
+            } else {
+                $gradeSoft += $responseGrades[$i]['grade'];
+                $intSoft++;
+            }
+        }
+        
+    }
+
+
+    // print_r($responseGrades);
+
     if ($result->num_rows > 0) {
         $response = $result->fetch_assoc();
         // print_r($response);
@@ -81,15 +119,30 @@ if(session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['id']) && !empty($
             <textarea class='form-control'>{$response['scope']}</textarea>
 
             <p><b>Evaluatie: (Hardskill/Softskill)</b></p>
-            
-            <p><b>Goede ervaringen en werkpunten: te bepalen door stagementor:</b></p>
-            <textarea class='form-control'>{$response['feedback']}</textarea>
+            <table class='table'>
+        ";
 
-            <p><b>Zou u deze stagair op basis van uw ervaringen aannemen in uw bedrijf</b></p>
-            <textarea class='form-control'>{$response['employment']}</textarea>
 
-            <p><b>Totaal: %</b></p>
-            <p>Softskill: %, Hardskill: %</p>
+        for($i = 0; $i < $resultGrades->num_rows; $i++) {
+            // echo '<p>' . $responseGrades[$i]['skill_name'] . ': ' . $responseGrades[$i]['grade'] . '</p>';
+            $html .= "<tr><td>{$responseGrades[$i]['skill_name']}</td><td>{$responseGrades[$i]['grade']}</td></tr>";
+        }
+
+        $total = round($total/(10 * $resultGrades->num_rows)*100, 2);
+        $gradeHard = round($gradeHard / (10 * $intHard) * 100, 2);
+        $gradeSoft = round($gradeSoft / (10 * $intSoft) * 100, 2);
+     
+
+        $html .= "
+                    </table>
+                    <p><b>Goede ervaringen en werkpunten: te bepalen door stagementor:</b></p>
+                    <textarea class='form-control'>{$response['feedback']}</textarea>
+                
+                    <p><b>Zou u deze stagair op basis van uw ervaringen aannemen in uw bedrijf</b></p>
+                    <textarea class='form-control'>{$response['employment']}</textarea>
+                
+                    <p><b>Totaal: {$total} %</b></p>
+                    <p>Softskill:{$gradeSoft} %, Hardskill: {$gradeHard} %</p>
         ";
     
         $pdf->loadHtml($html);

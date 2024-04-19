@@ -3,7 +3,7 @@
 function connectPDO() {
     $servername = "127.0.0.1";
     $username = "root";
-    $password = "root";
+    $password = "";
     $dbname = "educational_center";
 
     try {
@@ -21,7 +21,7 @@ function connectPDO() {
 function connectDB() {
     $servername = "localhost";
     $username = "root";
-    $password = "root";
+    $password = "";
     $dbname = "educational_center";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
